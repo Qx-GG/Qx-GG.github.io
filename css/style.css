@@ -3140,7 +3140,7 @@ ul.wl-sort {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(120deg, rgba(255,29,2,0.208) 0%, rgba(2,133,255,0.208) 100%);
+  background: linear-gradient(120deg, rgba(250,255,254,0.208) 0%, rgba(0,0,0,0.208) 100%);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding-top: 2px;
@@ -4185,19 +4185,19 @@ ul.wl-sort {
 }
 @media (prefers-color-scheme: light) {
   .first-screen-container {
-    background: url("/images/辉夜.jpg#https://evan.beee.top/img/wallhaven-wqery6-light.webp") center center/cover no-repeat !important;
+    background: url("/images/辉夜.jpg") center center/cover no-repeat !important;
   }
 }
 @media (prefers-color-scheme: dark) {
   .first-screen-container {
-    background: url("/images/辉夜大小姐.jpg#https://evan.beee.top/img/wallhaven-wqery6-dark.webp") center center/cover no-repeat !important;
+    background: url("/images/辉夜5.png") center center/cover no-repeat !important;
   }
 }
 .light-mode .first-screen-container {
-  background: url("/images/辉夜.jpg#https://evan.beee.top/img/wallhaven-wqery6-light.webp") center center/cover no-repeat !important;
+  background: url("/images/辉夜.jpg") center center/cover no-repeat !important;
 }
 .dark-mode .first-screen-container {
-  background: url("/images/辉夜大小姐.jpg#https://evan.beee.top/img/wallhaven-wqery6-dark.webp") center center/cover no-repeat !important;
+  background: url("/images/辉夜5.png") center center/cover no-repeat !important;
 }
 .image-viewer-container {
   position: fixed;
