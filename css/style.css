@@ -4190,14 +4190,14 @@ ul.wl-sort {
 }
 @media (prefers-color-scheme: dark) {
   .first-screen-container {
-    background: url("/images/辉夜5.png") center center/cover no-repeat !important;
+    background: url("/images/辉夜5.jpg") center center/cover no-repeat !important;
   }
 }
 .light-mode .first-screen-container {
   background: url("/images/辉夜.jpg") center center/cover no-repeat !important;
 }
 .dark-mode .first-screen-container {
-  background: url("/images/辉夜5.png") center center/cover no-repeat !important;
+  background: url("/images/辉夜5.jpg") center center/cover no-repeat !important;
 }
 .image-viewer-container {
   position: fixed;
