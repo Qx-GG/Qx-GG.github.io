@@ -406,8 +406,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-02-24 19:46:59</span>
-            <span class="mobile">2023-02-24 19:46</span>
+            <span class="pc">2023-02-25 15:58:46</span>
+            <span class="mobile">2023-02-25 15:58</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -461,7 +461,9 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="关于并发线程临界区数据安全的问题"><a href="#关于并发线程临界区数据安全的问题" class="headerlink" title="关于并发线程临界区数据安全的问题"></a>关于并发线程临界区数据安全的问题</h2><p>众所周知，线程是共享同个内核的，并且用户区的一些资源也是共享的（除了栈区和.text区）；那这就意味着堆区的数据以及全局变量存储的.bss和.data区都是共享的，那么当多个线程操作共享数据的时候，就会出现问题了<br>如:</p>
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=440767269&auto=1&height=66"></iframe>
+
+<h2 id="关于并发线程临界区数据安全的问题"><a href="#关于并发线程临界区数据安全的问题" class="headerlink" title="关于并发线程临界区数据安全的问题"></a>关于并发线程临界区数据安全的问题</h2><p>众所周知，线程是共享同个内核的，并且用户区的一些资源也是共享的（除了栈区和.text区）；那这就意味着堆区的数据以及全局变量存储的.bss和.data区都是共享的，那么当多个线程操作共享数据的时候，就会出现问题了<br>如:</p>
 <details class="red"><summary> 代码 </summary>
               <div class="content">
               <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用多线程实现卖票的案例</span></span><br><span class="line"><span class="comment">//有三个窗口，一共有100张票，3个窗口并发地卖100张票</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> i=<span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">Sellticket</span><span class="params">(<span class="type">void</span> *)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(i&gt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">usleep</span>(<span class="number">6000</span>);</span><br><span class="line">        cout&lt;&lt;<span class="built_in">pthread_self</span>()&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;<span class="string">&quot;卖出的票:&quot;</span>&lt;&lt;i&lt;&lt;endl;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//创建3个子线程，子线程用来卖票</span></span><br><span class="line">    <span class="type">pthread_t</span> pthid1,pthid2,pthid3;</span><br><span class="line">    <span class="built_in">pthread_create</span>(&amp;pthid1,<span class="literal">NULL</span>,Sellticket,<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">pthread_create</span>(&amp;pthid2,<span class="literal">NULL</span>,Sellticket,<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">pthread_create</span>(&amp;pthid3,<span class="literal">NULL</span>,Sellticket,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//回收子线程地资源</span></span><br><span class="line">    <span class="built_in">pthread_join</span>(pthid1,<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">pthread_join</span>(pthid2,<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">pthread_join</span>(pthid3,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//退出主线程</span></span><br><span class="line">    <span class="built_in">pthread_exit</span>(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//出现线程无法同步地问题</span></span><br></pre></td></tr></table></figure></div>
@@ -590,9 +592,9 @@
 </a><a class="recommended-article-item" href="/2023/02/24/blog5/" title="浙江宇视科技一面" rel="bookmark">
   <img src="https://Qx-GG.github.io/images/辉夜6.jpg" alt="浙江宇视科技一面">
   <span class="title">浙江宇视科技一面</span>
-</a><a class="recommended-article-item" href="/2023/02/23/blog1/" title="关于【背包问题】的理解以及求解思路" rel="bookmark">
-  <img src="https://pic4.zhimg.com/v2-e3c4bd2c6296b6328ff2e1e28791915b_r.jpg" alt="关于【背包问题】的理解以及求解思路">
-  <span class="title">关于【背包问题】的理解以及求解思路</span>
+</a><a class="recommended-article-item" href="/2023/02/22/hello-world/" title="欢迎来到我的主页，准备好迎接天才的头脑大战叭！" rel="bookmark">
+  <img src="https://pic2.zhimg.com/v2-a2957e08142af0b06253e75b6476b551_r.jpg" alt="欢迎来到我的主页，准备好迎接天才的头脑大战叭！">
+  <span class="title">欢迎来到我的主页，准备好迎接天才的头脑大战叭！</span>
 </a></div>
 </div>
 
