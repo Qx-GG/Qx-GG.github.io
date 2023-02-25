@@ -406,8 +406,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-02-25 15:58:41</span>
-            <span class="mobile">2023-02-25 15:58</span>
+            <span class="pc">2023-02-25 22:53:16</span>
+            <span class="mobile">2023-02-25 22:53</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -494,7 +494,7 @@
 
 <details class="green"><summary> 讲一下指针函数和函数指针的区别 </summary>
               <div class="content">
-              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class><summary> blue 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code></p><h4 id="类成员函数的指针（非静态）"><a href="#类成员函数的指针（非静态）" class="headerlink" title="类成员函数的指针（非静态）"></a>类成员函数的指针（非静态）</h4><p>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><h4 id="指向类的静态函数的指针"><a href="#指向类的静态函数的指针" class="headerlink" title="指向类的静态函数的指针"></a>指向类的静态函数的指针</h4><p>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
+              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class="blue"><summary> 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code><br>类成员函数的指针（非静态）<br>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><p>指向类的静态函数的指针<br>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
               </div>
             </details>
 
@@ -692,7 +692,7 @@
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
         <div class="page-title">浙江宇视科技一面</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">面试开始</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E6%8C%87%E9%92%88%EF%BC%88%E9%9D%9E%E9%9D%99%E6%80%81%EF%BC%89"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">类成员函数的指针（非静态）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%90%91%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0%E7%9A%84%E6%8C%87%E9%92%88"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">指向类的静态函数的指针</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">面试开始</span></a></li></ol>
 
     </div>
 </div>

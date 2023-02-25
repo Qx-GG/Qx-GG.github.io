@@ -72,13 +72,13 @@
               </div>
             </details>
 
-<h2 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h2><h3 id="1-命名规则"><a href="#1-命名规则" class="headerlink" title="1.命名规则"></a>1.命名规则</h3><p>1.在Linux下，静态库一般写为：libxxx.a<br>    lib：前缀，是固定的，每个静态库都有；xxx：静态库的名称；.a：固定后缀）<br>2.在Window下，静态库一般为：libxxx.lib，与上面的相比，只有后缀是不同的</p>
-<h3 id="2-静态库的制作"><a href="#2-静态库的制作" class="headerlink" title="2.静态库的制作"></a>2.静态库的制作</h3><ol>
+<h2 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h2><h3 id="命名规则"><a href="#命名规则" class="headerlink" title="命名规则"></a>命名规则</h3><p>1.在Linux下，静态库一般写为：libxxx.a<br>    lib：前缀，是固定的，每个静态库都有；xxx：静态库的名称；.a：固定后缀）<br>2.在Window下，静态库一般为：libxxx.lib，与上面的相比，只有后缀是不同的</p>
+<h3 id="静态库的制作"><a href="#静态库的制作" class="headerlink" title="静态库的制作"></a>静态库的制作</h3><ol>
 <li>首先需要将写好的程序编译成.o文件，也就是上图中倒数第二步形成的文件</li>
 <li>使用ar工具，将.o文件打包<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">g++/gcc -c xxx -o xxx.o</span><br><span class="line">ar rcs libxxx.a xxx.o</span><br><span class="line">(r:将文件插入备存文件中   c:建立备存文件   s:索引)</span><br></pre></td></tr></table></figure></div></li>
 </ol>
-<h3 id="3-静态库的使用"><a href="#3-静态库的使用" class="headerlink" title="3.静态库的使用"></a>3.静态库的使用</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">g++/gcc xxx -o xxx.out -L 库的路径 -l 库的名称(libxxx.a中的xxx就是库的名称) [-I 头文件的路径](在同个目录下就不需要这一项)</span><br></pre></td></tr></table></figure></div>
-<h3 id="4-做个简单的测试"><a href="#4-做个简单的测试" class="headerlink" title="4.做个简单的测试"></a>4.做个简单的测试</h3><details class="red"><summary> head.h </summary>
+<h3 id="静态库的使用"><a href="#静态库的使用" class="headerlink" title="静态库的使用"></a>静态库的使用</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">g++/gcc xxx -o xxx.out -L 库的路径 -l 库的名称(libxxx.a中的xxx就是库的名称) [-I 头文件的路径](在同个目录下就不需要这一项)</span><br></pre></td></tr></table></figure></div>
+<h3 id="做个简单的测试"><a href="#做个简单的测试" class="headerlink" title="做个简单的测试"></a>做个简单的测试</h3><details class="red"><summary> head.h </summary>
               <div class="content">
               <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span>&amp; a,<span class="type">int</span> &amp;b)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sub</span><span class="params">(<span class="type">int</span> &amp;a,<span class="type">int</span> &amp;b)</span></span>;</span><br></pre></td></tr></table></figure></div>
               </div>
@@ -107,11 +107,11 @@
 
 <p>2.将main.cpp编译成可执行文件（此时main.cpp里面使用到了add.cpp和sub.cpp，所以需要用到libadd.a和libsub.a）</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">g++ main.cpp -o main.out -L ./ -l add -l sub -I ./</span><br><span class="line">./main.out</span><br><span class="line">输出：  20</span><br><span class="line">        0</span><br></pre></td></tr></table></figure></div>
-<h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><h3 id="1-命名规则-1"><a href="#1-命名规则-1" class="headerlink" title="1.命名规则"></a>1.命名规则</h3><ol>
+<h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><h3 id="命名规则-1"><a href="#命名规则-1" class="headerlink" title="命名规则"></a>命名规则</h3><ol>
 <li>在Linux下，动态库一般为libxxx.so，除了后缀不同，其他是一样的</li>
 <li>在Window下，一般为libxxx.dll</li>
 </ol>
-<h3 id="2-动态库的制作"><a href="#2-动态库的制作" class="headerlink" title="2.动态库的制作"></a>2.动态库的制作</h3><details class="green"><summary> gcc得到.o文件，与静态库不同的是，这个过程需要得到的是与位置无关的代码 </summary>
+<h3 id="动态库的制作"><a href="#动态库的制作" class="headerlink" title="动态库的制作"></a>动态库的制作</h3><details class="green"><summary> gcc得到.o文件，与静态库不同的是，这个过程需要得到的是与位置无关的代码 </summary>
               <div class="content">
               <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">gcc/g++ -c -fpic/-fPIC a.c b.c -o a.o b.o </span><br></pre></td></tr></table></figure></div>
               </div>
@@ -122,7 +122,7 @@
               <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">gcc/g++ -shared a.o b.o -o libxxx.so</span><br></pre></td></tr></table></figure></div>
               </div>
             </details>
-<h3 id="3-动态库的使用"><a href="#3-动态库的使用" class="headerlink" title="3.动态库的使用"></a>3.动态库的使用</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">g++/gcc xxx -o xxx.out -L 库的路径 -l 库的名称(libxxx.so中的xxx就是库的名称) [-I 头文件的路径](在同个目录下就不需要这一项)</span><br></pre></td></tr></table></figure></div>
+<h3 id="动态库的使用"><a href="#动态库的使用" class="headerlink" title="动态库的使用"></a>动态库的使用</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">g++/gcc xxx -o xxx.out -L 库的路径 -l 库的名称(libxxx.so中的xxx就是库的名称) [-I 头文件的路径](在同个目录下就不需要这一项)</span><br></pre></td></tr></table></figure></div>
 <p>与静态库不同的是，想要使用动态库，就必须配置环境变量！<br>如何配置环境变量？</p>
 <details class="green"><summary> 方法一：临时添加 </summary>
               <div class="content">
@@ -136,10 +136,10 @@
               </div>
             </details>
 <p>可以用(ldd 可执行文件名)命令查看可执行文件名的依赖关系，需要在可执行文件的目录下使用</p>
-<h2 id="动态库与静态库的对比"><a href="#动态库与静态库的对比" class="headerlink" title="动态库与静态库的对比"></a>动态库与静态库的对比</h2><h3 id="1-程序编译成可执行文件的过程"><a href="#1-程序编译成可执行文件的过程" class="headerlink" title="1.程序编译成可执行文件的过程"></a>1.程序编译成可执行文件的过程</h3><p>共同点：都是在链接阶段与目标代码等链接成可执行文件<br>不同点：静态库在链接阶段的时候，会把库中的代码打包到可执行文件中，相当于把库中的代码复制到可执行文件中；动态库则是当可执行文件代码运行到含动态库代码时，加载动态库。</p>
-<h3 id="2-创建过程"><a href="#2-创建过程" class="headerlink" title="2.创建过程"></a>2.创建过程</h3><p>创建方法不同，具体看上面</p>
-<h3 id="3-库的使用"><a href="#3-库的使用" class="headerlink" title="3.库的使用"></a>3.库的使用</h3><p>使用命令是一样的，但是动态库使用前需要预先设置环境变量</p>
-<h3 id="4-静态库的优缺点"><a href="#4-静态库的优缺点" class="headerlink" title="4.静态库的优缺点"></a>4.静态库的优缺点</h3><details class="green"><summary> 优点 </summary>
+<h2 id="动态库与静态库的对比"><a href="#动态库与静态库的对比" class="headerlink" title="动态库与静态库的对比"></a>动态库与静态库的对比</h2><h3 id="程序编译成可执行文件的过程"><a href="#程序编译成可执行文件的过程" class="headerlink" title="程序编译成可执行文件的过程"></a>程序编译成可执行文件的过程</h3><p>共同点：都是在链接阶段与目标代码等链接成可执行文件<br>不同点：静态库在链接阶段的时候，会把库中的代码打包到可执行文件中，相当于把库中的代码复制到可执行文件中；动态库则是当可执行文件代码运行到含动态库代码时，加载动态库。</p>
+<h3 id="创建过程"><a href="#创建过程" class="headerlink" title="创建过程"></a>创建过程</h3><p>创建方法不同，具体看上面</p>
+<h3 id="库的使用"><a href="#库的使用" class="headerlink" title="库的使用"></a>库的使用</h3><p>使用命令是一样的，但是动态库使用前需要预先设置环境变量</p>
+<h3 id="静态库的优缺点"><a href="#静态库的优缺点" class="headerlink" title="静态库的优缺点"></a>静态库的优缺点</h3><details class="green"><summary> 优点 </summary>
               <div class="content">
               <p>a. 静态库链接时打包到可执行程序中的加载速度较快<br>b. 发布程序时不需要提供静态库，移植方便</p>
               </div>
@@ -149,7 +149,7 @@
               <p>a. 消耗系统资源，浪费内存<br>b. 更新，部署，发布程序时较麻烦</p>
               </div>
             </details>
-<h3 id="5-动态库的优缺点"><a href="#5-动态库的优缺点" class="headerlink" title="5.动态库的优缺点"></a>5.动态库的优缺点</h3><details class="green"><summary> 优点 </summary>
+<h3 id="动态库的优缺点"><a href="#动态库的优缺点" class="headerlink" title="动态库的优缺点"></a>动态库的优缺点</h3><details class="green"><summary> 优点 </summary>
               <div class="content">
               <p>a. 可以实现进程间资源共享（共享库）<br>b. 更新，部署，发布程序时简单<br>c. 可以控制何时加载动态库</p>
               </div>
@@ -392,7 +392,7 @@
 
 <details class="green"><summary> 讲一下指针函数和函数指针的区别 </summary>
               <div class="content">
-              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class><summary> blue 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code></p><h4 id="类成员函数的指针（非静态）"><a href="#类成员函数的指针（非静态）" class="headerlink" title="类成员函数的指针（非静态）"></a>类成员函数的指针（非静态）</h4><p>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><h4 id="指向类的静态函数的指针"><a href="#指向类的静态函数的指针" class="headerlink" title="指向类的静态函数的指针"></a>指向类的静态函数的指针</h4><p>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
+              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class="blue"><summary> 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code><br>类成员函数的指针（非静态）<br>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><p>指向类的静态函数的指针<br>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
               </div>
             </details>
 
