@@ -406,8 +406,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-02-25 23:01:13</span>
-            <span class="mobile">2023-02-25 23:01</span>
+            <span class="pc">2023-02-25 23:02:42</span>
+            <span class="mobile">2023-02-25 23:02</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -674,9 +674,10 @@
 <h4 id="针对本地进程间通信的Socket编程模型"><a href="#针对本地进程间通信的Socket编程模型" class="headerlink" title="针对本地进程间通信的Socket编程模型"></a>针对本地进程间通信的Socket编程模型</h4><p>本地 socket  被用于在<strong>同一台主机上进程间通信</strong>的场景：</p>
 <ol>
 <li>本地 socket 的编程接口和 IPv4 、IPv6 套接字编程接口是一致的，可以支持「字节流」和「数据报」两种协议；</li>
-<li>本地 socket 的实现效率大大高于 IPv4 和 IPv6 的字节流、数据报 socket 实现；<br>对于本地字节流 socket，其 socket 类型是 AF_LOCAL 和 SOCK_STREAM。</li>
+<li>本地 socket 的实现效率大大高于 IPv4 和 IPv6 的字节流、数据报 socket 实现；</li>
+<li>对于本地字节流 socket，其 socket 类型是 AF_LOCAL 和 SOCK_STREAM。</li>
+<li>对于本地数据报 socket，其 socket 类型是 AF_LOCAL 和 SOCK_DGRAM。</li>
 </ol>
-<p>对于本地数据报 socket，其 socket 类型是 AF_LOCAL 和 SOCK_DGRAM。</p>
 <p>本地字节流 socket 和 本地数据报 socket 在 bind 的时候，不像 TCP 和 UDP 要绑定 IP 地址和端口，而是绑定<strong>一个本地文件</strong>，这也就是它们之间的最大区别。</p>
 <h4 id="Socket相关的API"><a href="#Socket相关的API" class="headerlink" title="Socket相关的API"></a>Socket相关的API</h4><p>太多了，这里就不多说了，不懂得可以去看这篇文章:<a class="link" target="_blank" rel="noopener" href="http://t.csdn.cn/EoIzG">http://t.csdn.cn/EoIzG <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>鼠鼠今天看到一个真实故事，大概讲的就就一个人的前女友脑出血成为了植物人，主人公和她已经和平分手1年了，突然有一天主人公接到了前女友的姐姐的电话，得知了前女友发生的事，然后展开的一个故事，里面的一句话让我特别难过”她听完我的录音后，并没有醒过来，那一刻，我多么希望电视剧里的憨憨剧情是真的”，不管是这个，里面还有着女主的哥哥写的一封信，令我特别特别难过，我多希望女主能像电视剧里面醒过来啊，但事与愿违，女主最后还是成为了天边的一朵云彩…</p>
