@@ -439,24 +439,6 @@
       </tags>
   </entry>
   <entry>
-    <title>欢迎来到我的主页，准备好迎接天才的头脑大战叭！</title>
-    <url>/2023/02/22/hello-world/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1874972712&auto=1&height=66"></iframe>
-
-<p>恋爱即战争，在恋爱中，谁先告白谁就是输家！无论如何也要让对方进行告白，这就是天才们的恋爱头脑大战~<br>咳咳，跑题了，欢迎来到我的主页咯，本人是一个再读大学生，文章写得不好还请见谅捏~</p>
-<h2 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h2><p>哥是一位就读于广州大学(大专捏)的大三学生，奇奇怪怪的选择了不感兴趣的“电子信息工程”，不过嘛，哥的自学能力还是有的，所以这个博客就是拿来记录一些我自学的知识点啦</p>
-<h2 id="为什么要弄个博客呢？"><a href="#为什么要弄个博客呢？" class="headerlink" title="为什么要弄个博客呢？"></a>为什么要弄个博客呢？</h2><p>欸…怎么说呢？一开始是为了求职的时候有个加分项，不过自己尝试写了几篇后，发现我原来在写文章这一块这么有天赋！!(bushi</p>
-<p>其实就是写了一篇后，发现写文章对知识点的总结和归纳是十分有好处的，在以前我都是用笔和纸来记录的，不过人总要成长嘛，所以就改成电子版啦，我要成为下一个“赛博丁真”！</p>
-<p>不过我也不光是为了我自己，我也希望自己学习的知识点能够帮助到别人，能帮助后人少走点弯路，最好是告诉少年别走这条路了，互联网的红利已经是过去式了，但我都走一半了总不能返回吧，所以我也只能硬着头皮走下去了…祈祷吧少年，在毁灭中重生，与黑夜中绽放！</p>
-]]></content>
-      <categories>
-        <category>自我介绍</category>
-      </categories>
-      <tags>
-        <tag>自我介绍</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>进程间通信的各种方法以及优缺点</title>
     <url>/2023/02/25/blog6/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=507014930&auto=1&height=66"></iframe>
@@ -680,6 +662,22 @@
         <tag>Linux</tag>
         <tag>操作系统</tag>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>欢迎来到我的主页，准备好迎接天才的头脑大战叭！</title>
+    <url>/2023/02/22/me/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1874972712&auto=1&height=66"></iframe>
+
+<p>恋爱即战争，在恋爱中，谁先告白谁就是输家！无论如何也要让对方进行告白，这就是天才们的恋爱头脑大战~<br>咳咳，跑题了，欢迎来到我的主页，本破站建于2023-2-23<br>博主还只是一个在读大学生捏，会持续更新一些学习的知识点，当然也会更新一些我的发疯日常~大学生哪有不发疯的呢</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/02/22/me/%E6%B4%BE.jpg" class title="派">
+
+]]></content>
+      <categories>
+        <category>自我介绍</category>
+      </categories>
+      <tags>
+        <tag>自我介绍</tag>
       </tags>
   </entry>
 </search>
