@@ -618,10 +618,10 @@
 <img lazyload src="/images/loading.svg" data-src="/2023/02/25/blog6/%E4%BF%A1%E5%8F%B7%E9%87%8F1.jpg" class title="信号量">
 <details class="yellow"><summary> 具体过程 </summary>
               <div class="content">
-              <ol><li>如果进程 B 比进程 A 先执行了，那么执行到 P 操作时，由于信号量初始值为 0，故信号量会变为 -1，表示进程 A 还没生产数据，于是进程 B 就阻塞等待；</li><li>接着，当进程 A 生产完数据后，执行了 V 操作，就会使得信号量变为 0，于是就会唤醒阻塞在 P 操作的进程 B；</li><li>最后，进程 B 被唤醒后，意味着进程 A 已经生产了数据，于是进程 B 就可以正常读取数据了。<br>可以发现，信号初始化为 0，就代表着是同步信号量，它可以保证进程 A 应在进程 B 之前执行。</li></ol>
+              <ol><li>如果进程 B 比进程 A 先执行了，那么执行到 P 操作时，由于信号量初始值为 0，故信号量会变为 -1，表示进程 A 还没生产数据，于是进程 B 就阻塞等待；</li><li>接着，当进程 A 生产完数据后，执行了 V 操作，就会使得信号量变为 0，于是就会唤醒阻塞在 P 操作的进程 B；</li><li>最后，进程 B 被唤醒后，意味着进程 A 已经生产了数据，于是进程 B 就可以正常读取数据了。</li></ol>
               </div>
             </details>
-
+<p>可以发现，信号初始化为 0，就代表着是同步信号量，它可以保证进程 A 应在进程 B 之前执行。</p>
 <h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p>前面提到的管道、消息队列、内存映射、共享内存、信号量和信号都是在同一台主机上进行进程间通信，那要想跨网络与不同主机上的进程之间通信，就需要<strong>Socket</strong>通信了。</p>
 <p>实际上，Socket 通信不仅可以跨网络与不同主机的进程间通信，还可以在同主机上进程间通信。</p>
 <h4 id="针对TCP协议的Socket编程模型"><a href="#针对TCP协议的Socket编程模型" class="headerlink" title="针对TCP协议的Socket编程模型"></a>针对TCP协议的Socket编程模型</h4><img lazyload src="/images/loading.svg" data-src="/2023/02/25/blog6/Tcp.jpg" class title="Tcp">
@@ -667,7 +667,9 @@
   <entry>
     <title>信号量以及一些互斥同步模型</title>
     <url>/2023/02/27/blog7/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>信号量其实是一个整型的计数器，主要用于实现进程间的互斥与同步，而不是用于缓存进程间通信的数据。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=29567192&auto=1&height=66"></iframe>
+
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>信号量其实是一个整型的计数器，主要用于实现进程间的互斥与同步，而不是用于缓存进程间通信的数据。</p>
 <p>信号量表示资源的数量</p>
 <details class="red"><summary> 控制信号量的方式有两种原子操作 </summary>
               <div class="content">
@@ -690,10 +692,11 @@
 <img lazyload src="/images/loading.svg" data-src="/2023/02/27/blog7/%E4%BF%A1%E5%8F%B7%E9%87%8F1.jpg" class title="信号量">
 <details class="yellow"><summary> 具体过程 </summary>
               <div class="content">
-              <ol><li>如果进程 B 比进程 A 先执行了，那么执行到 P 操作时，由于信号量初始值为 0，故信号量会变为 -1，表示进程 A 还没生产数据，于是进程 B 就阻塞等待；</li><li>接着，当进程 A 生产完数据后，执行了 V 操作，就会使得信号量变为 0，于是就会唤醒阻塞在 P 操作的进程 B；</li><li>最后，进程 B 被唤醒后，意味着进程 A 已经生产了数据，于是进程 B 就可以正常读取数据了。</li></ol><p>可以发现，信号初始化为 0，就代表着是同步信号量，它可以保证进程 A 应在进程 B 之前执行。</p>
+              <ol><li>如果进程 B 比进程 A 先执行了，那么执行到 P 操作时，由于信号量初始值为 0，故信号量会变为 -1，表示进程 A 还没生产数据，于是进程 B 就阻塞等待；</li><li>接着，当进程 A 生产完数据后，执行了 V 操作，就会使得信号量变为 0，于是就会唤醒阻塞在 P 操作的进程 B；</li><li>最后，进程 B 被唤醒后，意味着进程 A 已经生产了数据，于是进程 B 就可以正常读取数据了。</li></ol>
               </div>
             </details>
 
+<p>可以发现，信号初始化为 0，就代表着是同步信号量，它可以保证进程 A 应在进程 B 之前执行。</p>
 <h2 id="一些同步模型"><a href="#一些同步模型" class="headerlink" title="一些同步模型"></a>一些同步模型</h2><h3 id="消费者与生产者模型"><a href="#消费者与生产者模型" class="headerlink" title="消费者与生产者模型"></a>消费者与生产者模型</h3><h4 id="模型解释"><a href="#模型解释" class="headerlink" title="模型解释"></a>模型解释</h4><p>所谓生产者与消费者模型，就是指有一些生产者，每次会生产一些产品(数据)到容器里面(储存数据的数据结构)，一群消费者对容器里的产品进行消费(对数据进行处理)，如图</p>
 
 <h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>而为了实现线程的临界区的数据安全，所以可以用mutex(互斥锁)来保证数据的安全</p>
@@ -744,7 +747,6 @@
 <img lazyload src="/images/loading.svg" data-src="/2023/02/27/blog7/%E4%BB%A3%E7%A0%81.jpg" class title="代码">
 <p>上面的程序使用了一个信号量数组，每个信号量对应一位哲学家，这样在所需的叉子被占用时，想进餐的哲学家就被阻塞</p>
 <img lazyload src="/images/loading.svg" data-src="/2023/02/27/blog7/%E5%93%B2%E5%AD%A6%E5%AE%B64.jpg" class title="哲学家">
-<img lazyload src="/images/loading.svg" data-src="/2023/02/27/blog7/%E5%93%B2%E5%AD%A6%E5%AE%B65.jpg" class title="哲学家">
 
 <h3 id="读者-写者模型"><a href="#读者-写者模型" class="headerlink" title="读者-写者模型"></a>读者-写者模型</h3>]]></content>
       <categories>

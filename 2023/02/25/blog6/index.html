@@ -406,8 +406,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-02-25 23:02:42</span>
-            <span class="mobile">2023-02-25 23:02</span>
+            <span class="pc">2023-02-28 00:13:47</span>
+            <span class="mobile">2023-02-28 00:13</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -646,10 +646,10 @@
 <img lazyload src="/images/loading.svg" data-src="/2023/02/25/blog6/%E4%BF%A1%E5%8F%B7%E9%87%8F1.jpg" class title="信号量">
 <details class="yellow"><summary> 具体过程 </summary>
               <div class="content">
-              <ol><li>如果进程 B 比进程 A 先执行了，那么执行到 P 操作时，由于信号量初始值为 0，故信号量会变为 -1，表示进程 A 还没生产数据，于是进程 B 就阻塞等待；</li><li>接着，当进程 A 生产完数据后，执行了 V 操作，就会使得信号量变为 0，于是就会唤醒阻塞在 P 操作的进程 B；</li><li>最后，进程 B 被唤醒后，意味着进程 A 已经生产了数据，于是进程 B 就可以正常读取数据了。<br>可以发现，信号初始化为 0，就代表着是同步信号量，它可以保证进程 A 应在进程 B 之前执行。</li></ol>
+              <ol><li>如果进程 B 比进程 A 先执行了，那么执行到 P 操作时，由于信号量初始值为 0，故信号量会变为 -1，表示进程 A 还没生产数据，于是进程 B 就阻塞等待；</li><li>接着，当进程 A 生产完数据后，执行了 V 操作，就会使得信号量变为 0，于是就会唤醒阻塞在 P 操作的进程 B；</li><li>最后，进程 B 被唤醒后，意味着进程 A 已经生产了数据，于是进程 B 就可以正常读取数据了。</li></ol>
               </div>
             </details>
-
+<p>可以发现，信号初始化为 0，就代表着是同步信号量，它可以保证进程 A 应在进程 B 之前执行。</p>
 <h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p>前面提到的管道、消息队列、内存映射、共享内存、信号量和信号都是在同一台主机上进行进程间通信，那要想跨网络与不同主机上的进程之间通信，就需要<strong>Socket</strong>通信了。</p>
 <p>实际上，Socket 通信不仅可以跨网络与不同主机的进程间通信，还可以在同主机上进程间通信。</p>
 <h4 id="针对TCP协议的Socket编程模型"><a href="#针对TCP协议的Socket编程模型" class="headerlink" title="针对TCP协议的Socket编程模型"></a>针对TCP协议的Socket编程模型</h4><img lazyload src="/images/loading.svg" data-src="/2023/02/25/blog6/Tcp.jpg" class title="Tcp">
