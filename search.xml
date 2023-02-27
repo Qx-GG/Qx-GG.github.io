@@ -343,102 +343,6 @@
       </tags>
   </entry>
   <entry>
-    <title>浙江宇视科技一面</title>
-    <url>/2023/02/24/blog5/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=36841427&auto=1&height=66"></iframe>
-
-<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>本人从2022-11月末开始在各大招聘网站上面投递简历，即今为止收到了3次面试，前两次面试不想评价，首先就是面试的岗位不是我想去的岗位(甚至和我投递的完全不搭边…)，其次就是问的问题一点技术含量也么没有，全程和我唠嗑(有没有可能，我是说可能，或许我投了传销的岗位?)，直到昨天下午，在图书馆好好学习的我突然被一阵电话铃声吓了一跳，原本也不在意，以为又是来催我买车的( 因为我驾照已经有一年了(狗头 )，等我看到来电地址是浙江杭州的时候，并且号码还很正常，我才意识到确实有人来找我，在脑子里想了很久我是不是欠了某个杭州朋友的钱的时候，电话已经挂了…<br>后来多次拨打过去，才接通并且告知我笔试通过，准备一面…此时的心情怎么说呢？有点激动又有点害怕。冷静下来后意识到<br>“如今面试就在眼前，我必须考虑这会不会是我此生仅有的机会，我相信中国能有现在的地位，老一辈功不可没，重铸华夏人荣光，我辈义不容辞”</p>
-<h1 id="面试开始"><a href="#面试开始" class="headerlink" title="面试开始"></a>面试开始</h1><details class="blue"><summary> 自我介绍 </summary>
-              <div class="content">
-              <p>没什么好说的，可以去看看我的置顶文章捏</p>
-              </div>
-            </details>
-
-<details class="green"><summary> 重点介绍一下哪些与岗位相关的项目 </summary>
-              <div class="content">
-              <p>说真的，我不知道自己面的是什么岗位了，于是就把WebServer,简易RPC框架,简易抖音APP都简单介绍了一下</p>
-              </div>
-            </details>
-
-<details class="red"><summary> 介绍一下RPC框架 </summary>
-              <div class="content">
-              <p>RPC框架实现的是一个函数的远程调用，将函数部署在一个服务器上面，通过另外一个服务器调用该函数</p><details class="blue"><summary> 答案 </summary>              <div class="content">              <p>答案:RPC（Remote Procedure Call）即远程过程调用，不同于本地调用，RPC是指调用远端机器的函数或方法，且不需要关心底层的调用细节，如网络协议和传输协议等，对于调用者来说，和调用本地方法没有什么区别。</p>              </div>            </details><details class="red"><summary> 实现原理是怎样的 </summary>              <div class="content">              <p>实现原理就是:先用protobuf把需要的参数进行序列化，然后通过网络库将数据传输给被调用方，然后被调用方再用protobuf将参数(反)序列化后传入函数里面，获得结果后再用相同的方法传递回去，被调用方会先将函数注册在zookeeper上，然后就可以进行监听事件的发生，如果有请求事件的就会进行处理</p><details class="blue"><summary> 主要有以下几个步骤: </summary>              <div class="content">              <p>1、建立通信</p><p>首先要解决通讯的问题：即A机器想要调用B机器，首先得建立起通信连接。主要是通过在客户端和服务器之间建立TCP连接，远程过程调用的所有相关的数据都在这个连接里面进行传输交换。</p><p>通常这个连接可以是按需连接（需要调用的时候就先建立连接，调用结束后就立马断掉），也可以是长连接（客户端和服务器建立起连接之后保持长期持有，不管此时有无数据包的发送，可以配合心跳检测机制定期检测建立的连接是否存活有效），多个远程过程调用共享同一个连接。</p><p>2、服务寻址</p><p>解决寻址的问题：即A机器上的应用A要调用B机器上的应用B，那么此时对于A来说如何告知底层的RPC框架所要调用的服务具体在哪里呢？</p><p>通常情况下我们需要提供B机器（主机名或IP地址）以及特定的端口，然后指定调用的方法或者函数的名称以及入参出参等信息，这样才能完成服务的一个调用。比如基于Web服务协议栈的RPC，就需要提供一个endpoint URI，或者是从UDDI服务上进行查找。如果是RMI调用的话，还需要一个RMI Registry来注册服务的地址。</p><p>3、网络传输</p><p>3.1、序列化</p><p>当A机器上的应用发起一个RPC调用时，调用方法和其入参等信息需要通过底层的网络协议如TCP传输到B机器，由于网络协议是基于二进制的，所有我们传输的参数数据都需要先进行序列化（Serialize）或者编组（marshal）成二进制的形式才能在网络中进行传输。然后通过寻址操作和网络传输将序列化或者编组之后的二进制数据发送给B机器。</p><p>3.2、反序列化</p><p>当B机器接收到A机器的应用发来的请求之后，又需要对接收到的参数等信息进行反序列化操作（序列化的逆操作），即将二进制信息恢复为内存中的表达方式，然后再找到对应的方法（寻址的一部分）进行本地调用（一般是通过生成代理Proxy去调用, 通常会有JDK动态代理、CGLIB动态代理、Javassist生成字节码技术等），之后得到调用的返回值。</p><p>4、服务调用</p><p>B机器进行本地调用（通过代理Proxy）之后得到了返回值，此时还需要再把返回值发送回A机器，同样也需要经过序列化操作，然后再经过网络传输将二进制数据发送回A机器，而当A机器接收到这些返回值之后，则再次进行反序列化操作，恢复为内存中的表达方式，最后再交给A机器上的应用进行相关处理（一般是业务逻辑处理操作）。</p><p>通常，经过以上四个步骤之后，一次完整的RPC调用算是完成了，另外可能因为网络抖动等原因需要重试等。</p>              </div>            </details>              </div>            </details><details class="red"><summary> 这个调用跟消息收发有什么区别吗? </summary>              <div class="content">              <p>(其实这里不太懂想要问什么)<br>这个调用就和浏览器请求服务器资源和回应，都是通过网络协议进行的</p>              </div>            </details><details class="red"><summary> 那我可不可以理解为这个远程调用就是网络消息的收发 </summary>              <div class="content">              <p>可以吧(心虚…因为从开学到现在一直在看那个抖音项目，说实话RPC这方面有一些都忘了，再加上当时很紧张)</p>              </div>            </details><details class="red"><summary> 走的是什么协议 </summary>              <div class="content">              <p>TCP协议<br>面试官:TCP协议?<br>(心虚)应该还有HTTP协议，因为我是用的muduo库的(阿西吧!)</p><details class="blue"><summary> 答案 </summary>              <div class="content">              <p>应该只用到了TCP协议，用来与服务器建立连接</p><p>RPC和HTTP的联系与区别</p><p>联系：都是远程通信的网络协议，任何网络协议都包括语法、语义、时序三个特征。</p><p>区别：</p><p>HTTP协议是应用层协议，更多地用于前后端通信或移动端、PC端与后端通信，其他的常用应用层协议还包括SSH协议、ftp协议。</p><p>RPC是远程过程调用，更多地用于分布式架构中各个服务模块之间的通信，其中的知识涉及socket通信、序列化和反序列化、动态代理、反射调用。如下程序，服务端要发布socket服务+线程池io处理多个客户端连接+反射调用，客户端要动态代理实例化对象，参与网络传输的Bean要实现Serializable接口变为可序列化+IO流序列化&#x2F;反序列化。</p>              </div>            </details>              </div>            </details><details class="red"><summary> HTTP和TCP有什么区别 </summary>              <div class="content">              <p>HTTP是应用层的协议，TCP是传输层的;<br>HTTP协议是一个报文协议，传输的内容包含了请求以及回应,TCP协议是数据流的协议，里面有目的IP地址和源IP地址(我这回答的简直就是依托答辩,回答的时候还口吃了…)</p><details class="blue"><summary> HTTP协议与TCP协议的区别 </summary>              <div class="content">              <p>1、TCP对应与传输层、而HTTP对应于应用层，所以HTTP协议是建立在TCP协议之上的；</p><p>2、HTTP底层是利用TCP协议传输的，所以支持http也就一定支持TCP；</p><p>3、TCP是网络传输协议， HTTP是超文本传输协议；</p><pre><code>    TCP是底层协议，定义的是数据传输和连接方式的规范。    HTTP是应用层协议，定义的是传输数据的内容的规范。</code></pre><p>4、HTTP是无状态的短链接，而TCP是有状态的长连接；</p><p>TCP对应于传输层，HTTP对应于应用层，从本质上来说，二者没有可比性。</p>              </div>            </details>              </div>            </details><details class="red"><summary> 消息封装的时候先封装哪个协议呢 </summary>              <div class="content">              <p>先封装HTTP协议(面试官不说话，我以为我说错了，立马改口成TCP协议了)<br>答案:先封装HTTP协议，封装消息是从应用层开始，到物理层结束，所以应该先封装应用层的HTTP协议，整个流程如下<br><img lazyload src="/images/loading.svg" data-src="/2023/02/24/blog5/1.jpg" class title="流程"></p>              </div>            </details><details class="red"><summary> 消息发出去需要封装几层 </summary>              <div class="content">              <p>先经过TCP,然后IP，然后HTTP,最后经过数据链路层封装成帧，应该是4层…(今晚听录音的时候真想抽死自己)<br>答案:四层，如上图所示</p>              </div>            </details><details class="red"><summary> 项目调试过程遇到了什么问题 </summary>              <div class="content">              <p>(努力思考做项目的时候遇到的问题，然后乱七八糟回答了一堆有的没的)</p>              </div>            </details><details class="red"><summary> 消息通信一般定位的方法有哪些 </summary>              <div class="content">              <p>(第一次没听清，等第二次听清的时候我才发现不是我没听清而是我根本不知道怎么回答，随便说了一下也不知道是什么东西的玩意)</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 这个项目是用C++写的是吧，那讲一下C++里面数组和链表的区别 </summary>
-              <div class="content">
-              <p>数组在内存中是连续存放的，链表在链表中是随机存放的<br>数组的插入、删除的时间复杂度为O(n),获取元素的时间复杂度为O(1)<br>链表的插入、删除的时间复杂度为O(1),获取元素的时间复杂度为O(n)<br>补充:<br>数组:（1）数组在内存中连续； (2)使用数组之前，必须事先固定数组长度，不支持动态改变数组大小；(3) 数组元素增加时，有可能会数组越界；(4) 数组元素减少时，会造成内存浪费；（5）数组增删时需要移动其它元素；（6）数组从栈上分配内存，使用方便，但是自由度小<br>链表:（1）链表采用动态内存分配的方式，在内存中不连续 (2)支持动态增加或者删除元素 (3)需要时可以使用malloc或者new来申请内存，不用时使用free或者delete来释放内存；（4）链表从堆上分配内存，自由度大，但是要注意内存泄漏</p><details class="green"><summary> 为什么数组的查询时间复杂度是O(1)的呢 </summary>              <div class="content">              <p>因为数组可以通过数组下标来访问数组的元素<br>补充:因为数组在内存中是连续的，所以在知道数组首地址的情况就就能知道数组中所有元素的地址，所以要可以不需要从头开始遍历去查找，所以为O(1)</p>              </div>            </details><details class="green"><summary> 如果数组里面的数据是乱序的，也就是说数组的下标和数组元素之间不存在数学关系的话，那么他的查找效率是怎么样的 </summary>              <div class="content">              <p>还是0(1)吧，数组的下标和元素好像本来就没有什么数学关系</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下指针函数和函数指针的区别 </summary>
-              <div class="content">
-              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class="blue"><summary> 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code><br>类成员函数的指针（非静态）<br>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><p>指向类的静态函数的指针<br>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下类和结构体有什么区别 </summary>
-              <div class="content">
-              <p>在结构体里面所有的数据都是public的，在类里面还存在protect和private<br>类存在构造函数和析构函数<br>类可以通过继承的方法实现多态<br>类里面还会封装对类里面的数据的操作的函数，在结构体里面没办法这样做</p><details class="blue"><summary> 类和结构体的区别 </summary>              <div class="content">              <ol><li><p>结构体是一种值类型，而类是引用类型。值类型用于存储数据的值，引用类型用于存储对实际数据的引用。</p><p>   那么结构体就是当成值来使用的，类则通过引用来对实际数据操作。</p></li><li><p>结构体使用栈存储（Stack Allocation），而类使用堆存储（Heap Allocation)</p></li></ol><p>栈的空间相对较小.但是存储在栈中的数据访问效率相对较高.</p><p>堆的空间相对较大.但是存储在堆中的数据的访问效率相对较低.</p><ol start="3"><li><p>类是反映现实事物的一种抽象，而结构体的作用只是一种包含了具体不同类别数据的一种包装，结构体不具备类的继承多态特性</p></li><li><p>结构体赋值是 直接赋值的值. 而对象的指针 赋值的是对象的地址</p></li><li><p>Struct变量使用完之后就自动解除内存分配，Class实例有垃圾回收机制来保证内存的回收处理。</p></li><li><p>结构体的构造函数中，必须为结构体所有字段赋值，类的构造函数无此限制</p></li></ol><p>首先,关于隐式构造函数.我们知道,在1个类中如果我们没有为类写任意的构造函数,那么C++编译器在编译的时候会自动的为这个类生成1个无参数的构造函数.我们将这个构造函数称之为隐式构造函数 但是一旦我们为这个类写了任意的1个构造函数的时候,这个隐式的构造函数就不会自动生成了.在结构体中,就不是这样了,在结构体中隐式的构造函数无论如何都存在。所以程序员不能手动的为结构添加1个无参数的构造函数。</p><ol start="7"><li>结构体中声明的字段无法赋予初值，类可以</li></ol>              </div>            </details><details class="green"><summary> 结构体可以包含一个类吗 </summary>              <div class="content">              <p>应该可以吧</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 多态是什么意思 </summary>
-              <div class="content">
-              <p>(啊啊啊我知道多态大概是个什么意思，但是我就是没办法用口语表达出来)额…像是…额…</p><details class="blue"><summary> 多态 </summary>              <div class="content">              <p>一个接口多种方法，即用同一个接口，但是效果不同<br>多态又分为静态多态和动态多态。<br>静态多态是指在编译期就把函数链接起来，此时即可确定调用哪个函数或模板，静态多态是由模板和重载实现的，重载又分为函数重载和运算符重载<br>动态多态是指在程序运行时才能确定函数和实现的链接，此时才能确定调用哪个函数，父类指针或者引用能够指向子类对象，调用子类的函数，所以在编译时是无法确定调用哪个函数<br>动态多态存在的三个必要条件：<br>    1. 继承<br>    2. 重写<br>    3. 父类引用指向子类对象</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 全局变量和局部变量可以用相同的变量名吗 </summary>
-              <div class="content">
-              <p>可以<br>答案:局部变量可以与全局变量同名，在函数内引用这个变量时，会用到同名的局部变量，而不会用到全局变量。</p><details class="green"><summary> 如果使用这个变量的时候是使用哪里的? </summary>              <div class="content">              <p>如果在函数里面的话，会先使用局部变量</p>              </div>            </details><details class="green"><summary> 什么情况下使用全局变量呢? </summary>              <div class="content">              <p>(不会)在定义局部变量的函数外就是使用全局变量<br>答案:想要在函数体内使用全局变量而不是同名的局部变量的话，需要使用”::”(作用域解析符)+全局变量名</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下C++和GO的区别 </summary>
-              <div class="content">
-              <p>(没去探究过，只知道GO很简便)GO里面有很多库可以使用，我通过GORM框架和GIN框架实现视频的上传和聊天记录的上传，并且保存在数据库里面</p>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下进程和线程的区别是什么 </summary>
-              <div class="content">
-              <p>进程是资源调度(资源分布才对…)的基本单位,线程是CPU执行的基本单位<br>线程是比线程更轻量级的一个东西(?)，一个线程可以包括很多个进程(不是我在说什么啊?这都能说错啊?)<br>线程之间是共享一些数据的，它们通信不需要通过内核，进程通信需要通过内核<br>    <details class="blue"><summary> 进程与线程的区别与联系 </summary><br>              <div class="content"><br>              <ol><li>拥有资源：进程时资源分配的基本单位，而线程时CPU分配和调度的基本单位。<br>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存。（资源分配给进程，同一进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。</li><li>调度：线程时实现独立调度的基本单位。在同一进程中，线程的切换不会引起进程切换，从一个进程中的线程切换到另一个进程中的线程时，会引起进程切换。</li><li>系统开销：由于创建或撤销进程时，系统都要为之分配或回收资源，如内存空间、I&#x2F;O 设备等，所付出的开销远大于创建或撤销线程时的开销。类似地，在进行进程切换时，涉及当前执行进程 CPU 环境的保存及新调度进程 CPU 环境的设置，而线程切换时只需保存和设置少量寄存器内容，开销很小。<br>通信：程间可以通过直接读写同一进程中的数据进行通信，但是进程通信需要借助 IPC (Inter-Process Communication)。</li></ol><br>              </div><br>            </details></p>
-              </div>
-            </details>
-
-<details class="green"><summary> 进程间通信有哪些方法?哪个效率最高 </summary>
-              <div class="content">
-              <p>方法有管道、信号、消息队列、信号量、共享内存、内存映射；共享内存的效率应该是比较高的</p>
-              </div>
-            </details>
-
-<details class="green"><summary> 共享内存具体怎么操作的呢? </summary>
-              <div class="content">
-              <p>一个进程会先将要共享的文件通过页表映射在物理内存上面，其他进程就可以通过访问物理内存对文件进行修改从而实现进程间通信(奇奇怪怪的)<br>    <details class="blue"><summary> 共享内存的实现 </summary><br>              <div class="content"><br>              <ol><li>使用shmget()函数创建一个新的共享内存段或者区的一个已有的共享内存段的标识符(就是说有其他进程创建的共享内存段)，这个调用将返回后续调用需要用到的共享内存标识符</li><li>使用shmat()函数来附上共享内存段，即使该段称为调用进程的虚拟内存的一部分</li><li>此时在程序中就可以像对待其他可用内存那样对待这个共享内存段。为引用这块共享内存，程序需要使用由shmat()函数的返回值的addr值(一个指向进程的虚拟地址空间中该共享内存段的起点的指针)</li><li>shmdt()函数用来分离共享内存段。在这个调用之后，进程就无法再引用这块共享内存</li><li>调用shmctl()来删除共享内存段。只有当所有附加内存段的进程都与之分离之后内存段可会销毁，只有一个进程需要执行这一步</li></ol><br>              </div><br>            </details></p>
-              </div>
-            </details>
-
-<details class="green"><summary> Linux里的死锁一般是怎么造成的? </summary>
-              <div class="content">
-              <p>一个线程拿了锁没有被释放<br>山羊过独木桥一样，两个线程因为需要对方的锁才能将自己的锁解开，从而出现死锁<br>一个线程持有多把锁，有可能会出现死锁</p>
-              </div>
-            </details>
-
-<p>总结:依托答辩!!!!今晚听录音写博客的时候都想抽死我自己了，我是什么垃圾啊(哭)，下次一定要比这次更好，但谁知道有没有下次呢。</p>
-<p>果然不出我所料，下午就收到感谢信了捏<br>鼠鼠我啊，就是这样的捏~不说了，健身去了</p>
-<img lazyload src="/images/loading.svg" data-src="/2023/02/24/blog5/%E9%BC%A0%E9%BC%A0.jpg" class title="鼠鼠">
-]]></content>
-      <categories>
-        <category>面经</category>
-      </categories>
-      <tags>
-        <tag>实习面经(一面)</tag>
-        <tag>浙江宇视科技</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>进程间通信的各种方法以及优缺点</title>
     <url>/2023/02/25/blog6/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=507014930&auto=1&height=66"></iframe>
@@ -665,6 +569,124 @@
       </tags>
   </entry>
   <entry>
+    <title>周末出游记1</title>
+    <url>/2023/02/26/day1/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="d943d7ab066fe8b46b44a13aebd8dde520b67602175c65db3e1d5d47961f1ccd">66ab845c2246e49c59e940b7b05a8aeac2edddfa874a223bc218fa00473c8abf06b198f7a6de6168ca517f6bf66a0411b539a32c003849bd88ba35bbe3402b9af851608c0fa86ce6231b58a8949ad203862478e3dd4e1fb34f09afde0046c93b32fabef2bf59d34fa3a649891e82c34759331d9e2d1365cefc5916071bf7f1184c0b07b24f213a2bf1bcc6cf91383184e82a18c1d2f0f7976f3d939a47a41240c8e99f54422c5f2d77b7893b7099287a4d6808e2efba0e2a2d7f042445a2ef1fb60bc2da8ab8ff4177eea45c2ec11736027d317a0755ef4bd7b93d1ba354b79873184ea858ca47f880b96026b89df498724be70161982726d234909891ebaf966bb5c08a7f662a626549fc40620254d44719c664d87b00289e872bda5189f4df8bd088f00bfe3fa619ab86be78949ed1efbccdeb967a4d65d691a06eee2686ade88493108771a921f03566c3331cd8e36a86e6197f86a81d9b74d6ecf308961b35f3cf35e04c7b774d407a4d507598f3f25c8f7a189e1b822c1d2d7a46ce7fdab77df6f761d4716d2048e52c54779f1b450af831ec41632c7f9a89030496ea2c2933bc81b0ae8c23501ce52b4e52ca3eaf1fbb761026a1fbef8551d5b33398d30e59e3d7902fe444450b44bc605f76ec30630ff2c3017c0d5463d9ba8ed7a8bf009c1484ec89e2eec2c270752cac79c3549c437f999439f6c7e2841684aafd2490a3c561064343c56b0a99d128c36aff362477e4cf23c17756cf36c7ef5ad9695cd20583db0b6339b82cabedac2c16e8efb1ae414fc3a1eb8050bf14e038e6107dfdbdb22ff13da06a37cb65cced7661c932ccaa4840799ae8474b7255f7426b4ca2b4b53189236340845957fc2233173868f28e2636a5d751835ab1018a35fe8b8030ce9d4a64e121453ea7ad5501de9343b2a25e450321bbb22722bf6da225da26fd8cfc4c30781e5ef96edddac53185d008734fb23733194ee5ca49cb441fa663a0bf2a238e444cb0b4ef1ae693524d69ae87d681cd46f3a85d23ab91ceaa026e59d8017c18091cfef8cc0acbf130b84550b7b03060fb7a797dd36904932ca6961a433c9a049206ea494ca4e97a8ecc942bf4d94b4cd2b77b41f48aa53c004eaf32e7cc66072a8c061b2b9b1e74fb0e8f5a810772e9c3c31b5d2e399bc60e937e63e65f2fe329fea47a7d8984a27448ae1e77c86b6e5afe51500b1036c6578b880e964e24c23f3b94213782c6674393de227e2dde19fc1fe696a01d23a284efeb835092b0754137ab9b96b0cee35e1248985c6104a5a3d8713692fd2b9bda18debebbc476fcf365ae50e36d5e5cbc824c936cb29d349ac073b0d0f296f329012aef20dd8de3259b13d82b9af19dec7c562b0cb2f912e72871f46c56455907bb3d2b616228d090c3320143291ad3747eec22627aea2c2daab64907029ae0551ebf30ced2be0d8bf680f6cb8f625313445ffaad6d223480440b44bb86ef7c8446089ffaf68c0caad336d87e31d12389e98cd85f6c504bbff8571ed717baf2dfd23a9347ee66aba5000982b9a58e9dda52afd1516a4ee402f58ec4862cb205a5518cc68079cd5282e1bd6c473a530825d565d7a22a7183954d1e459c6ae98e88f34698774a751c1672d4e2c3a0c386181ec70fc3074f1e8194bc0f5a890c6c6a2dd78b9f1ee1b4abfa781a050c3234b90f3ebbe81a75977cdb8551cf489f144b46f70abab8180c32a640f8b7a55dc7ca7c1440e3199f50a9a81eb1820e7df21e66b8652bc1c71c226733e2a79f8178bdee337e8bd9366e75409788900bec744b442aa6693cc69f22df5260d8d0989cbfe1efad9d3db098771b0a92465f939ed6339493f2db9c3d4ead03dc75460d0ce14daaa85b0fec7e001fd0d7f6a254ec0e04b7d10000a287d4b971648c74b623fc49cb81856b9e2b5f4b6c5ad91d8036691bc8570b50a79facea79af2f5704cd94d754ba377245a36144335bc66c59e7dd41dac21bb910cbbc9ad11398d028e36fd4defbc03d991456b3cf780ab27a81891148560d9814b61cff6c6efd1e116867a9289dcfaff3b83e3b85bf13fd99ec1dd7a354918e4821aa4007cf67dc0e0a8b013bb074cb9eb3a44ddf953da48a450fa6fdabb8b72491f2383d0c08e5392e36b8dd33e55f8a9b78207ebdd075d0d0951e566e6137c7030d7dd1e4b1f0bad77459974e85524ce3bbebee477efb0182c1f362bbfd85ce5ca0ebd76c88b1058d2fa0210e98606aca0b493471dd15366731f026dc99522913c76345cdb2a6339989dfc185a4c78f539f4f758b3888fffda4a21be9e3383e049456574598416d458eae0522bd143768208053dc961fa242fc097f1073e40f444d1800a0b08655048a4fdb86cf67c710931b1f8e1285364bd0a589232b8d9555fc91873e45ff4deaabb63335bb77d271f800076c21a990dacc5d1cd64a4f4183284e743ec0f07debf00cee0e75571d6089bc5998bac3e97070d2d17d345c10a525e100b729c001994ff7e8a09fbc868646579b237deac449bdf24af5f4bc9a9b3e31ea2f5200c3be81e3b3d8c06095a624cd156709e34da05790c671faeffeef48f9ea45855918f5d0d04481e0d3ea6971734e92c02413f7e986f4c019e82d2b95ce69bc438a8615ff9baa5cd60ce4ab481f607ee007759907611c82bc9e30a2e26ca3aaa77a357316f082d52156ccc7dd1a9c78f4fa23e6e0e0c97fa247ef57dc597b487026eb71c52f64d29c2fe28fc84cd95ba6f22a0233e20e034e1c609dd1ef0b760c97f7e25119d511452882b00518a1917a469b776ff686071c3a95a0fbede176fc371f04521ca1918c5740b790c072c23d4af2c63c7628b111e9f121ec7785d80d6556c78b41ff6fd9cda2794594bf3f718ac255866d5e2d1b3f1ad8e5e359ac91b162f47bfc6059ed229d86c6997a40685dd76982bb90ab6a2b016d60bb4ba7d9a2ae97e924a75a01c4cc8be84828e2bcc69c958aa70ed7e616d768b18dfd41e457d7d4edd0fdc2a35d1008e63e9e87e050354ca39a339963495cee0dbfe852ef1838862665405c2e0ced8d7b23726050bc1c0eb2ce907b1daabd743b459e74e0dc315971eaee96d74b2384475e1ffeadbf3696c52f338ecd5c3ff824d92c09c1c8b4b46ec175c25beb67c90a085fdf029f7d4ebf6a073c787b002d5959bcc81b675d776ca55f776cd17b7a80c2c5f5765d000547f3222476e1d2ba3d09295097ded0939a3fa1eaa1cd65c46966c65793eac37f9a53d5a29edd541de4a60affaa8849966f9b727a4541b854212ad65f378c4842419227ca348add6dbd97309a205142445508deb97bc423a14c709c3f1f33d92e59a1ac6d29d05c36ef0444720617cf64881b744858811ffae968d52f7cab734cb97f3b63fca425f0bd7d36f704dfb2bcfbd32e564c852689547a8aff8e2da81414ec6bf91ed5e2a1314148bcde60bcd98a2b8baaec7015377ed038a6657f3f0ab60f6c624a9e3379226dc7ef9ec10689249efed611c7feb9ed1741704344f010eebba5878125264a9087e9091c1fbb2f341073a8a90223eeb3eedd9ea991a65ea41b89259d847a491fe1686d9925206a84e1c22d1a2d56278b3078751bc1b1cbedd4046bf66c503120132865b1e04d2c2bc39600b46878fb60d728a1f6011b099323a9c08e61cf6ee402e096179f081c3069cfcc401ff7bb74102d5ffdb679cc8a61a70a1cf67490fcd05036b7428225fdabe55eae581e6c50dd50f932e1d36461b9ca900988c5f5f5316568ac4f04908559ebc648bd13298aee2c719cb6655ef35df62435a96067374c9b42e260468f71cd2d5b382dd22ce8149a1d5a5ed6fcf7a5f78549b1094c103bdcaf26170779259fe71c13bd9babd08f15ec936310cf45bb8299a4ba670fce227f541fed06ec828fdd2e3907c2ebed18015c4d5f0a3ee85aa3de64c9c6c7100f742f38d552dc4a748d5e54a4c81896bb5085ab4e657cb2d38fcbfe5463aa0e75e2eb18725ea1106b7da4b87e06677b963a30dca40a2f55fb95b75fad77b8bfe3d08e9fcc1ecd8f0bd64ad75fc89670f3e1028c174b8ac3fbaaf07d3c5084b3b549e4a3fe533597f16e0f1219504959525f0ef36a692838e3a2926a4967aa210d086f756458b49d6198be3b1f2a40f09e8826766e62d2d217de6bcc051190c22ceb3003783b05aab07a25771939a40f74186a2938883facf67aab50f8213cd785db40fc9e311f8de3e36e4c8b7c864881c8cd6441ff5421afacd0c27a53decd08f9420bf01e66d24b4dd18d24718078bfe9c2888d092ab808b3d980702164cb73f3c4d36287c65ea8b13b151d78e6ee5dfb8c717eb9a553b96479b531ecef33ca3b2b15a96a20b47ce7476ed861b28f2e5f4d843848b6cf1c25adf5e242ffbc8f3ae1254597fd8e5f36a3689c1a983f9121904c70d9198196b7d4e3bc83bb0e49891ba7c50d6f9fddbe6f9a065b5c0eb67455774d2211e4e3ab267c39fb38702769bc1b808051487179b4482b43fa280b7e43e80339bcf0dfb94937d1fe6d45614a8e71efaf963bb7231c17a9babf8e41ddcd440901629a370cbffeabfde690615f244d905e3ff3fc2a5b1352c9dfd813ab4e3a1856f13091f98d32a161431ced80cddc0bf377224856d6034a15f6f60fb33fe915dd9705fa809c48ea8435b5db184ded5d599033b57ca93bc3474e40369c5e7c117dce2a802952010a8ce610ce5ae176994bc4b6fdee6556832f9ce034b612c7a38037cdb18bba305132c45c4ca844b639bb978154c09eddb3b95e7171cfc3b7dc106ab69375547b375501359631c67435e45975db2f0521c6391edb06e45cf8100b257e14db6236d4c8bb6ef40f2c97402baaad6f52c6c4d720aa815079c88368c6bfa5ad3651ce70bcf9f738038a56608ed6b59a616fddbffacc04c0e26ab2199fe458b0c4ede7cc5c7f30d31502eeda45930d037360864a49fc1e6fb8a6a37e67bb64211afbd0607c6daec6f86747dfc8909baae37cfcdb19f3cbbeb2627d1a6a25a60e45e8220650f858d1c4e77424293335979993846090722eb1e76d832e6dbf32a831ec01ab39508ea14eb6c2a8e25d44855ea08f53b8365d8b73ac43e18f7b70344f9e2d353e0fef23f661829869c487134dcf783ea10cd330312975ee125e863f1c54f4754e8c5e9e916d08a9aef6574fe75f11f4ded9c0b33ef9e5183ea5fd92549ad14cc879017597e37b40239bfde6f3ec23462d1f313341af7a204be91d992dcfef2adbacfb542f4dd16d2eedd277579918b31c7a479b61d77f8733897dddd7ef29e14ff9874165bccd05d952d648d8bcb0a2240381f1a1b0eb36b302b16e105535296073da97ae0c4f5ffb8f10716e984c0bb82f025323fcde4590a5463328d1f80d9cc3103435dfd3b17d972c8d016cce55c653445af2b2eb9c26afe3cacd3ca9ee8e9549297161c7ecaead6582d7cadd904b5d5a08ce90016f9c9e3e272df199c5fcafa2c03cdefde3efd47eb78c74938ff3baaf3148ec0b0c2a40ed98a2e3b7c1b70fa080f465d5ac6aa1d184997123546bfea55f411f21b3ced244100719a93b4e4b244007087015efbbbae0b987f5ede324d3ca9f69d6a446f26e856af9b7af09b1f567924f81a7b82c76a288fadcc4a0a12f10cae3d5b9412a31101cd911022d4f886556b367fb8390ae3d864e1db6417e77179284fb6b82a4c4fa48eaba8a275b87e3b1c2ae05c38e977db418d8c6a8a918730c33b2120df6ee22c60f0d5a59e3a90fe4c4ffc220fd1672f7b8ca49bd0fb1284cb09a82c982d13e42a35a671d933d4839f4e9baa3663c</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">想看鼠鼠的日常生活吗,那么请问鼠鼠的真名叫什么呢？</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
+      <tags>
+        <tag>日常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浙江宇视科技一面</title>
+    <url>/2023/02/24/blog5/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=36841427&auto=1&height=66"></iframe>
+
+<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>本人从2022-11月末开始在各大招聘网站上面投递简历，即今为止收到了3次面试，前两次面试不想评价，首先就是面试的岗位不是我想去的岗位(甚至和我投递的完全不搭边…)，其次就是问的问题一点技术含量也么没有，全程和我唠嗑(有没有可能，我是说可能，或许我投了传销的岗位?)，直到昨天下午，在图书馆好好学习的我突然被一阵电话铃声吓了一跳，原本也不在意，以为又是来催我买车的( 因为我驾照已经有一年了(狗头 )，等我看到来电地址是浙江杭州的时候，并且号码还很正常，我才意识到确实有人来找我，在脑子里想了很久我是不是欠了某个杭州朋友的钱的时候，电话已经挂了…<br>后来多次拨打过去，才接通并且告知我笔试通过，准备一面…此时的心情怎么说呢？有点激动又有点害怕。冷静下来后意识到<br>“如今面试就在眼前，我必须考虑这会不会是我此生仅有的机会，我相信中国能有现在的地位，老一辈功不可没，重铸华夏人荣光，我辈义不容辞”</p>
+<h1 id="面试开始"><a href="#面试开始" class="headerlink" title="面试开始"></a>面试开始</h1><details class="blue"><summary> 自我介绍 </summary>
+              <div class="content">
+              <p>没什么好说的，可以去看看我的置顶文章捏</p>
+              </div>
+            </details>
+
+<details class="green"><summary> 重点介绍一下哪些与岗位相关的项目 </summary>
+              <div class="content">
+              <p>说真的，我不知道自己面的是什么岗位了，于是就把WebServer,简易RPC框架,简易抖音APP都简单介绍了一下</p>
+              </div>
+            </details>
+
+<details class="red"><summary> 介绍一下RPC框架 </summary>
+              <div class="content">
+              <p>RPC框架实现的是一个函数的远程调用，将函数部署在一个服务器上面，通过另外一个服务器调用该函数</p><details class="blue"><summary> 答案 </summary>              <div class="content">              <p>答案:RPC（Remote Procedure Call）即远程过程调用，不同于本地调用，RPC是指调用远端机器的函数或方法，且不需要关心底层的调用细节，如网络协议和传输协议等，对于调用者来说，和调用本地方法没有什么区别。</p>              </div>            </details><details class="red"><summary> 实现原理是怎样的 </summary>              <div class="content">              <p>实现原理就是:先用protobuf把需要的参数进行序列化，然后通过网络库将数据传输给被调用方，然后被调用方再用protobuf将参数(反)序列化后传入函数里面，获得结果后再用相同的方法传递回去，被调用方会先将函数注册在zookeeper上，然后就可以进行监听事件的发生，如果有请求事件的就会进行处理</p><details class="blue"><summary> 主要有以下几个步骤: </summary>              <div class="content">              <p>1、建立通信</p><p>首先要解决通讯的问题：即A机器想要调用B机器，首先得建立起通信连接。主要是通过在客户端和服务器之间建立TCP连接，远程过程调用的所有相关的数据都在这个连接里面进行传输交换。</p><p>通常这个连接可以是按需连接（需要调用的时候就先建立连接，调用结束后就立马断掉），也可以是长连接（客户端和服务器建立起连接之后保持长期持有，不管此时有无数据包的发送，可以配合心跳检测机制定期检测建立的连接是否存活有效），多个远程过程调用共享同一个连接。</p><p>2、服务寻址</p><p>解决寻址的问题：即A机器上的应用A要调用B机器上的应用B，那么此时对于A来说如何告知底层的RPC框架所要调用的服务具体在哪里呢？</p><p>通常情况下我们需要提供B机器（主机名或IP地址）以及特定的端口，然后指定调用的方法或者函数的名称以及入参出参等信息，这样才能完成服务的一个调用。比如基于Web服务协议栈的RPC，就需要提供一个endpoint URI，或者是从UDDI服务上进行查找。如果是RMI调用的话，还需要一个RMI Registry来注册服务的地址。</p><p>3、网络传输</p><p>3.1、序列化</p><p>当A机器上的应用发起一个RPC调用时，调用方法和其入参等信息需要通过底层的网络协议如TCP传输到B机器，由于网络协议是基于二进制的，所有我们传输的参数数据都需要先进行序列化（Serialize）或者编组（marshal）成二进制的形式才能在网络中进行传输。然后通过寻址操作和网络传输将序列化或者编组之后的二进制数据发送给B机器。</p><p>3.2、反序列化</p><p>当B机器接收到A机器的应用发来的请求之后，又需要对接收到的参数等信息进行反序列化操作（序列化的逆操作），即将二进制信息恢复为内存中的表达方式，然后再找到对应的方法（寻址的一部分）进行本地调用（一般是通过生成代理Proxy去调用, 通常会有JDK动态代理、CGLIB动态代理、Javassist生成字节码技术等），之后得到调用的返回值。</p><p>4、服务调用</p><p>B机器进行本地调用（通过代理Proxy）之后得到了返回值，此时还需要再把返回值发送回A机器，同样也需要经过序列化操作，然后再经过网络传输将二进制数据发送回A机器，而当A机器接收到这些返回值之后，则再次进行反序列化操作，恢复为内存中的表达方式，最后再交给A机器上的应用进行相关处理（一般是业务逻辑处理操作）。</p><p>通常，经过以上四个步骤之后，一次完整的RPC调用算是完成了，另外可能因为网络抖动等原因需要重试等。</p>              </div>            </details>              </div>            </details><details class="red"><summary> 这个调用跟消息收发有什么区别吗? </summary>              <div class="content">              <p>(其实这里不太懂想要问什么)<br>这个调用就和浏览器请求服务器资源和回应，都是通过网络协议进行的</p>              </div>            </details><details class="red"><summary> 那我可不可以理解为这个远程调用就是网络消息的收发 </summary>              <div class="content">              <p>可以吧(心虚…因为从开学到现在一直在看那个抖音项目，说实话RPC这方面有一些都忘了，再加上当时很紧张)</p>              </div>            </details><details class="red"><summary> 走的是什么协议 </summary>              <div class="content">              <p>TCP协议<br>面试官:TCP协议?<br>(心虚)应该还有HTTP协议，因为我是用的muduo库的(阿西吧!)</p><details class="blue"><summary> 答案 </summary>              <div class="content">              <p>应该只用到了TCP协议，用来与服务器建立连接</p><p>RPC和HTTP的联系与区别</p><p>联系：都是远程通信的网络协议，任何网络协议都包括语法、语义、时序三个特征。</p><p>区别：</p><p>HTTP协议是应用层协议，更多地用于前后端通信或移动端、PC端与后端通信，其他的常用应用层协议还包括SSH协议、ftp协议。</p><p>RPC是远程过程调用，更多地用于分布式架构中各个服务模块之间的通信，其中的知识涉及socket通信、序列化和反序列化、动态代理、反射调用。如下程序，服务端要发布socket服务+线程池io处理多个客户端连接+反射调用，客户端要动态代理实例化对象，参与网络传输的Bean要实现Serializable接口变为可序列化+IO流序列化&#x2F;反序列化。</p>              </div>            </details>              </div>            </details><details class="red"><summary> HTTP和TCP有什么区别 </summary>              <div class="content">              <p>HTTP是应用层的协议，TCP是传输层的;<br>HTTP协议是一个报文协议，传输的内容包含了请求以及回应,TCP协议是数据流的协议，里面有目的IP地址和源IP地址(我这回答的简直就是依托答辩,回答的时候还口吃了…)</p><details class="blue"><summary> HTTP协议与TCP协议的区别 </summary>              <div class="content">              <p>1、TCP对应与传输层、而HTTP对应于应用层，所以HTTP协议是建立在TCP协议之上的；</p><p>2、HTTP底层是利用TCP协议传输的，所以支持http也就一定支持TCP；</p><p>3、TCP是网络传输协议， HTTP是超文本传输协议；</p><pre><code>    TCP是底层协议，定义的是数据传输和连接方式的规范。    HTTP是应用层协议，定义的是传输数据的内容的规范。</code></pre><p>4、HTTP是无状态的短链接，而TCP是有状态的长连接；</p><p>TCP对应于传输层，HTTP对应于应用层，从本质上来说，二者没有可比性。</p>              </div>            </details>              </div>            </details><details class="red"><summary> 消息封装的时候先封装哪个协议呢 </summary>              <div class="content">              <p>先封装HTTP协议(面试官不说话，我以为我说错了，立马改口成TCP协议了)<br>答案:先封装HTTP协议，封装消息是从应用层开始，到物理层结束，所以应该先封装应用层的HTTP协议，整个流程如下<br><img lazyload src="/images/loading.svg" data-src="/2023/02/24/blog5/1.jpg" class title="流程"></p>              </div>            </details><details class="red"><summary> 消息发出去需要封装几层 </summary>              <div class="content">              <p>先经过TCP,然后IP，然后HTTP,最后经过数据链路层封装成帧，应该是4层…(今晚听录音的时候真想抽死自己)<br>答案:四层，如上图所示</p>              </div>            </details><details class="red"><summary> 项目调试过程遇到了什么问题 </summary>              <div class="content">              <p>(努力思考做项目的时候遇到的问题，然后乱七八糟回答了一堆有的没的)</p>              </div>            </details><details class="red"><summary> 消息通信一般定位的方法有哪些 </summary>              <div class="content">              <p>(第一次没听清，等第二次听清的时候我才发现不是我没听清而是我根本不知道怎么回答，随便说了一下也不知道是什么东西的玩意)</p>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green"><summary> 这个项目是用C++写的是吧，那讲一下C++里面数组和链表的区别 </summary>
+              <div class="content">
+              <p>数组在内存中是连续存放的，链表在链表中是随机存放的<br>数组的插入、删除的时间复杂度为O(n),获取元素的时间复杂度为O(1)<br>链表的插入、删除的时间复杂度为O(1),获取元素的时间复杂度为O(n)<br>补充:<br>数组:（1）数组在内存中连续； (2)使用数组之前，必须事先固定数组长度，不支持动态改变数组大小；(3) 数组元素增加时，有可能会数组越界；(4) 数组元素减少时，会造成内存浪费；（5）数组增删时需要移动其它元素；（6）数组从栈上分配内存，使用方便，但是自由度小<br>链表:（1）链表采用动态内存分配的方式，在内存中不连续 (2)支持动态增加或者删除元素 (3)需要时可以使用malloc或者new来申请内存，不用时使用free或者delete来释放内存；（4）链表从堆上分配内存，自由度大，但是要注意内存泄漏</p><details class="green"><summary> 为什么数组的查询时间复杂度是O(1)的呢 </summary>              <div class="content">              <p>因为数组可以通过数组下标来访问数组的元素<br>补充:因为数组在内存中是连续的，所以在知道数组首地址的情况就就能知道数组中所有元素的地址，所以要可以不需要从头开始遍历去查找，所以为O(1)</p>              </div>            </details><details class="green"><summary> 如果数组里面的数据是乱序的，也就是说数组的下标和数组元素之间不存在数学关系的话，那么他的查找效率是怎么样的 </summary>              <div class="content">              <p>还是0(1)吧，数组的下标和元素好像本来就没有什么数学关系</p>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green"><summary> 讲一下指针函数和函数指针的区别 </summary>
+              <div class="content">
+              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class="blue"><summary> 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code><br>类成员函数的指针（非静态）<br>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><p>指向类的静态函数的指针<br>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green"><summary> 讲一下类和结构体有什么区别 </summary>
+              <div class="content">
+              <p>在结构体里面所有的数据都是public的，在类里面还存在protect和private<br>类存在构造函数和析构函数<br>类可以通过继承的方法实现多态<br>类里面还会封装对类里面的数据的操作的函数，在结构体里面没办法这样做</p><details class="blue"><summary> 类和结构体的区别 </summary>              <div class="content">              <ol><li><p>结构体是一种值类型，而类是引用类型。值类型用于存储数据的值，引用类型用于存储对实际数据的引用。</p><p>   那么结构体就是当成值来使用的，类则通过引用来对实际数据操作。</p></li><li><p>结构体使用栈存储（Stack Allocation），而类使用堆存储（Heap Allocation)</p></li></ol><p>栈的空间相对较小.但是存储在栈中的数据访问效率相对较高.</p><p>堆的空间相对较大.但是存储在堆中的数据的访问效率相对较低.</p><ol start="3"><li><p>类是反映现实事物的一种抽象，而结构体的作用只是一种包含了具体不同类别数据的一种包装，结构体不具备类的继承多态特性</p></li><li><p>结构体赋值是 直接赋值的值. 而对象的指针 赋值的是对象的地址</p></li><li><p>Struct变量使用完之后就自动解除内存分配，Class实例有垃圾回收机制来保证内存的回收处理。</p></li><li><p>结构体的构造函数中，必须为结构体所有字段赋值，类的构造函数无此限制</p></li></ol><p>首先,关于隐式构造函数.我们知道,在1个类中如果我们没有为类写任意的构造函数,那么C++编译器在编译的时候会自动的为这个类生成1个无参数的构造函数.我们将这个构造函数称之为隐式构造函数 但是一旦我们为这个类写了任意的1个构造函数的时候,这个隐式的构造函数就不会自动生成了.在结构体中,就不是这样了,在结构体中隐式的构造函数无论如何都存在。所以程序员不能手动的为结构添加1个无参数的构造函数。</p><ol start="7"><li>结构体中声明的字段无法赋予初值，类可以</li></ol>              </div>            </details><details class="green"><summary> 结构体可以包含一个类吗 </summary>              <div class="content">              <p>应该可以吧</p>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green"><summary> 多态是什么意思 </summary>
+              <div class="content">
+              <p>(啊啊啊我知道多态大概是个什么意思，但是我就是没办法用口语表达出来)额…像是…额…</p><details class="blue"><summary> 多态 </summary>              <div class="content">              <p>一个接口多种方法，即用同一个接口，但是效果不同<br>多态又分为静态多态和动态多态。<br>静态多态是指在编译期就把函数链接起来，此时即可确定调用哪个函数或模板，静态多态是由模板和重载实现的，重载又分为函数重载和运算符重载<br>动态多态是指在程序运行时才能确定函数和实现的链接，此时才能确定调用哪个函数，父类指针或者引用能够指向子类对象，调用子类的函数，所以在编译时是无法确定调用哪个函数<br>动态多态存在的三个必要条件：<br>    1. 继承<br>    2. 重写<br>    3. 父类引用指向子类对象</p>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green"><summary> 全局变量和局部变量可以用相同的变量名吗 </summary>
+              <div class="content">
+              <p>可以<br>答案:局部变量可以与全局变量同名，在函数内引用这个变量时，会用到同名的局部变量，而不会用到全局变量。</p><details class="green"><summary> 如果使用这个变量的时候是使用哪里的? </summary>              <div class="content">              <p>如果在函数里面的话，会先使用局部变量</p>              </div>            </details><details class="green"><summary> 什么情况下使用全局变量呢? </summary>              <div class="content">              <p>(不会)在定义局部变量的函数外就是使用全局变量<br>答案:想要在函数体内使用全局变量而不是同名的局部变量的话，需要使用”::”(作用域解析符)+全局变量名</p>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green"><summary> 讲一下C++和GO的区别 </summary>
+              <div class="content">
+              <p>(没去探究过，只知道GO很简便)GO里面有很多库可以使用，我通过GORM框架和GIN框架实现视频的上传和聊天记录的上传，并且保存在数据库里面</p>
+              </div>
+            </details>
+
+<details class="green"><summary> 讲一下进程和线程的区别是什么 </summary>
+              <div class="content">
+              <p>进程是资源调度(资源分布才对…)的基本单位,线程是CPU执行的基本单位<br>线程是比线程更轻量级的一个东西(?)，一个线程可以包括很多个进程(不是我在说什么啊?这都能说错啊?)<br>线程之间是共享一些数据的，它们通信不需要通过内核，进程通信需要通过内核<br>    <details class="blue"><summary> 进程与线程的区别与联系 </summary><br>              <div class="content"><br>              <ol><li>拥有资源：进程时资源分配的基本单位，而线程时CPU分配和调度的基本单位。<br>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存。（资源分配给进程，同一进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。</li><li>调度：线程时实现独立调度的基本单位。在同一进程中，线程的切换不会引起进程切换，从一个进程中的线程切换到另一个进程中的线程时，会引起进程切换。</li><li>系统开销：由于创建或撤销进程时，系统都要为之分配或回收资源，如内存空间、I&#x2F;O 设备等，所付出的开销远大于创建或撤销线程时的开销。类似地，在进行进程切换时，涉及当前执行进程 CPU 环境的保存及新调度进程 CPU 环境的设置，而线程切换时只需保存和设置少量寄存器内容，开销很小。<br>通信：程间可以通过直接读写同一进程中的数据进行通信，但是进程通信需要借助 IPC (Inter-Process Communication)。</li></ol><br>              </div><br>            </details></p>
+              </div>
+            </details>
+
+<details class="green"><summary> 进程间通信有哪些方法?哪个效率最高 </summary>
+              <div class="content">
+              <p>方法有管道、信号、消息队列、信号量、共享内存、内存映射；共享内存的效率应该是比较高的</p>
+              </div>
+            </details>
+
+<details class="green"><summary> 共享内存具体怎么操作的呢? </summary>
+              <div class="content">
+              <p>一个进程会先将要共享的文件通过页表映射在物理内存上面，其他进程就可以通过访问物理内存对文件进行修改从而实现进程间通信(奇奇怪怪的)<br>    <details class="blue"><summary> 共享内存的实现 </summary><br>              <div class="content"><br>              <ol><li>使用shmget()函数创建一个新的共享内存段或者区的一个已有的共享内存段的标识符(就是说有其他进程创建的共享内存段)，这个调用将返回后续调用需要用到的共享内存标识符</li><li>使用shmat()函数来附上共享内存段，即使该段称为调用进程的虚拟内存的一部分</li><li>此时在程序中就可以像对待其他可用内存那样对待这个共享内存段。为引用这块共享内存，程序需要使用由shmat()函数的返回值的addr值(一个指向进程的虚拟地址空间中该共享内存段的起点的指针)</li><li>shmdt()函数用来分离共享内存段。在这个调用之后，进程就无法再引用这块共享内存</li><li>调用shmctl()来删除共享内存段。只有当所有附加内存段的进程都与之分离之后内存段可会销毁，只有一个进程需要执行这一步</li></ol><br>              </div><br>            </details></p>
+              </div>
+            </details>
+
+<details class="green"><summary> Linux里的死锁一般是怎么造成的? </summary>
+              <div class="content">
+              <p>一个线程拿了锁没有被释放<br>山羊过独木桥一样，两个线程因为需要对方的锁才能将自己的锁解开，从而出现死锁<br>一个线程持有多把锁，有可能会出现死锁</p>
+              </div>
+            </details>
+
+<p>总结:依托答辩!!!!今晚听录音写博客的时候都想抽死我自己了，我是什么垃圾啊(哭)，下次一定要比这次更好，但谁知道有没有下次呢。</p>
+<p>果然不出我所料，下午就收到感谢信了捏<br>鼠鼠我啊，就是这样的捏~不说了，健身去了</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/02/24/blog5/%E9%BC%A0%E9%BC%A0.jpg" class title="鼠鼠">
+]]></content>
+      <categories>
+        <category>面经</category>
+      </categories>
+      <tags>
+        <tag>实习面经(一面)</tag>
+        <tag>浙江宇视科技</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>欢迎来到我的主页，准备好迎接天才的头脑大战叭！</title>
     <url>/2023/02/22/me/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1874972712&auto=1&height=66"></iframe>
@@ -678,71 +700,6 @@
       </categories>
       <tags>
         <tag>自我介绍</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>周末出游记1</title>
-    <url>/2023/02/26/day1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1341328661&auto=1&height=66"></iframe>
-
-<p>周末肯定是要粗去玩的啦，很可惜伙伴们都有点事情，不过这并不妨碍我独自一人出发，总之就是<strong>说走就走</strong></p>
-<p><strong>出发！</strong></p>
-<p>从广大的正门出发</p>
-
-
-<p>带上我的老相机</p>
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E7%9B%B8%E6%9C%BA.jpg" class title="相机">
-
-<p>路上遇到的狗狗</p>
-
-
-
-<p>骑车ing~骑了有1h叭，最后还是决定回去中心湖那边</p>
-<p>简单拍了几张美女</p>
-
-
-<p>我爱美女(超大声)</p>
-<p>还有幸福的小情侣，迟早有一天我会开泥头车创死你们…开玩笑哒，你们要一直幸福下去哦</p>
-
-
-
-<p>哎，走的有点累了，emmm什么香味!原来是淀粉肠!</p>
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E9%A6%99%E8%82%A0.jpg" class title="香肠">
-
-<p>好了吃完了就继续叭</p>
-<p>好可爱的柯基!以后我一定要养一只，狗主人还允许我摸摸他，可惜光线不好，拍的很暗</p>
-
-
-
-
-<p>走累了，躺下来休息一下吧，顺便看看帅哥，什么?帅哥竟是我自己!</p>
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E5%B8%85%E5%93%A51.jpg" class title="帅哥">
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E5%B8%85%E5%93%A52.jpg" class title="帅哥">
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E5%B8%85%E5%93%A53.jpg" class title="帅哥">
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E5%B8%85%E5%93%A54.jpg" class title="帅哥">
-
-<!-- 哈哈哈哈哈有点小失望，没看到帅哥的脸，看看帅哥是如何自恋的叭 -->
-<p>好了，休息结束，也该回去啦，手机要没电啦，事已至此，先吃点东西吧</p>
-<img lazyload src="/images/loading.svg" data-src="/2023/02/26/day1/%E8%8D%89%E8%8E%93%E7%B3%96%E8%91%AB%E8%8A%A6.jpg" class title="糖葫芦">
-
-<p>骑车回学校了，全都是上坡，累死了</p>
-<p>到学校了，太阳也要下山啦</p>
-<p>这是波光粼粼的水面</p>
-
-
-<p>这日路边的野花</p>
-
-
-<p>太阳落下啦，月亮就要升起来了</p>
-
-
-<p>这周就用这种方式来结束吧，不开心的事就这样消散在路上吧，接下来会更好<del>!<br>各位晚安</del></p>
-]]></content>
-      <categories>
-        <category>日常</category>
-      </categories>
-      <tags>
-        <tag>日常</tag>
       </tags>
   </entry>
 </search>
