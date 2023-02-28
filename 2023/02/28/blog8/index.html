@@ -9,18 +9,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/02/24/blog5/"/>
+    <link rel="canonical" href="http://example.com/2023/02/28/blog8/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="浙江宇视科技一面">
+    <meta property="og:title" content="C++的继承、封装和多态">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.com2023/02/24/blog5/">
+    <meta property="og:url" content="http://example.com2023/02/28/blog8/">
     <meta property="og:image" content="/images/派1.jpg">
     <meta property="og:site_name" content="这题超纲了的BLOG">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="浙江宇视科技一面">
+    <meta name="twitter:title" content="C++的继承、封装和多态">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/派1.jpg">
     <!--- Icon Part-->
@@ -31,7 +31,7 @@
     
     <title>
         
-            浙江宇视科技一面 -
+            C++的继承、封装和多态 -
         
         这题超纲了的BLOG
     </title>
@@ -376,8 +376,8 @@
             
                       
                 <div class="article-title">
-                    <img src="https://Qx-GG.github.io/images/辉夜6.jpg" alt="浙江宇视科技一面" />
-                    <h1 class="article-title-cover">浙江宇视科技一面</h1>
+                    <img src="https://Qx-GG.github.io/images/辉夜10.jpg" alt="C++的继承、封装和多态" />
+                    <h1 class="article-title-cover">C++的继承、封装和多态</h1>
                 </div>
             
                 
@@ -399,15 +399,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-02-24 19:50:20</span>
-        <span class="mobile">2023-02-24 19:50</span>
+        <span class="pc">2023-02-28 23:16:40</span>
+        <span class="mobile">2023-02-28 23:16</span>
         <span class="hover-info">创建时间</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-02-25 22:53:16</span>
-            <span class="mobile">2023-02-25 22:53</span>
+            <span class="pc">2023-02-28 23:48:27</span>
+            <span class="mobile">2023-02-28 23:48</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -418,7 +418,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>&nbsp;
+                        <a href="/categories/C/">C++</a>&nbsp;
                     </li>
                 
             </ul>
@@ -430,11 +430,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-%E4%B8%80%E9%9D%A2/">实习面经(一面)</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E6%B5%99%E6%B1%9F%E5%AE%87%E8%A7%86%E7%A7%91%E6%8A%80/">浙江宇视科技</a>&nbsp;
+                        <a href="/tags/C/">C++</a>&nbsp;
                     </li>
                 
             </ul>
@@ -444,12 +440,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>5.7k 字</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.6k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 分钟</span>
         </span>
     
     
@@ -465,90 +461,75 @@
             
 
             <div class="article-content markdown-body">
-                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=36841427&auto=1&height=66"></iframe>
+                <h2 id="C-面向对象的三种方式"><a href="#C-面向对象的三种方式" class="headerlink" title="C++面向对象的三种方式"></a>C++面向对象的三种方式</h2><h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>在C++里面，可以用class来定义一个类，而这个类与C语言中static很像，它们都可以让用户自己定义一个数据类型，不同的是，类中还可以有函数，而类中的数据又有三种类型，分别为public(公共的),protect(保护的),private(私有的)。</p>
+<ol>
+<li><p>封装可以隐藏实现细节，使得代码模块化，使代码和功能独立</p>
+</li>
+<li><p>封装是把函数和数据包含在一个类里，数据只能通过函数或可以信任的对象进行访问，对不可信的对象进行隐藏</p>
+</li>
+</ol>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承:一个类可以使用另外一个类的所有功能，并在无需重新编写的情况下对继承过来的类进行补充扩展。</p>
+<p>通过继承而来的类又被称为“子类”，被继承的类被称为“父类”或者“基类”。</p>
+<h4 id="继承的三种实现方式"><a href="#继承的三种实现方式" class="headerlink" title="继承的三种实现方式"></a>继承的三种实现方式</h4><ol>
+<li><p>实现继承：直接使用基类的属性和方法而无需额外编码</p>
+</li>
+<li><p>接口继承：指仅仅使用属性和方法的名称，但是子类必须提供代码的实现</p>
+</li>
+<li><p>可视继承：指子窗体(类)使用基窗体(类)的外观和实现代码的能力</p>
+</li>
+</ol>
+<h4 id="单一继承"><a href="#单一继承" class="headerlink" title="单一继承"></a>单一继承</h4><p>子类只继承了一个父类，这种情况称为单一继承，一般情况下都使用单一继承，使用多重继承容易造成混乱</p>
+<h4 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h4><p>一个子类继承了多个父类，类与类之间要用逗号隔开，类名之前要有继承权限，假使两个或两个基类都有某变量或函数，在子类中调用时需要加类名限定符如c.a::i &#x3D; 1；</p>
+<h4 id="菱形继承"><a href="#菱形继承" class="headerlink" title="菱形继承"></a>菱形继承</h4><p>假设有一个基类A，他有两个子类B和C都继承了A中的某个函数并且都进行了重写，此时又有一个子类用多重继承了B和C，那么此时就有出现一种情况，例如:</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  菱形继承 菱形继承是多继承的一种特殊情况。</span></span><br><span class="line"><span class="comment">//菱形继承的问题：从下面的对象成员模型构造，可以看出菱形继承有数据冗余和二义性的问题。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_a = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span> :<span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_b = <span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span> :<span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_c = <span class="number">3</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span> :<span class="keyword">public</span> B, <span class="keyword">public</span> C</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> m_d = <span class="number">4</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    D d;</span><br><span class="line">    d.m_d = <span class="number">40</span>;</span><br><span class="line">    d.m_c = <span class="number">30</span>;</span><br><span class="line">    d.m_b = <span class="number">20</span>;</span><br><span class="line">    <span class="comment">//.m_a = 10;//  二义性</span></span><br><span class="line">    <span class="comment">// 不能够访问  因为B 和C分别继承了A的m_a</span></span><br><span class="line">    <span class="comment">//但是D 继承了B和C的m_a 所以D不能够分辨m_a到底是谁的</span></span><br><span class="line">    d.B::m_a = <span class="number">100</span>;</span><br><span class="line">    d.C::m_a = <span class="number">200</span>;</span><br><span class="line">    <span class="comment">// 这样的话 就造成了m_a 有两个空间  一个B的100  一个C的200</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="如何解决菱形继承的问题呢？"><a href="#如何解决菱形继承的问题呢？" class="headerlink" title="如何解决菱形继承的问题呢？"></a>如何解决菱形继承的问题呢？</h4><ol>
+<li><p>最简单的，就是尽量不要出现菱形继承这种情况。</p>
+</li>
+<li><p>如果一定会用到菱形继承的话，可以用虚基类来解决，关于什么是虚基类，往下接着看吧</p>
+</li>
+<li><p>虚基表的引入也可以解决这个问题</p>
+</li>
+<li><p>详细可见：<a class="link" target="_blank" rel="noopener" href="http://t.csdn.cn/x0ZB3">http://t.csdn.cn/x0ZB3 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ol>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>一个接口多种方法，即用同一个接口，但是效果不同</p>
+<h4 id="静态多态"><a href="#静态多态" class="headerlink" title="静态多态"></a>静态多态</h4><p>是在编译期就把函数链接起来，此时即可确定调用哪个函数或模板，静态多态是由模板和重载实现的，在宏多态中，是通过定义变量，编译时直接把变量替换，实现宏多态。</p>
+<h5 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h5><p>template <class t>定义一个模板。</class></p>
+<p>详情请见：<a class="link" target="_blank" rel="noopener" href="http://t.csdn.cn/QJqBk">http://t.csdn.cn/QJqBk <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h5><ol>
+<li><p>重载又有函数重载和运算符重载。</p>
+</li>
+<li><p>函数重载详情请见：<a class="link" target="_blank" rel="noopener" href="http://t.csdn.cn/iwGFT">http://t.csdn.cn/iwGFT <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li><p>运算符重载请见：<a class="link" target="_blank" rel="noopener" href="http://t.csdn.cn/vMRYM">http://t.csdn.cn/vMRYM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ol>
+<h4 id="动态多态"><a href="#动态多态" class="headerlink" title="动态多态"></a>动态多态</h4><p>是指在程序运行时才能确定函数和实现的链接，此时才能确定调用哪个函数，父类指针或者引用能够指向子类对象，调用子类的函数，所以在编译时是无法确定调用哪个函数。</p>
+<p>使用时在父类中写一个虚函数，在子类中分别重写，用这个父类指针调用这个虚函数，它实际上会调用各自子类重写的虚函数。</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/02/28/blog8/%E4%BB%A3%E7%A0%81.jpg" class title="代码">
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出：</span><br><span class="line">call child func</span><br><span class="line">call ~base</span><br></pre></td></tr></table></figure></div>
 
-<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>本人从2022-11月末开始在各大招聘网站上面投递简历，即今为止收到了3次面试，前两次面试不想评价，首先就是面试的岗位不是我想去的岗位(甚至和我投递的完全不搭边…)，其次就是问的问题一点技术含量也么没有，全程和我唠嗑(有没有可能，我是说可能，或许我投了传销的岗位?)，直到昨天下午，在图书馆好好学习的我突然被一阵电话铃声吓了一跳，原本也不在意，以为又是来催我买车的( 因为我驾照已经有一年了(狗头 )，等我看到来电地址是浙江杭州的时候，并且号码还很正常，我才意识到确实有人来找我，在脑子里想了很久我是不是欠了某个杭州朋友的钱的时候，电话已经挂了…<br>后来多次拨打过去，才接通并且告知我笔试通过，准备一面…此时的心情怎么说呢？有点激动又有点害怕。冷静下来后意识到<br>“如今面试就在眼前，我必须考虑这会不会是我此生仅有的机会，我相信中国能有现在的地位，老一辈功不可没，重铸华夏人荣光，我辈义不容辞”</p>
-<h1 id="面试开始"><a href="#面试开始" class="headerlink" title="面试开始"></a>面试开始</h1><details class="blue"><summary> 自我介绍 </summary>
-              <div class="content">
-              <p>没什么好说的，可以去看看我的置顶文章捏</p>
-              </div>
-            </details>
-
-<details class="green"><summary> 重点介绍一下哪些与岗位相关的项目 </summary>
-              <div class="content">
-              <p>说真的，我不知道自己面的是什么岗位了，于是就把WebServer,简易RPC框架,简易抖音APP都简单介绍了一下</p>
-              </div>
-            </details>
-
-<details class="red"><summary> 介绍一下RPC框架 </summary>
-              <div class="content">
-              <p>RPC框架实现的是一个函数的远程调用，将函数部署在一个服务器上面，通过另外一个服务器调用该函数</p><details class="blue"><summary> 答案 </summary>              <div class="content">              <p>答案:RPC（Remote Procedure Call）即远程过程调用，不同于本地调用，RPC是指调用远端机器的函数或方法，且不需要关心底层的调用细节，如网络协议和传输协议等，对于调用者来说，和调用本地方法没有什么区别。</p>              </div>            </details><details class="red"><summary> 实现原理是怎样的 </summary>              <div class="content">              <p>实现原理就是:先用protobuf把需要的参数进行序列化，然后通过网络库将数据传输给被调用方，然后被调用方再用protobuf将参数(反)序列化后传入函数里面，获得结果后再用相同的方法传递回去，被调用方会先将函数注册在zookeeper上，然后就可以进行监听事件的发生，如果有请求事件的就会进行处理</p><details class="blue"><summary> 主要有以下几个步骤: </summary>              <div class="content">              <p>1、建立通信</p><p>首先要解决通讯的问题：即A机器想要调用B机器，首先得建立起通信连接。主要是通过在客户端和服务器之间建立TCP连接，远程过程调用的所有相关的数据都在这个连接里面进行传输交换。</p><p>通常这个连接可以是按需连接（需要调用的时候就先建立连接，调用结束后就立马断掉），也可以是长连接（客户端和服务器建立起连接之后保持长期持有，不管此时有无数据包的发送，可以配合心跳检测机制定期检测建立的连接是否存活有效），多个远程过程调用共享同一个连接。</p><p>2、服务寻址</p><p>解决寻址的问题：即A机器上的应用A要调用B机器上的应用B，那么此时对于A来说如何告知底层的RPC框架所要调用的服务具体在哪里呢？</p><p>通常情况下我们需要提供B机器（主机名或IP地址）以及特定的端口，然后指定调用的方法或者函数的名称以及入参出参等信息，这样才能完成服务的一个调用。比如基于Web服务协议栈的RPC，就需要提供一个endpoint URI，或者是从UDDI服务上进行查找。如果是RMI调用的话，还需要一个RMI Registry来注册服务的地址。</p><p>3、网络传输</p><p>3.1、序列化</p><p>当A机器上的应用发起一个RPC调用时，调用方法和其入参等信息需要通过底层的网络协议如TCP传输到B机器，由于网络协议是基于二进制的，所有我们传输的参数数据都需要先进行序列化（Serialize）或者编组（marshal）成二进制的形式才能在网络中进行传输。然后通过寻址操作和网络传输将序列化或者编组之后的二进制数据发送给B机器。</p><p>3.2、反序列化</p><p>当B机器接收到A机器的应用发来的请求之后，又需要对接收到的参数等信息进行反序列化操作（序列化的逆操作），即将二进制信息恢复为内存中的表达方式，然后再找到对应的方法（寻址的一部分）进行本地调用（一般是通过生成代理Proxy去调用, 通常会有JDK动态代理、CGLIB动态代理、Javassist生成字节码技术等），之后得到调用的返回值。</p><p>4、服务调用</p><p>B机器进行本地调用（通过代理Proxy）之后得到了返回值，此时还需要再把返回值发送回A机器，同样也需要经过序列化操作，然后再经过网络传输将二进制数据发送回A机器，而当A机器接收到这些返回值之后，则再次进行反序列化操作，恢复为内存中的表达方式，最后再交给A机器上的应用进行相关处理（一般是业务逻辑处理操作）。</p><p>通常，经过以上四个步骤之后，一次完整的RPC调用算是完成了，另外可能因为网络抖动等原因需要重试等。</p>              </div>            </details>              </div>            </details><details class="red"><summary> 这个调用跟消息收发有什么区别吗? </summary>              <div class="content">              <p>(其实这里不太懂想要问什么)<br>这个调用就和浏览器请求服务器资源和回应，都是通过网络协议进行的</p>              </div>            </details><details class="red"><summary> 那我可不可以理解为这个远程调用就是网络消息的收发 </summary>              <div class="content">              <p>可以吧(心虚…因为从开学到现在一直在看那个抖音项目，说实话RPC这方面有一些都忘了，再加上当时很紧张)</p>              </div>            </details><details class="red"><summary> 走的是什么协议 </summary>              <div class="content">              <p>TCP协议<br>面试官:TCP协议?<br>(心虚)应该还有HTTP协议，因为我是用的muduo库的(阿西吧!)</p><details class="blue"><summary> 答案 </summary>              <div class="content">              <p>应该只用到了TCP协议，用来与服务器建立连接</p><p>RPC和HTTP的联系与区别</p><p>联系：都是远程通信的网络协议，任何网络协议都包括语法、语义、时序三个特征。</p><p>区别：</p><p>HTTP协议是应用层协议，更多地用于前后端通信或移动端、PC端与后端通信，其他的常用应用层协议还包括SSH协议、ftp协议。</p><p>RPC是远程过程调用，更多地用于分布式架构中各个服务模块之间的通信，其中的知识涉及socket通信、序列化和反序列化、动态代理、反射调用。如下程序，服务端要发布socket服务+线程池io处理多个客户端连接+反射调用，客户端要动态代理实例化对象，参与网络传输的Bean要实现Serializable接口变为可序列化+IO流序列化&#x2F;反序列化。</p>              </div>            </details>              </div>            </details><details class="red"><summary> HTTP和TCP有什么区别 </summary>              <div class="content">              <p>HTTP是应用层的协议，TCP是传输层的;<br>HTTP协议是一个报文协议，传输的内容包含了请求以及回应,TCP协议是数据流的协议，里面有目的IP地址和源IP地址(我这回答的简直就是依托答辩,回答的时候还口吃了…)</p><details class="blue"><summary> HTTP协议与TCP协议的区别 </summary>              <div class="content">              <p>1、TCP对应与传输层、而HTTP对应于应用层，所以HTTP协议是建立在TCP协议之上的；</p><p>2、HTTP底层是利用TCP协议传输的，所以支持http也就一定支持TCP；</p><p>3、TCP是网络传输协议， HTTP是超文本传输协议；</p><pre><code>    TCP是底层协议，定义的是数据传输和连接方式的规范。    HTTP是应用层协议，定义的是传输数据的内容的规范。</code></pre><p>4、HTTP是无状态的短链接，而TCP是有状态的长连接；</p><p>TCP对应于传输层，HTTP对应于应用层，从本质上来说，二者没有可比性。</p>              </div>            </details>              </div>            </details><details class="red"><summary> 消息封装的时候先封装哪个协议呢 </summary>              <div class="content">              <p>先封装HTTP协议(面试官不说话，我以为我说错了，立马改口成TCP协议了)<br>答案:先封装HTTP协议，封装消息是从应用层开始，到物理层结束，所以应该先封装应用层的HTTP协议，整个流程如下<br><img lazyload src="/images/loading.svg" data-src="/2023/02/24/blog5/1.jpg" class title="流程"></p>              </div>            </details><details class="red"><summary> 消息发出去需要封装几层 </summary>              <div class="content">              <p>先经过TCP,然后IP，然后HTTP,最后经过数据链路层封装成帧，应该是4层…(今晚听录音的时候真想抽死自己)<br>答案:四层，如上图所示</p>              </div>            </details><details class="red"><summary> 项目调试过程遇到了什么问题 </summary>              <div class="content">              <p>(努力思考做项目的时候遇到的问题，然后乱七八糟回答了一堆有的没的)</p>              </div>            </details><details class="red"><summary> 消息通信一般定位的方法有哪些 </summary>              <div class="content">              <p>(第一次没听清，等第二次听清的时候我才发现不是我没听清而是我根本不知道怎么回答，随便说了一下也不知道是什么东西的玩意)</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 这个项目是用C++写的是吧，那讲一下C++里面数组和链表的区别 </summary>
-              <div class="content">
-              <p>数组在内存中是连续存放的，链表在链表中是随机存放的<br>数组的插入、删除的时间复杂度为O(n),获取元素的时间复杂度为O(1)<br>链表的插入、删除的时间复杂度为O(1),获取元素的时间复杂度为O(n)<br>补充:<br>数组:（1）数组在内存中连续； (2)使用数组之前，必须事先固定数组长度，不支持动态改变数组大小；(3) 数组元素增加时，有可能会数组越界；(4) 数组元素减少时，会造成内存浪费；（5）数组增删时需要移动其它元素；（6）数组从栈上分配内存，使用方便，但是自由度小<br>链表:（1）链表采用动态内存分配的方式，在内存中不连续 (2)支持动态增加或者删除元素 (3)需要时可以使用malloc或者new来申请内存，不用时使用free或者delete来释放内存；（4）链表从堆上分配内存，自由度大，但是要注意内存泄漏</p><details class="green"><summary> 为什么数组的查询时间复杂度是O(1)的呢 </summary>              <div class="content">              <p>因为数组可以通过数组下标来访问数组的元素<br>补充:因为数组在内存中是连续的，所以在知道数组首地址的情况就就能知道数组中所有元素的地址，所以要可以不需要从头开始遍历去查找，所以为O(1)</p>              </div>            </details><details class="green"><summary> 如果数组里面的数据是乱序的，也就是说数组的下标和数组元素之间不存在数学关系的话，那么他的查找效率是怎么样的 </summary>              <div class="content">              <p>还是0(1)吧，数组的下标和元素好像本来就没有什么数学关系</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下指针函数和函数指针的区别 </summary>
-              <div class="content">
-              <p>(寄!)<br>指针函数是指向函数地址的一个指针…函数指针的话不太记得了…</p><details class="blue"><summary> 函数指针和指针函数的区别 </summary>              <div class="content">              <p>指针函数，简单的来说，就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。<br>声明格式为：*类型标识符 函数名(参数表)</p><p>函数指针，其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。<br>声明格式：类型说明符 (*函数名) (参数)</p><p><code>以上都是对普通函数指针的介绍，中在C++中因为类函数的关系，函数指针又会有一些不同的区别</code><br>类成员函数的指针（非静态）<br>指向类成员函数的指针与普通函数指针的区别在于，前者需要匹配函数的参数类型和个数以及返回值类型，还要匹配该函数指针所属的类类型。</p><p>这是因为非静态的成员函数必须被绑定到一个类的对象或者指针上，才能得到被调用对象的this指针，然后才能调用指针所指的成员函数（所有类的对象都有自己数据成员的拷贝，但是成员函数都是共用的，为了区分是谁调用了成员函数，就必须有this指针，this指针是隐式的添加到函数参数列表里去的）<br>类成员函数指针定义:typedef 返回值 (类名::*指针类型名)(参数列表);<br>类成员函数指针赋值:指针类型名  指针名 &#x3D; &amp;类名::成员函数名;<br>类成员函数指针的调用:<br>(类对象.*指针名)(参数列表);<br>(类指针-&gt;*指针名)(参数列表);</p><p>指向类的静态函数的指针<br>类的静态成员函数和普通函数的函数指针的区别在于，他们是不依赖于具体对象的，所有实例化的对象都共享同一个静态成员，所以静态成员也没有this指针的概念。所以，指向类的静态成员函数的指针就是普通的函数指针。</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下类和结构体有什么区别 </summary>
-              <div class="content">
-              <p>在结构体里面所有的数据都是public的，在类里面还存在protect和private<br>类存在构造函数和析构函数<br>类可以通过继承的方法实现多态<br>类里面还会封装对类里面的数据的操作的函数，在结构体里面没办法这样做</p><details class="blue"><summary> 类和结构体的区别 </summary>              <div class="content">              <ol><li><p>结构体是一种值类型，而类是引用类型。值类型用于存储数据的值，引用类型用于存储对实际数据的引用。</p><p>   那么结构体就是当成值来使用的，类则通过引用来对实际数据操作。</p></li><li><p>结构体使用栈存储（Stack Allocation），而类使用堆存储（Heap Allocation)</p></li></ol><p>栈的空间相对较小.但是存储在栈中的数据访问效率相对较高.</p><p>堆的空间相对较大.但是存储在堆中的数据的访问效率相对较低.</p><ol start="3"><li><p>类是反映现实事物的一种抽象，而结构体的作用只是一种包含了具体不同类别数据的一种包装，结构体不具备类的继承多态特性</p></li><li><p>结构体赋值是 直接赋值的值. 而对象的指针 赋值的是对象的地址</p></li><li><p>Struct变量使用完之后就自动解除内存分配，Class实例有垃圾回收机制来保证内存的回收处理。</p></li><li><p>结构体的构造函数中，必须为结构体所有字段赋值，类的构造函数无此限制</p></li></ol><p>首先,关于隐式构造函数.我们知道,在1个类中如果我们没有为类写任意的构造函数,那么C++编译器在编译的时候会自动的为这个类生成1个无参数的构造函数.我们将这个构造函数称之为隐式构造函数 但是一旦我们为这个类写了任意的1个构造函数的时候,这个隐式的构造函数就不会自动生成了.在结构体中,就不是这样了,在结构体中隐式的构造函数无论如何都存在。所以程序员不能手动的为结构添加1个无参数的构造函数。</p><ol start="7"><li>结构体中声明的字段无法赋予初值，类可以</li></ol>              </div>            </details><details class="green"><summary> 结构体可以包含一个类吗 </summary>              <div class="content">              <p>应该可以吧</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 多态是什么意思 </summary>
-              <div class="content">
-              <p>(啊啊啊我知道多态大概是个什么意思，但是我就是没办法用口语表达出来)额…像是…额…</p><details class="blue"><summary> 多态 </summary>              <div class="content">              <p>一个接口多种方法，即用同一个接口，但是效果不同<br>多态又分为静态多态和动态多态。<br>静态多态是指在编译期就把函数链接起来，此时即可确定调用哪个函数或模板，静态多态是由模板和重载实现的，重载又分为函数重载和运算符重载<br>动态多态是指在程序运行时才能确定函数和实现的链接，此时才能确定调用哪个函数，父类指针或者引用能够指向子类对象，调用子类的函数，所以在编译时是无法确定调用哪个函数<br>动态多态存在的三个必要条件：<br>    1. 继承<br>    2. 重写<br>    3. 父类引用指向子类对象</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 全局变量和局部变量可以用相同的变量名吗 </summary>
-              <div class="content">
-              <p>可以<br>答案:局部变量可以与全局变量同名，在函数内引用这个变量时，会用到同名的局部变量，而不会用到全局变量。</p><details class="green"><summary> 如果使用这个变量的时候是使用哪里的? </summary>              <div class="content">              <p>如果在函数里面的话，会先使用局部变量</p>              </div>            </details><details class="green"><summary> 什么情况下使用全局变量呢? </summary>              <div class="content">              <p>(不会)在定义局部变量的函数外就是使用全局变量<br>答案:想要在函数体内使用全局变量而不是同名的局部变量的话，需要使用”::”(作用域解析符)+全局变量名</p>              </div>            </details>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下C++和GO的区别 </summary>
-              <div class="content">
-              <p>(没去探究过，只知道GO很简便)GO里面有很多库可以使用，我通过GORM框架和GIN框架实现视频的上传和聊天记录的上传，并且保存在数据库里面</p>
-              </div>
-            </details>
-
-<details class="green"><summary> 讲一下进程和线程的区别是什么 </summary>
-              <div class="content">
-              <p>进程是资源调度(资源分布才对…)的基本单位,线程是CPU执行的基本单位<br>线程是比线程更轻量级的一个东西(?)，一个线程可以包括很多个进程(不是我在说什么啊?这都能说错啊?)<br>线程之间是共享一些数据的，它们通信不需要通过内核，进程通信需要通过内核<br>    <details class="blue"><summary> 进程与线程的区别与联系 </summary><br>              <div class="content"><br>              <ol><li>拥有资源：进程时资源分配的基本单位，而线程时CPU分配和调度的基本单位。<br>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存。（资源分配给进程，同一进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。</li><li>调度：线程时实现独立调度的基本单位。在同一进程中，线程的切换不会引起进程切换，从一个进程中的线程切换到另一个进程中的线程时，会引起进程切换。</li><li>系统开销：由于创建或撤销进程时，系统都要为之分配或回收资源，如内存空间、I&#x2F;O 设备等，所付出的开销远大于创建或撤销线程时的开销。类似地，在进行进程切换时，涉及当前执行进程 CPU 环境的保存及新调度进程 CPU 环境的设置，而线程切换时只需保存和设置少量寄存器内容，开销很小。<br>通信：程间可以通过直接读写同一进程中的数据进行通信，但是进程通信需要借助 IPC (Inter-Process Communication)。</li></ol><br>              </div><br>            </details></p>
-              </div>
-            </details>
-
-<details class="green"><summary> 进程间通信有哪些方法?哪个效率最高 </summary>
-              <div class="content">
-              <p>方法有管道、信号、消息队列、信号量、共享内存、内存映射；共享内存的效率应该是比较高的</p>
-              </div>
-            </details>
-
-<details class="green"><summary> 共享内存具体怎么操作的呢? </summary>
-              <div class="content">
-              <p>一个进程会先将要共享的文件通过页表映射在物理内存上面，其他进程就可以通过访问物理内存对文件进行修改从而实现进程间通信(奇奇怪怪的)<br>    <details class="blue"><summary> 共享内存的实现 </summary><br>              <div class="content"><br>              <ol><li>使用shmget()函数创建一个新的共享内存段或者区的一个已有的共享内存段的标识符(就是说有其他进程创建的共享内存段)，这个调用将返回后续调用需要用到的共享内存标识符</li><li>使用shmat()函数来附上共享内存段，即使该段称为调用进程的虚拟内存的一部分</li><li>此时在程序中就可以像对待其他可用内存那样对待这个共享内存段。为引用这块共享内存，程序需要使用由shmat()函数的返回值的addr值(一个指向进程的虚拟地址空间中该共享内存段的起点的指针)</li><li>shmdt()函数用来分离共享内存段。在这个调用之后，进程就无法再引用这块共享内存</li><li>调用shmctl()来删除共享内存段。只有当所有附加内存段的进程都与之分离之后内存段可会销毁，只有一个进程需要执行这一步</li></ol><br>              </div><br>            </details></p>
-              </div>
-            </details>
-
-<details class="green"><summary> Linux里的死锁一般是怎么造成的? </summary>
-              <div class="content">
-              <p>一个线程拿了锁没有被释放<br>山羊过独木桥一样，两个线程因为需要对方的锁才能将自己的锁解开，从而出现死锁<br>一个线程持有多把锁，有可能会出现死锁</p>
-              </div>
-            </details>
-
-<p>总结:依托答辩!!!!今晚听录音写博客的时候都想抽死我自己了，我是什么垃圾啊(哭)，下次一定要比这次更好，但谁知道有没有下次呢。</p>
-<p>果然不出我所料，下午就收到感谢信了捏<br>鼠鼠我啊，就是这样的捏~不说了，健身去了</p>
-<img lazyload src="/images/loading.svg" data-src="/2023/02/24/blog5/%E9%BC%A0%E9%BC%A0.jpg" class title="鼠鼠">
+<h5 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h5><p>用virtual关键字修饰的函数；</p>
+<p>本质上由虚指针和虚表控制，虚指针指向虚表中的某个函数入口地址，就实现了多态</p>
+<h5 id="构造函数可以是虚函数吗？"><a href="#构造函数可以是虚函数吗？" class="headerlink" title="构造函数可以是虚函数吗？"></a>构造函数可以是虚函数吗？</h5><p>答：不可以，因为我们知道有虚函数的类在创建实例的时候会通过构造函数创建虚函数表，当调用虚函数的时候需要通过虚指针指向虚函数来调用，那么问题来了，当我们创建一个构造函数是虚函数的实例的时候，需要调用构造函数，而构造函数又因为是虚函数需要有虚函数表，那么此时就矛盾了，所以构造函数不可以是虚函数。</p>
+<h5 id="析构函数可以是虚函数吗"><a href="#析构函数可以是虚函数吗" class="headerlink" title="析构函数可以是虚函数吗"></a>析构函数可以是虚函数吗</h5><p>析构函数可以是虚函数，且常常如此</p>
+<p>这个就好理解了，因为此时 vtable 已经初始化了；况且我们通常通过基类的指针来销毁对象，如果析构函数不为虚的话，就不能正确识别对象类型，从而不能正确销毁对象。</p>
+<h4 id="多态存在的三个必要条件"><a href="#多态存在的三个必要条件" class="headerlink" title="多态存在的三个必要条件"></a>多态存在的三个必要条件</h4><ol>
+<li><p>继承</p>
+</li>
+<li><p>重写</p>
+</li>
+<li><p>父类引用指向子类对象</p>
+</li>
+</ol>
+<h4 id="实现多态的方法"><a href="#实现多态的方法" class="headerlink" title="实现多态的方法"></a>实现多态的方法</h4><ol>
+<li><p>面向对象有了一个重要的概念就是对象的实例，对象的实例代表一个具体的对象，所以肯定有一个数据结构来保存这一实例的数据，这一数据包括对象变量成员，如果对象有虚函数方法或存在虚函数的话，则还有对应的虚函数或虚表指针，不包括其他函数指针</p>
+</li>
+<li><p>虚函数在c++中的实现机制就是用虚表和虚指针，是每个类用了一个虚表，每个类的对象用了一个虚指针。要讲虚函数机制，必须讲继承，因为只有继承才有虚函数的动态绑定功能</p>
+</li>
+<li><p>详细可见上面的虚函数的知识</p>
+</li>
+</ol>
 
             </div>
 
@@ -556,11 +537,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：浙江宇视科技一面</li>
+        <li>本文标题：C++的继承、封装和多态</li>
         <li>本文作者：想成为一只没脑子的海星</li>
-        <li>创建时间：2023-02-24 19:50:20</li>
+        <li>创建时间：2023-02-28 23:16:40</li>
         <li>
-            本文链接：https://qx-gg.github.io/2023/02/24/blog5/
+            本文链接：https://qx-gg.github.io/2023/02/28/blog8/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -575,11 +556,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-%E4%B8%80%E9%9D%A2/">#实习面经(一面)</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/%E6%B5%99%E6%B1%9F%E5%AE%87%E8%A7%86%E7%A7%91%E6%8A%80/">#浙江宇视科技</a>&nbsp;
+                            <a href="/tags/C/">#C++</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -589,44 +566,29 @@
   <div class="recommended-article-header">
     <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>推荐阅读</span>
   </div>
-  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/02/25/blog6/" title="进程间通信的各种方法以及优缺点" rel="bookmark">
-  <img src="https://Qx-GG.github.io/images/辉夜7.jpg" alt="进程间通信的各种方法以及优缺点">
-  <span class="title">进程间通信的各种方法以及优缺点</span>
-</a><a class="recommended-article-item" href="/2023/02/28/blog8/" title="C++的继承、封装和多态" rel="bookmark">
-  <img src="https://Qx-GG.github.io/images/辉夜10.jpg" alt="C++的继承、封装和多态">
-  <span class="title">C++的继承、封装和多态</span>
-</a><a class="recommended-article-item" href="/2023/02/24/blog4/" title="关于并发线程临界区数据安全的问题" rel="bookmark">
-  <img src="https://Qx-GG.github.io/images/辉夜2.jpg" alt="关于并发线程临界区数据安全的问题">
-  <span class="title">关于并发线程临界区数据安全的问题</span>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/02/24/blog5/" title="浙江宇视科技一面" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/辉夜6.jpg" alt="浙江宇视科技一面">
+  <span class="title">浙江宇视科技一面</span>
+</a><a class="recommended-article-item" href="/2023/02/24/blog3/" title="关于线程池的构建及理解" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/辉夜3.jpg" alt="关于线程池的构建及理解">
+  <span class="title">关于线程池的构建及理解</span>
+</a><a class="recommended-article-item" href="/2023/02/24/blog2/" title="Linux下的“库”和“链接”" rel="bookmark">
+  <img src="https://pic1.zhimg.com/v2-c076cc4102738d5d93083a165b564610_r.jpg" alt="Linux下的“库”和“链接”">
+  <span class="title">Linux下的“库”和“链接”</span>
 </a></div>
 </div>
 
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/02/25/blog6/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">进程间通信的各种方法以及优缺点</span>
-                                    <span class="post-nav-item">上一篇</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/02/24/blog4/"
+                            href="/2023/02/27/blog7/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">关于并发线程临界区数据安全的问题</span>
+                                    <span class="post-nav-title-item">信号量以及一些互斥同步模型</span>
                                     <span class="post-nav-item">下一篇</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -691,8 +653,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">浙江宇视科技一面</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">面试开始</span></a></li></ol>
+        <div class="page-title">C++的继承、封装和多态</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">C++面向对象的三种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">1.2.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">继承的三种实现方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E7%BB%A7%E6%89%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">单一继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF"><span class="nav-number">1.2.3.</span> <span class="nav-text">多重继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8F%B1%E5%BD%A2%E7%BB%A7%E6%89%BF"><span class="nav-number">1.2.4.</span> <span class="nav-text">菱形继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%8F%B1%E5%BD%A2%E7%BB%A7%E6%89%BF%E7%9A%84%E9%97%AE%E9%A2%98%E5%91%A2%EF%BC%9F"><span class="nav-number">1.2.5.</span> <span class="nav-text">如何解决菱形继承的问题呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81"><span class="nav-number">1.3.</span> <span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">静态多态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">重载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81"><span class="nav-number">1.3.2.</span> <span class="nav-text">动态多态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">虚函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%98%AF%E8%99%9A%E5%87%BD%E6%95%B0%E5%90%97%EF%BC%9F"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">构造函数可以是虚函数吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E6%98%AF%E8%99%9A%E5%87%BD%E6%95%B0%E5%90%97"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">析构函数可以是虚函数吗</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E5%AD%98%E5%9C%A8%E7%9A%84%E4%B8%89%E4%B8%AA%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.3.3.</span> <span class="nav-text">多态存在的三个必要条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E6%80%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.4.</span> <span class="nav-text">实现多态的方法</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
