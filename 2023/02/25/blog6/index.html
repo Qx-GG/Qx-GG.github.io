@@ -406,8 +406,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-02-28 00:13:47</span>
-            <span class="mobile">2023-02-28 00:13</span>
+            <span class="pc">2023-02-28 19:42:16</span>
+            <span class="mobile">2023-02-28 19:42</span>
             <span class="hover-info">更新时间</span>
         </span>
     
@@ -609,9 +609,9 @@
 <p><strong>共享内存的机制，就是拿出一块虚拟地址空间来</strong>，映射到相同的物理内存中。这样这个进程写入的东西，另外一个进程马上就能看到了，都不需要拷贝来拷贝去，传来传去，大大提高了进程间通信的速度。</p>
 <img lazyload src="/images/loading.svg" data-src="/2023/02/25/blog6/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98.jpg" class title="共享内存">
 <p>共享内存是效率最高的通信方式。</p>
-<h4 id="共享内存使用步骤"><a href="#共享内存使用步骤" class="headerlink" title="共享内存使用步骤"></a>共享内存使用步骤</h4><details class><summary> red 步骤 </summary>
+<h4 id="共享内存使用步骤"><a href="#共享内存使用步骤" class="headerlink" title="共享内存使用步骤"></a>共享内存使用步骤</h4><details class="red"><summary> 步骤 </summary>
               <div class="content">
-              <pre><code>1. 使用shmget()函数创建一个新的共享内存段或者区的一个已有的共享内存段的标识符(就是说有其他进程创建的共享内存段)，这个调用将返回后续调用需要用到的共享内存标识符2. 使用shmat()函数来附上共享内存段，即使该段称为调用进程的虚拟内存的一部分3. 此时在程序中就可以像对待其他可用内存那样对待这个共享内存段。为引用这块共享内存，程序需要使用由shmat()函数的返回值的addr值(一个指向进程的虚拟地址空间中该共享内存段的起点的指针)4. shmdt()函数用来分离共享内存段。在这个调用之后，进程就无法再引用这块共享内存5. 调用shmctl()来删除共享内存段。只有当所有附加内存段的进程都与之分离之后内存段可会销毁，只有一个进程需要执行这一步</code></pre>
+              <ol><li>使用shmget()函数创建一个新的共享内存段或者区的一个已有的共享内存段的标识符(就是说有其他进程创建的共享内存段)，这个调用将返回后续调用需要用到的共享内存标识符</li><li>使用shmat()函数来附上共享内存段，即使该段称为调用进程的虚拟内存的一部分</li><li>此时在程序中就可以像对待其他可用内存那样对待这个共享内存段。为引用这块共享内存，程序需要使用由shmat()函数的返回值的addr值(一个指向进程的虚拟地址空间中该共享内存段的起点的指针)</li><li>shmdt()函数用来分离共享内存段。在这个调用之后，进程就无法再引用这块共享内存</li><li>调用shmctl()来删除共享内存段。只有当所有附加内存段的进程都与之分离之后内存段可会销毁，只有一个进程需要执行这一步</li></ol>
               </div>
             </details>
 <h4 id="共享内存相关API"><a href="#共享内存相关API" class="headerlink" title="共享内存相关API"></a>共享内存相关API</h4><ol>
