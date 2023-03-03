@@ -1137,7 +1137,7 @@
               </div>
             </details>
 
-<p>以上我们说的都是CPU访问内存的数据，但我们一直没说CPU是如何将数据写回到内存中的，现在我们就来说一下</p>
+<p><code>以上我们说的都是CPU访问内存的数据，但我们一直没说CPU是如何将数据写回到内存中的，现在我们就来说一下</code></p>
 <h3 id="CPU写数据操作"><a href="#CPU写数据操作" class="headerlink" title="CPU写数据操作"></a>CPU写数据操作</h3><p>我们知道CPU内部有着CPU Cache，因为离 CPU 核心相当近，它的访问速度是很快的，于是它充当了 CPU 与内存之间的缓存角色。</p>
 <p>如果CPU再修改完数据的时候收到指令需要把修改完的数据返回，那么此时CPU就需要把数据先写回<strong>CPU Cache</strong>中，那次是<strong>CPU Cache</strong>中的数据就和<strong>内存</strong>中的数据不一致了，那么我们要如何保持<strong>缓存的一致性</strong>呢？</p>
 <p>有两种方法:<strong>写直达</strong>和<strong>写回</strong></p>
@@ -1160,16 +1160,77 @@
 <h3 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h3><p>从上面的知识中，我们学到了很多关于CPU Cache的知识，但我们都是在单个CPU核心的情况下考虑问题的，这显然是不够的，因为现在的计算机都是多核的了，那么此时我们就要考虑，如何保证缓存的一致性</p>
 <h4 id="什么是缓存一致性"><a href="#什么是缓存一致性" class="headerlink" title="什么是缓存一致性?"></a>什么是缓存一致性?</h4><details class="blue"><summary> 举个栗子 </summary>
               <div class="content">
-              <p>我们知道，每个CPU核心都有自己的L1 Cache和L2 Cache，但是L3 Cache是共享的。<br>假设此时有两个CPU核心，分别为CPU1和CPU2，此时它们俩分别运行两个线程，但是都是拿来操作共享资源i的。<br>此时(假设i&#x3D;0):</p><ol><li>CPU1读取i的值，并对i进行+1操作，我们知道CPU是采用<strong>写回</strong>机制的，所以此时CPU1的CPU Cache上i的值变为1，并且被标记为<strong>脏</strong></li><li>CPU2开始读取i的值，按道理，在对i加了锁的情况下，CPU2执行完线程后(也是对i+1)，i的值应该是1，但是由于内存中i的值还是0，所以CPU2将i的值读取到CPU Cache的时候，i的值为0，所以就读到了错误的值</li></ol>
+              <p>我们知道，每个CPU核心都有自己的L1 Cache和L2 Cache，但是L3 Cache是共享的。<br>假设此时有两个CPU核心，分别为CPU1和CPU2，此时它们俩分别运行两个线程，但是都是拿来操作共享资源i的。<br>此时(假设i&#x3D;0):</p><ol><li>CPU1读取i的值，并对i进行+1操作，我们知道CPU是采用<strong>写回</strong>机制的，所以此时CPU1的CPU Cache上i的值变为1，并且被标记为<strong>脏</strong></li><li>CPU2开始读取i的值，按道理来说，CPU2读取到的i值应该是1，但是由于<strong>写回</strong>的机制，CPU1并没有将修改完的i值写入内存中，这也就导致CPU2读取的i值还是0，这也就发生了错误</li></ol>
               </div>
             </details>
 <p>这个就是所谓的缓存一致性问题，<strong>1号核心</strong>和<strong>2号核心</strong>的缓存，在这个时候是不一致，从而会导致执行结果的错误。</p>
 <h3 id="如何避免缓存一致性问题"><a href="#如何避免缓存一致性问题" class="headerlink" title="如何避免缓存一致性问题"></a>如何避免缓存一致性问题</h3><p>要解决这一问题，就需要一种机制，来同步两个不同核心里面的缓存数据。要实现的这个机制的话，要保证做到下面这2点:</p>
 <ol>
 <li>第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为<strong>写传播(Wreite Propagation)</strong></li>
-<li>第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串形化(Transaction Serialization)</strong></li>
+<li>第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串形化(Transaction Serialization)</strong><details class="blue"><summary> 写传播 </summary>
+              <div class="content">
+              <p><strong>写传播</strong>就是当某个CPU核心更新了CPU Cache中的数据，就要把该事件<strong>广播</strong>给所有CPU核心，其中最常见的方法就是<strong>总线嗅探(Bus Snooping)</strong></p><p>以前面i的例子来说:<br>当CPU1对i进行了+1操作后，修改了L1 Cache的数据，会通过总线把这个时间广播给其他CPU,然后每个CPU都会<strong>监听</strong>总线上的广播事件，然后检查自己L1 Cache上是否有该数据，如果有的话也将数据更新到自己的L1 Cache</p>
+              </div>
+            </details>
+<details class="blue"><summary> 事务的串行化 </summary>
+              <div class="content">
+              <p>还是举个栗子叭:</p><ol><li>假设我们有4个CPU核心，然后有一个数据为i</li><li>CPU1将数据i修改成100</li><li>CPU2将数据i修改成200</li><li>这两个操作都会通过<strong>写传播</strong>，用总线将数据更新的事件传递给其他CPU，在这里就是CPU3和CPU4</li><li>假设CPU3先收到了i修改成100的事件，然后再收到将i修改成200的事件，最后再CPU3的L1 Cache中，i的值为200</li><li>假设CPU4先收到了i修改成200的事件，然后再收到将i修改成100的事件，最后再CPU4的L1 Cache中，i的值为100</li></ol><p>显然，这里就又出现错误了，虽然我们通过<strong>写传播</strong>，将数据更新这个事件传输了，但由于其他CPU执行的顺序不同，也会出现数据不一致的情况，所以我们必须保证CPU3和CPU4都能看到<strong>相同顺序的数据变化</strong>，这就是<strong>数据的串行化</strong></p><p>要实现<strong>数据的串行化</strong>，必须满足以下两点:</p><ol><li>CPU 核心对于 Cache 中数据的操作，需要同步给其他 CPU 核心；</li><li>要引入「锁」的概念，如果两个 CPU 核心里有相同数据的 Cache，那么对于这个 Cache 数据的更新，只有拿到了「锁」，才能进行对应的数据更新。</li></ol>
+              </div>
+            </details></li>
 </ol>
-]]></content>
+<p>上面我们知道可以用<strong>总线嗅探</strong>来实现<strong>写传播</strong>，但是没有办法实现<strong>数据串行化</strong>，再加上虽然<strong>总线嗅探</strong>方法很简单，但是CPU 需要每时每刻监听总线上的一切活动，但是不管别的核心的 Cache 是否缓存相同的数据，都需要发出一个广播事件，这无疑会加重总线的负载。</p>
+<p>那么我们有没有什么方法，既可以减轻总线的负载来满足<strong>写传播</strong>，又能实现<strong>数据的串行化</strong>呢?</p>
+<p>当然是有的啦，这是一个协议，基于总线嗅探机制实现了事务串形化，也用状态机机制降低了总线带宽压力，这个协议就是 MESI 协议，这个协议就做到了 CPU 缓存一致性</p>
+<h4 id="MESI协议"><a href="#MESI协议" class="headerlink" title="MESI协议"></a>MESI协议</h4><p>MESI协议其实是4个状态的英文首字母组合起来的:</p>
+<ol>
+<li>Modified 已修改</li>
+<li>Exclusive 独占</li>
+<li>Shared 共享</li>
+<li>Invalidated 已失效<br>我们可以用这四个状态来标记 Cache Line 四个不同的状态。<details class><summary> yellow:已修改 </summary>
+              <div class="content">
+              <p><strong>已修改</strong>状态就是我们前面提到的脏标记，代表该 Cache Line 上的数据已经被更新过，但是还没有写到内存里。而<strong>已失效</strong>状态，表示的是这个 Cache Line 里的数据已经失效了，不可以读取该状态的数据。</p>
+              </div>
+            </details></li>
+</ol>
+<details class><summary> yellow:独占 </summary>
+              <div class="content">
+              <p><strong>独占</strong>状态代表 Cache Line 里的数据是干净的，也就是说，这个时候 Cache Line 里的数据和内存里面的数据是一致性的,同时也代表着只有一个CPU核心拥有该数据，这个时候无论如何修改这个数据，都不需要向其他CPU核心广播，这样就解决了<strong>总线嗅探</strong>导致的总线负载过大的问题</p><p>同样的，如果一个CPU核心处于<strong>独占</strong>状态的时候，有另外一个CPU核心读取了相同的数据，那么此时这两个CPU核心都会从<strong>独占</strong>变成<strong>共享</strong></p>
+              </div>
+            </details>
+
+<details class><summary> yellow:共享 </summary>
+              <div class="content">
+              <p><strong>共享</strong>状态代表 Cache Line 里的数据是干净的，也就是说，这个时候 Cache Line 里的数据和内存里面的数据是一致性的，也代表着不止一个CPU核心拥有这个数据。</p><p>当其中一个CPU核心想要修改<strong>共享</strong>的数据的时候，需要先向其他CPU核心广播消息，让其他CPU核心将<strong>共享</strong>的数据修改成<strong>已失效</strong>状态，然后该CPU核心才能对这个数据进行修改，修改完也要把状态变成<strong>已修改</strong></p>
+              </div>
+            </details>
+
+<details class><summary> yellow:已失效 </summary>
+              <div class="content">
+              <p>代表该Cache Line中的数据已经失效了，不可以读取该状态的数据</p>
+              </div>
+            </details>
+
+<p>还是举个栗子:</p>
+<ol>
+<li>CPU1读取内存中的A数据，那么此时A数据就被读取到CPU1的Cache Line中，由于CPU1的Cache Line并没有缓存该数据，所以此时将CPU1的Cache Line标记为<strong>独占</strong></li>
+<li>CPU2也读取内存中的A数据，由于CPU1的Cache Line缓存了该数据，但是CPU2的Cache Line并没有缓存A数据，于是CPU2就将A数据缓存到自己的Cache Line中，并且CPU1和CPU2的Cache Line的状态都修改成<strong>共享</strong></li>
+<li>此时CPU1想要修改A数据，那么就需要先将<strong>想要修改A数据</strong>的信息传递给其他CPU核心，CPU2接收到该信息，检查自己的Cache Line，发现自己的Cache Line有A数据，于是将自身的Cache Line中的A数据标志为<strong>已失效</strong>状态，然后CPU1就开始修改A数据，修改结束后，将Cache Line的状态修改成<strong>已修改</strong></li>
+<li>如果CPU1<strong>继续</strong>修改Cache Line中A数据的值，由于此时的 Cache Line 是<strong>已修改</strong>状态，因此不需要给其他 CPU 核心发送消息，直接更新数据即可。</li>
+<li>如果此时CPU3想要读取A数据，那么此时CPU1会先将<strong>已修改</strong>的A数据，写回到内存中，然后CPU3将更新完的A数据缓存到自己的Cache Line中，并且CPU1和CPU3的Cache Line状态都修改成<strong>共享</strong></li>
+</ol>
+<p>所以，可以发现当 Cache Line 状态是<strong>已修改</strong>或者<strong>独占</strong>状态时，修改更新其数据不需要发送广播给其他 CPU 核心，这在一定程度上减少了总线带宽压力</p>
+<p>事实上，整个 MESI 的状态可以用一个有限状态机来表示它的状态流转。还有一点，对于不同状态触发的事件操作，可能是来自本地 CPU 核心发出的广播事件，也可以是来自其他 CPU 核心通过总线发出的广播事件。下图即是 MESI 协议的状态图：</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/MESI.jpg" class title="MESI">
+<p>MESI 协议的四种状态之间的流转过程，如下表格，可以更详细的看到每个状态转换的原因：</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/MESI1.jpg" class title="MESI">
+
+<p><code>同样的，当多个CPU核心读取同一块内存块的时候，还是会出现一个问题</code><br>那就是<strong>伪共享</strong>问题</p>
+<h3 id="伪共享问题"><a href="#伪共享问题" class="headerlink" title="伪共享问题"></a>伪共享问题</h3><p>什么是<strong>伪共享</strong>问题?<br>让我们看看下面这个场景:</p>
+<details class="red"><summary> 伪共享场景 </summary>
+              <div class="content">
+              
+              </div>
+            </details>]]></content>
       <categories>
         <category>操作系统</category>
       </categories>
