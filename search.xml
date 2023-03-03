@@ -960,7 +960,7 @@
 <p>我们说的CPU的32位和64位，一般指的是CPU的<strong>位宽</strong></p>
 <details class="red"><summary> 为什么要这样设计CPU呢 </summary>
               <div class="content">
-              <p>之所以要这样设计CPU，是为了一次性能够计算更多的数据。</p><ol><li>假设有一个位宽为8的CPU(也就是8位的CPU)，那么这个CPU一次能处理的最大整数就是<code>(2^7+2^6+...+1)=255</code></li><li>此时我想要计算1000<em>500;由于CPU最多只能处理255以内的整数，所以此时就会分为好几次去计算1000</em>500;这样会很浪费CPU的时间，因为我们知道一个程序里不可能就一条指令，所以为了提高CPU的效率，科学家就将CPU分为32位和64位</li><li>32位的CPU可以计算的最大整数为<strong>4294967295</strong></li></ol>
+              <p>之所以要这样设计CPU，是为了一次性能够计算更多的数据。</p><ol><li>假设有一个位宽为8的CPU(也就是8位的CPU)，那么这个CPU一次能处理的最大整数就是<code>(2^7+2^6+...+1)=255</code></li><li>此时我想要计算1000×500;由于CPU最多只能处理255以内的整数，所以此时就会分为好几次去计算1000×500;这样会很浪费CPU的时间，因为我们知道一个程序里不可能就一条指令，所以为了提高CPU的效率，科学家就将CPU分为32位和64位</li><li>32位的CPU可以计算的最大整数为<strong>4294967295</strong></li></ol>
               </div>
             </details>
 
@@ -973,7 +973,7 @@
 <p>我们知道，一个工厂里肯定不止一个车间的，所以说在现代的计算机里，大部分都是多核的，也就是说CPU可以在同一时间将不同的任务交给不同的核心进行处理，这就是<strong>并行</strong></p>
 <img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C.jpg" class title="并发与并行">
 
-<p><code>CPU由**运算器**、**寄存器**和**控制器**组成</code></p>
+<p>CPU由<strong>运算器</strong>、<strong>寄存器</strong>和<strong>控制器</strong>组成</p>
 <h5 id="运算器"><a href="#运算器" class="headerlink" title="运算器"></a>运算器</h5><p>在刚刚的比喻中，我们知道一个核心就是一个车间，车间里很定需要工人，<strong>运算器</strong>在这个车间里面就扮演这个角色，当有数据给他并告诉他要执行什么运算的时候，就由<strong>运算器</strong>进行运算并将结果给其他人，<strong>运算器</strong>只负责运算</p>
 <h5 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h5><p>那么总得有人把东西交给普通工人吧，并且把处理好的东西拿走，那么<strong>寄存器</strong>就实现了这个功能，<strong>寄存器</strong>就是负责传递信息(数据)或者搬运信息(数据)，主要作用是存储计算时的数据，需要时可以直接从<strong>寄存器</strong>中获取，<strong>寄存器也分很多种，不同的寄存器实现不同的功能</strong></p>
 <details class="blue"><summary> 常见的寄存器种类 </summary>
@@ -1050,7 +1050,125 @@
 <p>别急，让我先急!</p>
 <p>接下来慢慢看叭</p>
 <h2 id="计算机中的存储设备"><a href="#计算机中的存储设备" class="headerlink" title="计算机中的存储设备"></a>计算机中的存储设备</h2><p>鼠鼠毕业后找到工作了肯定要自己组装一台电脑的，那么鼠鼠除了CPU和显卡需要购买，还有显示屏等等，最重要的是，还需要买一些存储设备，不然怎么下载游戏?因为存储设备比较多，有内存和硬盘，硬盘又分为<strong>固态硬盘</strong>和<strong>机械硬盘</strong><br>当断电后，内存条中的数据是会丢失的，而硬盘中的数据并不会丢失，因为硬盘是持久化存储设备，同时也是一个 I&#x2F;O 设备。后面我会写一篇文章就是关于数据是如何读写到硬盘上的，先写完今天再说</p>
+<p>但其实 CPU 内部也有存储数据的组件，这个应该比较少人注意到，比如寄存器、**CPU L1&#x2F;L2&#x2F;L3 Cache **也都是属于存储设备，只不过它们能存储的数据非常小，但是它们因为靠近 CPU 核心，所以访问速度都非常快，快过硬盘好几个数量级别。</p>
 <h2 id="为何有了内存还需要寄存器"><a href="#为何有了内存还需要寄存器" class="headerlink" title="为何有了内存还需要寄存器?"></a>为何有了内存还需要寄存器?</h2><p>我们知道，CPU是需要从内存从读取数据才能进行处理的，而寄存器也可以存储数据，只是存储空间比较小，但是由于CPU与内存的距离较远，读取速度相对于就在CPU内部的寄存器而言慢了很多，况且寄存器离<strong>控制单元</strong>和<strong>逻辑运算单元</strong>都很近，所以计算速度会快很多。</p>
+<h2 id="存储器的层次结构"><a href="#存储器的层次结构" class="headerlink" title="存储器的层次结构"></a>存储器的层次结构</h2><p>在所有的存储器中，我们按照CPU读取速度的快慢，将所有存储器分成以下级别:</p>
+<ol>
+<li>速度最快的就是<strong>寄存器</strong>，但是能处理的数据量是最少的</li>
+<li>CPU Cache也是在CPU内部结构里的，所以它们的速度也很快，就比寄存器慢一点，但是存储的数据也更多了</li>
+<li>内存，前面两个都属于CPU内部的存储器，在CPU外部，速度最快的就是内存了</li>
+<li>固态硬盘和机械硬盘是最慢的，相对而言，固态硬盘又比机械硬盘快了一个档次</li>
+</ol>
+<p><strong>对于存储器而言，它的处理速度越快，耗能也就越多，而且制造材料就更贵，成本就更高，以至于速度快的存储器的存储空间都比较小</strong><br>CPU 里的寄存器和 Cache，是整个计算机存储器中价格最贵的，虽然存储空间很小，但是读写速度是极快的，而相对比较便宜的内存和硬盘，速度肯定比不上 CPU 内部的存储器，但是能弥补存储空间的不足。</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/%E5%AD%98%E5%82%A8%E5%99%A8.jpg" class title="存储器">
+
+<h3 id="寄存器-1"><a href="#寄存器-1" class="headerlink" title="寄存器"></a>寄存器</h3><p>最靠近<strong>控制单元</strong>和<strong>逻辑运算单元</strong>的存储器就是<strong>寄存器</strong>了，它使用的制造材料也很贵但也是最快的，又因为它是在CPU里的，所以它的存储量也很小，并且数量也不是很多</p>
+<details class="blue"><summary> 寄存器的数量 </summary>
+              <div class="content">
+              <p>寄存器的数量一般在几十到几百之间，每个寄存器存储一定字节的数据<br>例如:<br>    1. 32位CPU的存储器一般存储4字节的数据<br>    2. 64位CPU的存储器一般存储8字节的数据</p><p>寄存器的访问速度非常快，一般要求在半个 CPU 时钟周期内完成读写，CPU 时钟周期跟 CPU 主频息息相关，比如 2 GHz 主频的 CPU，那么它的时钟周期就是 1&#x2F;2G，也就是 0.5ns（纳秒）。</p><p>CPU 处理一条指令的时候，除了读写寄存器，还需要解码指令、控制指令执行和计算。如果寄存器的速度太慢，则会拉长指令的处理周期，从而给用户的感觉，就是电脑「很慢」。</p>
+              </div>
+            </details>
+
+<h3 id="CPU-Cache"><a href="#CPU-Cache" class="headerlink" title="CPU Cache"></a>CPU Cache</h3><p>CPU Cache 用的是一种叫 SRAM（Static Random-Access Memory，静态随机存储器） 的芯片。</p>
+<p>SRAM 之所以叫「静态」存储器，是因为只要有电，数据就可以保持存在，而一旦断电，数据就会丢失了。</p>
+<p>在<strong>SRAM</strong>里面，一个比特的数据，通常需要<strong>6</strong>个晶体管，所以 SRAM 的存储密度不高，同样的物理空间下，能存储的数据是有限的，不过也因为 SRAM 的电路简单，所以访问速度非常快。</p>
+
+<details class="yellow"><summary> 为什么要有CPU Cache? </summary>
+              <div class="content">
+              <p>根据摩尔定律，CPU 的访问速度每 18 个月就会翻倍，相当于每年增长 60% 左右，内存的速度当然也会不断增长，但是增长的速度远小于 CPU，平均每年只增长 7% 左右。于是，CPU 与内存的访问性能的差距不断拉大。</p><p>到现在，一次内存访问所需时间是 200<del>300 多个时钟周期，这意味着 CPU 和内存的访问速度已经相差 200</del>300 多倍了。</p><p>为了弥补 CPU 与内存两者之间的性能差异，就在 CPU 内部引入了CPU Cache，也称高速缓存。</p>
+              </div>
+            </details>
+
+<p>CPU 的高速缓存(CPU Cache)，通常可以分为 L1、L2、L3 这样的三层高速缓存，也称为一级缓存、二次缓存、三次缓存。</p>
+<h4 id="L1-Cache"><a href="#L1-Cache" class="headerlink" title="L1 Cache"></a>L1 Cache</h4><p>一级缓存的访问速度几乎和寄存器一样快，通常只需要 2~4 个时钟周期，而大小在几十 KB 到几百 KB 不等。<br><strong>每个CPU核心都有一块属于自己的L1 Cache</strong>，并且L1 Cache通常分为<strong>数据缓存</strong>和<strong>指令缓存</strong><br>可以在Linux下通过以下命令查看L1 Cache的数据缓存和指令缓存的容量大小</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /sys/devices/system/cpu/cpu0/cache/index0/size    //查看数据缓存</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /sys/devices/system/cpu/cpu0/cache/index1/size    //查看指令缓存</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="L2-Cache"><a href="#L2-Cache" class="headerlink" title="L2 Cache"></a>L2 Cache</h4><p>二级缓存的速度就比一级缓存慢，因为它距离CPU核心更远，但同时，它的大小也比一级缓存大<br><strong>同样的，二级缓存也是每个CPU都有的</strong><br>可以在Linux下通过以下命令查看L2 Cache的容量大小</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /sys/devices/system/cpu/cpu0/cache/index2/size</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="L3-Cache"><a href="#L3-Cache" class="headerlink" title="L3 Cache"></a>L3 Cache</h4><p>L3 Cache与CPU核心又比L2 Cache更远，所以访问速度也比二级缓存更慢，但大小也更大<br><strong>L2 Cache是所有CPU核心共享的，但每个CPU里面也只有一块</strong><br>可以在Linux下通过以下命令查看L3 Cache的容量大小</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /sys/devices/system/cpu/cpu0/cache/index3/size</span> </span><br></pre></td></tr></table></figure></div>
+
+<h3 id="内存-1"><a href="#内存-1" class="headerlink" title="内存"></a>内存</h3><p>内存用的芯片和 CPU Cache 有所不同，它使用的是一种叫作 DRAM （Dynamic Random Access Memory，动态随机存取存储器） 的芯片。</p>
+<p>相比 SRAM，DRAM 的密度更高，功耗更低，有更大的容量，而且造价比 SRAM 芯片便宜很多。</p>
+<p>DRAM 存储一个比特数据，只需要一个晶体管和一个电容就能存储，但是因为数据会被存储在电容里，电容会不断漏电，所以需要「定时刷新」电容，才能保证数据不会被丢失，这就是 DRAM 之所以被称为「动态」存储器的原因，只有不断刷新，数据才能被存储起来。</p>
+<p>DRAM的数据访问电路和刷新电路比SRAM更复杂，所以内存的访问速度也更慢，但是大小也会大得多</p>
+<h3 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h3><p>硬盘又分为固态硬盘(SSD)和机械硬盘(HDD)</p>
+<h4 id="固态硬盘-SSD"><a href="#固态硬盘-SSD" class="headerlink" title="固态硬盘(SSD)"></a>固态硬盘(SSD)</h4><p>结构和内存类似，但是硬盘的优点就在于在断电后，数据依旧保存在硬盘上的，意思就是说硬盘上的数据如果不是刻意去破坏，那么就是永久的。内存的读写速度大概是SSD的<strong>10-1000</strong>倍</p>
+<h4 id="机械硬盘-HDD"><a href="#机械硬盘-HDD" class="headerlink" title="机械硬盘(HDD)"></a>机械硬盘(HDD)</h4><p>机械硬盘是比较传统的硬盘，它是通过物理读写的方式来访问数据的，因此它的访问速度特别慢，内存的读写速度大概是它的<strong>10w</strong>倍</p>
+<p>随着时间的发展，由于固态硬盘的价格越来越便宜，导致机械硬盘几乎没什么人会用了，因此HDD正在被SSD取代</p>
+<h2 id="存储器的存储关系"><a href="#存储器的存储关系" class="headerlink" title="存储器的存储关系"></a>存储器的存储关系</h2><p>现代的一台计算机，都用上了 CPU Cahce、内存、到 SSD 或 HDD 硬盘这些存储器设备了。</p>
+<p>其中，存储空间越大的存储器设备，其访问速度越慢，所需成本也相对越少。</p>
+<p>CPU 并不会直接和每一种存储器设备直接打交道，而是每一种存储器设备只和它相邻的存储器设备打交道。</p>
+<p>比如，CPU Cache 的数据是从内存加载过来的，写回数据的时候也只写回到内存，CPU Cache 不会直接把数据写到硬盘，也不会直接从硬盘加载数据，而是先加载到内存，再从内存加载到 CPU Cache 中。</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/1.jpg" class width="1">
+<p>所以，每个存储器只和相邻的一层存储器设备打交道，并且存储设备为了追求更快的速度，所需的材料成本必然也是更高，也正因为成本太高，所以 CPU 内部的寄存器、L1\L2\L3 Cache 只好用较小的容量，相反内存、硬盘则可用更大的容量，这就我们今天所说的存储器层次结构。</p>
+<p>另外，当 CPU 需要访问内存中某个数据的时候，如果寄存器有这个数据，CPU 就直接从寄存器取数据即可，如果寄存器没有这个数据，CPU 就会查询 L1 高速缓存，如果 L1 没有，则查询 L2 高速缓存，L2 还是没有的话就查询 L3 高速缓存，L3 依然没有的话，才去内存中取数据。</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/2.jpg" class width="2">
+
+<p>我们从上面的知识中可以知道，CPU执行程序的时候是需要去从内存中获取数据的，假设CPU里面没有存储器，那么既不是每次获取数据都需要从内存中获取吗，准确的来说，即使是之前已经获取过的数据，想要再次获取就要重新去内存里面查找，这杨效率也太低了吧，所以就有了<strong>寄存器</strong>这个存储器，但是<strong>寄存器</strong>能存储的数据量实在是太小了，所以就有了CPU Cache的出现。</p>
+<p>那么，CPU Cache是如何将内存中的数据保存下来的呢?</p>
+<h2 id="CPU-Cache-1"><a href="#CPU-Cache-1" class="headerlink" title="CPU Cache"></a>CPU Cache</h2><h3 id="CPU-Cache的读取过程"><a href="#CPU-Cache的读取过程" class="headerlink" title="CPU Cache的读取过程"></a>CPU Cache的读取过程</h3><p>CPU Cache的数据是从<strong>内存</strong>中读取过来的，它是以<strong>一小块一小块</strong>读取数据的，而不是按单个数据读取的，所以在CPU Cache中，这样一小块一小块的数据被称为<strong>Cache Line(缓存块)</strong><br>在Linux下查看Cache Line的大小</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size     //查看L1 Cache一次性能载入的数据的大小，index1就是一次性能载入的指令的大小，index2就是L2 Cache，index3就是L3 Cache</span></span><br></pre></td></tr></table></figure></div>
+<p>我们假设在Linux下输入上面的命令得出的结果为<strong>64</strong>，意思就是说L1 Cache一次性能从内存中读取64字节的数据到L1 Cache中的数据缓存，什么意思呢？</p>
+<p>假设我们内存中有一个数组<strong>int array[100]</strong>,当我们CPU根据程序指数器的内容去访问array[0]的时候，由于是<strong>int</strong>类型的数组，一个元素占<strong>4个字节</strong>，而我们的CPU Cache一次性能载入的最大数据量为64字节，那么此时就会继续往后遍历到array[15]，那么此时就刚好是64字节，那么array[0]<del>array[15]都会被缓存到CPU Cache中，这样等以后CPU还想要获取**array[0]</del>array[15]**中的数据时，就无需再去访问内存，直接访问CPU Cache就可以了，这也是CPU Cache的好处</p>
+<p>事实上，CPU 读取数据的时候，无论数据是否存放到 Cache 中，CPU 都是先访问 Cache，只有当 Cache 中找不到数据时，才会去访问内存，并把内存中的数据读入到 Cache 中，CPU 再从 CPU Cache 读取数据</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/3.jpg" class width="3">
+<p>这样的访问机制，跟我们使用「内存作为硬盘的缓存」的逻辑是一样的，如果内存有缓存的数据，则直接返回，否则要访问龟速一般的硬盘。</p>
+<p><strong>那 CPU 怎么知道要访问的内存数据，是否在 Cache 里？如果在的话，如何找到 Cache 对应的数据呢？</strong>我们从最简单、基础的**直接映射 Cache(Direct Mapped Cache)**说起，来看看整个 CPU Cache 的数据结构和访问逻辑。</p>
+<h3 id="CPU-Cache的数据结构和访问逻辑"><a href="#CPU-Cache的数据结构和访问逻辑" class="headerlink" title="CPU Cache的数据结构和访问逻辑"></a>CPU Cache的数据结构和访问逻辑</h3><p>我们前面提到了，CPU Cache去内存读取数据时，是<strong>一块一块</strong>地读取的，而读取的大小我们可以通过一些命令获取。<br>那么在内存中，这样一块的数据我们成为<strong>内存块</strong>，读取的时候，我们需要知道的是数据所在的内存块的地址。</p>
+<details class="red"><summary> 直接映射 Cache </summary>
+              <div class="content">
+              <p>所谓<strong>直接映射Cache策略</strong>，就是将内存块始终映射到CPU Cache的某一块Cache Line，映射的方法则采用<strong>取模运算</strong><br>当然了，这样做很容易出现类似<strong>哈希冲突</strong>一样的问题，就是多个<strong>内存块</strong>映射到同一块<strong>Cache Line</strong></p>
+              </div>
+            </details>
+<details class="blue"><summary> 解决“哈希冲突” </summary>
+              <div class="content">
+              <p>为了区别不同的<strong>内存块</strong>，我们在对应的<strong>Cache Line</strong>中加入<strong>组标记(Tag)</strong>,这个组标记会记录当前 CPU Line 中存储的数据对应的内存块，我们可以用这个组标记来区分不同的内存块<br>除此之外，Cache Line还有两个信息</p><ol><li>从内存加载过来的实际存放数量</li><li><strong>有效位</strong>，这个组标记会记录当前 CPU Line 中存储的数据对应的内存块，我们可以用这个组标记来区分不同的内存块</li></ol>
+              </div>
+            </details>
+
+<p>我们知道，我们CPU有时候需要读取的并不是一整个<strong>内存块</strong>，就那上面的数组例子来说，CPU想要获取array[2]的值，<strong>CPU Cache</strong>为了尽可能地将多的数据保存，所以就将<strong>array[0]~array[15]<strong>的数据全部保存在</strong>Cache Line</strong>中，但是CPU只需要<strong>array[2]<strong>的数据，所以我们就需要一个</strong>偏移量</strong>来帮助CPU定位到需要的数据</p>
+<p>我们通常称<strong>CPU Cache上的一个数据片段</strong>为<strong>字</strong>，而在CPU Cache上找到CPU所需要的<strong>字</strong>，就需要<strong>偏移量(offset)</strong></p>
+<p>因此，一个内存的访问地址，包括<strong>组标记、CPU Line 索引、偏移量</strong>这三种信息，于是 CPU 就能通过这些信息，在 CPU Cache 中找到缓存的数据。而对于 CPU Cache 里的数据结构，则是由<strong>索引 + 有效位 + 组标记 + 数据块</strong>组成。</p>
+
+<details class="blue"><summary> 如果内存中的数据已经在 CPU Cahe 中了，那 CPU 访问一个内存地址的时候，会经历这 4 个步骤： </summary>
+              <div class="content">
+              <ol><li>根据内存地址中索引信息，计算在 CPU Cahe 中的索引，也就是找出对应的 CPU Line 的地址</li><li>找到对应 CPU Line 后，判断 CPU Line 中的有效位，确认 CPU Line 中数据是否是有效的，如果是无效的，CPU 就会直接访问内存，并重新加载数据，如果数据有效，则往下执行</li><li>对比内存地址中组标记和 CPU Line 中的组标记，确认 CPU Line 中的数据是我们要访问的内存数据，如果不是的话，CPU 就会直接访问内存，并重新加载数据，如果是的话，则往下执行</li><li>根据内存地址中偏移量信息，从 CPU Line 的数据块中，读取对应的字。</li></ol>
+              </div>
+            </details>
+
+<p>以上我们说的都是CPU访问内存的数据，但我们一直没说CPU是如何将数据写回到内存中的，现在我们就来说一下</p>
+<h3 id="CPU写数据操作"><a href="#CPU写数据操作" class="headerlink" title="CPU写数据操作"></a>CPU写数据操作</h3><p>我们知道CPU内部有着CPU Cache，因为离 CPU 核心相当近，它的访问速度是很快的，于是它充当了 CPU 与内存之间的缓存角色。</p>
+<p>如果CPU再修改完数据的时候收到指令需要把修改完的数据返回，那么此时CPU就需要把数据先写回<strong>CPU Cache</strong>中，那次是<strong>CPU Cache</strong>中的数据就和<strong>内存</strong>中的数据不一致了，那么我们要如何保持<strong>缓存的一致性</strong>呢？</p>
+<p>有两种方法:<strong>写直达</strong>和<strong>写回</strong></p>
+<h4 id="写直达"><a href="#写直达" class="headerlink" title="写直达"></a>写直达</h4><img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/%E5%86%99%E7%9B%B4%E8%BE%BE.jpg" class title="写直达">
+<ol>
+<li>如果数据已经在 Cache 里面，先将数据更新到 Cache 里面，再写入到内存里面；</li>
+<li>如果数据没有在 Cache 里面，就直接把数据更新到内存里面。</li>
+</ol>
+<p>顾名思义，<strong>写直达</strong>就是每次都将数据写回<strong>CPU Cache</strong>中和<strong>内存</strong>中，但这样的效率太低了，因为不是每次修改完数据用户都需要读取的，那此时写回内存将没有任何意义。</p>
+<h4 id="写回"><a href="#写回" class="headerlink" title="写回"></a>写回</h4><p>为了提高效率，有发明了另外一种方法。<br>在写回机制中，<strong>当发生写操作时，新的数据仅仅被写入 Cache Block 里，只有当修改过的 Cache Block「被替换」时才需要写到内存中</strong>，减少了数据写回内存的频率，这样便可以提高系统的性能。</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/03/blog9/%E5%86%99%E5%9B%9E.jpg" class title="写回">
+
+<details class="blue"><summary> 写回的流程 </summary>
+              <div class="content">
+              <ol><li>当CPU发生<strong>写操作</strong>的时候，先检查<strong>CPU Cache</strong>中对应的<strong>Cache Line</strong>中是否有数据，有的话就将数据更改为<strong>修改后的数据</strong>，并且标记为<strong>脏</strong>，因为此时<strong>Cache Line</strong>中的数据和对应的内存中的数据是不一样的</li><li>当CPU发生<strong>写操作</strong>的时候，发现<strong>修改完的数据</strong>的对应的<strong>Cache Line</strong>中的保存的是<strong>别的内存地址的数据</strong>时<ol><li>如果该数据不是脏的，直接将修改后的数据进行覆盖，并且标记为<strong>脏</strong></li><li>如果该数据是脏的，那么就先将该<strong>Cache Line</strong>上的数据<strong>写回到对应地址的内存上</strong>，然后将<strong>修改后的数据放入Cache Line中</strong>，并且标记为<strong>脏</strong></li></ol></li></ol>
+              </div>
+            </details>
+<p>可以发现<strong>写回</strong>这个方法，在把数据写入到 Cache 的时候，只有在<strong>缓存不命中</strong>，同时数据对应的 Cache 中的 Cache Block 为脏标记的情况下，才会将数据写到内存中，而在缓存命中的情况下，则在写入后 Cache 后，只需把该数据对应的 Cache Block 标记为脏即可，而不用写到内存里。</p>
+<p>这样的好处是，如果我们大量的操作都能够命中缓存，那么大部分时间里 CPU 都不需要读写内存，自然性能相比写直达会高很多。</p>
+<h3 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h3><p>从上面的知识中，我们学到了很多关于CPU Cache的知识，但我们都是在单个CPU核心的情况下考虑问题的，这显然是不够的，因为现在的计算机都是多核的了，那么此时我们就要考虑，如何保证缓存的一致性</p>
+<h4 id="什么是缓存一致性"><a href="#什么是缓存一致性" class="headerlink" title="什么是缓存一致性?"></a>什么是缓存一致性?</h4><details class="blue"><summary> 举个栗子 </summary>
+              <div class="content">
+              <p>我们知道，每个CPU核心都有自己的L1 Cache和L2 Cache，但是L3 Cache是共享的。<br>假设此时有两个CPU核心，分别为CPU1和CPU2，此时它们俩分别运行两个线程，但是都是拿来操作共享资源i的。<br>此时(假设i&#x3D;0):</p><ol><li>CPU1读取i的值，并对i进行+1操作，我们知道CPU是采用<strong>写回</strong>机制的，所以此时CPU1的CPU Cache上i的值变为1，并且被标记为<strong>脏</strong></li><li>CPU2开始读取i的值，按道理，在对i加了锁的情况下，CPU2执行完线程后(也是对i+1)，i的值应该是1，但是由于内存中i的值还是0，所以CPU2将i的值读取到CPU Cache的时候，i的值为0，所以就读到了错误的值</li></ol>
+              </div>
+            </details>
+<p>这个就是所谓的缓存一致性问题，<strong>1号核心</strong>和<strong>2号核心</strong>的缓存，在这个时候是不一致，从而会导致执行结果的错误。</p>
+<h3 id="如何避免缓存一致性问题"><a href="#如何避免缓存一致性问题" class="headerlink" title="如何避免缓存一致性问题"></a>如何避免缓存一致性问题</h3><p>要解决这一问题，就需要一种机制，来同步两个不同核心里面的缓存数据。要实现的这个机制的话，要保证做到下面这2点:</p>
+<ol>
+<li>第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为<strong>写传播(Wreite Propagation)</strong></li>
+<li>第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串形化(Transaction Serialization)</strong></li>
+</ol>
 ]]></content>
       <categories>
         <category>操作系统</category>
