@@ -1537,7 +1537,73 @@
 <li><p>这意味着，Linux 系统中的代码，包括操作系统本身的代码和应用程序代码，所面对的地址空间都是线性地址空间(虚拟地址)，这种做法相当于屏蔽了处理器中的逻辑地址概念，段只被用于访问控制和内存保护。</p>
 </li>
 </ol>
-<h2 id="关于内存管理的一些问题"><a href="#关于内存管理的一些问题" class="headerlink" title="关于内存管理的一些问题"></a>关于内存管理的一些问题</h2>]]></content>
+<h2 id="关于内存管理的一些问题"><a href="#关于内存管理的一些问题" class="headerlink" title="关于内存管理的一些问题"></a>关于内存管理的一些问题</h2><h3 id="在4G物理内存的机器上，申请8G的内存会怎么样？"><a href="#在4G物理内存的机器上，申请8G的内存会怎么样？" class="headerlink" title="在4G物理内存的机器上，申请8G的内存会怎么样？"></a>在4G物理内存的机器上，申请8G的内存会怎么样？</h3><p>在回答这个问题之前，让我们先了解一下用户如何申请内存，我们在写代码的时候，如果希望开辟一个新的空间，我们可以使用**malloc()&#x2F;new()**函数来申请内存空间，那么底层是怎么实现的呢?</p>
+<h4 id="Linux下分配虚拟内存-申请内存-的两种方法"><a href="#Linux下分配虚拟内存-申请内存-的两种方法" class="headerlink" title="Linux下分配虚拟内存(申请内存)的两种方法"></a>Linux下分配虚拟内存(申请内存)的两种方法</h4><details class="blue"><summary> brk </summary>
+              <div class="content">
+              <p>申请小于128k的内存时，使用brk分配内存，将<strong>数据段.data</strong>的最高地址指针_edata向高地址移动，即增加<strong>堆</strong>的有效区域来申请新的内存空间</p>
+              </div>
+            </details>
+
+<details class="blue"><summary> mmap </summary>
+              <div class="content">
+              <p>申请大于128k的内存时，使用mmap分配内存，mmap是在进程的文件映射区找一块空闲存储空间，128K限制可由M_MMAP_THRESHOLD选项进行修改</p>
+              </div>
+            </details>
+
+<p>注意:<br><code>当应用程序使用**malloc**进行申请空间后，实际上申请的是**虚拟空间**，只有当我们使用这块虚拟空间的时候，CPU就会去访问这块虚拟内存，根据页表进行映射，但由于是第一次，会发现页表上并没有该虚拟地址对应的物理地址，此时CPU就会产生一个缺页中断，进程会从用户态变成内核态，并将缺页中断交给Page Fault Handler(缺页中断函数)处理</code><br>缺页中断处理函数会看是否有空闲的物理内存:</p>
+<ol>
+<li>如果有，就直接分配物理内存，并建立虚拟内存与物理内存之间的映射关系</li>
+<li>如果没有空闲的物理内存，那么内核就会开始进行回收内存的工作，如果回收内存工作结束后，空闲的物理内存仍然无法满足此次物理内存的申请，那么内核就会放最后的大招了触发**OOM(Out of Memory)**机制</li>
+</ol>
+<h4 id="在不同的环境下对问题的解答"><a href="#在不同的环境下对问题的解答" class="headerlink" title="在不同的环境下对问题的解答"></a>在不同的环境下对问题的解答</h4><details class="blue"><summary> 在32位操作系统下并且物理内存只有4GB的环境下 </summary>
+              <div class="content">
+              <p>如果在该环境下进行申请，是会<strong>失败</strong>的<br>因为我们知道32位操作系统下，进程的虚拟内存在用户态最大只有<strong>3GB</strong>，所以是没有办法申请8GB的虚拟内存的，也就是无法申请内存</p>
+              </div>
+            </details>
+
+<details class="blue"><summary> 在64位操作系统下并且物理内存只有4GB的环境下 </summary>
+              <div class="content">
+              <p>因为如果只是申请虚拟内存的话，是可以成功的，因为64G的操作系统环境下，用户空间高达128T<br>但是也有可能在Linux下是会失败的，那是因为Linux有一个参数需要我们注意，那就是<strong>overcommit_memory</strong></p><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/sys/vm/overcommit_memory </span><br><span class="line">//查看overcommit_memory参数</span><br></pre></td></tr></table></figure></div><p>overcommit_memory参数的值:</p><ol><li>如果值为<strong>0(默认值)<strong>，代表:<strong>Heuristic overcommit handling</strong>，它允许overcommit，但</strong>过于明目张胆的</strong> overcommit 会被拒绝，比如<strong>malloc一次性申请的内存大小就超过了系统总内存</strong>。Heuristic的意思是“试探式的”，内核利用某种算法猜测你的内存申请是否合理，大概可以理解为单次申请不能超过free memory + free swap + pagecache的大小 + SLAB中可回收的部分 ，超过了就会拒绝overcommit</li><li>如果值为 1，代表:Always overcommit. 允许overcommit，对内存申请来者不拒</li><li>如果值为 2，代表：Don’t overcommit. 禁止overcommit</li></ol>
+              </div>
+            </details>
+
+<h4 id="问题衍生"><a href="#问题衍生" class="headerlink" title="问题衍生"></a>问题衍生</h4><p>假设我们在64位操作系统，并且overcommit_memory的值为1的时候，申请128T的虚拟内存就一定可以成功嘛?</p>
+<p>答案:不一定，我们还需要根据物理内存的大小来判断。</p>
+<details class="red"><summary> 当我们的物理内存只有2G </summary>
+              <div class="content">
+              <p>实验后发现，当我们还没有申请到128T虚拟内存的时候就被杀死了，而且错误信息为<strong>killed</strong>,也就是触发<strong>OOM</strong>了</p><details class="blue"><summary> 什么是OOM? </summary>              <div class="content">              <p>内存溢出(Out Of Memory，简称OOM)是指应用系统中存在无法回收的内存或使用的内存过多，最终使得程序运行要用到的内存大于能提供的最大内存。此时程序就运行不了，系统会提示内存溢出</p>              </div>            </details><p>这是因为即使我们只是申请虚拟内存，但仍旧使用到了物理内存(比如内核保存虚拟内存的数据结构，也是占用物理内存的),所以如果<strong>物理内存</strong>太小的话，大概率是会出发OOM机制的</p>
+              </div>
+            </details>
+
+<p>那么，2G的物理内存就没有办法申请128T的虚拟内存了吗?<br>其实这也是要根据情况来说的，是什么情况呢?那就是要看我们的操作系统有没有开启<strong>Swap机制</strong><br>使用<strong>swapfile</strong>的方式开启了<strong>1GB</strong>的<strong>swap空间</strong>之后再做实验，虽然最后出现了<strong>Cannot allocate memory</strong>，但计算下来我们发现其实以及申请成功了，实际上我们是不可能申请完整个 128T 的用户空间的，因为程序运行本身也需要申请虚拟空间</p>
+<h4 id="Swap机制的作用"><a href="#Swap机制的作用" class="headerlink" title="Swap机制的作用"></a>Swap机制的作用</h4><p>前面我们说过了，在<strong>分段机制下</strong>，如果想要解决内存碎片的问题，最开始的解决方法就是<strong>swap</strong><br><code>当系统的物理内存不够用的时候，就需要将物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间会被临时保存到磁盘，等到那些程序要运行时，再从磁盘中恢复保存的数据到内存中</code><br><code>另外，当内存使用存在压力的时候，会开始触发内存回收行为，会把这些不常访问的内存先写到磁盘中，然后释放这些内存，给其他更需要的进程使用。再次访问这些内存时，重新从磁盘读入内存就可以了</code></p>
+<details class="blue"><summary> swap的两个过程 </summary>
+              <div class="content">
+              <p>换入:是在进程再次访问这些内存的时候，把它们从磁盘读到内存中来<br>换出:是把进程暂时不用的内存数据存储到磁盘中，并释放这些数据占用的内存<br><img lazyload src="/images/loading.svg" data-src="/2023/03/07/blog10/swap.jpg" class title="swap"></p>
+              </div>
+            </details>
+
+<details class="green"><summary> swap的优势 </summary>
+              <div class="content">
+              <p>应用程序实际可以使用的内存空间将远远超过系统的物理内存。由于硬盘空间的价格远比内存要低，因此这种方式无疑是经济实惠的</p>
+              </div>
+            </details>
+<details class="green"><summary> swap的劣势 </summary>
+              <div class="content">
+              <p>频繁地读写硬盘，会显著降低操作系统的运行速率</p>
+              </div>
+            </details>
+
+<details class="red"><summary> swap机制触发的两种场景 </summary>
+              <div class="content">
+              <ol><li>内存不足:之前一直说的，物理内存不足的时候，会将(最久未经使用)的物理内存换出</li><li>内存闲置:<br>应用程序在启动阶段使用的大量内存在启动后往往都不会使用，通过后台运行的守护进程(kSwapd)，我们可以将这部分只使用一次的内存交换到磁盘上为其他内存的申请预留空间。kSwapd 是 Linux 负责页面置换(Page replacement)的守护进程，它也是负责交换闲置内存的主要进程，它会在回收内存页中的空闲内存保证系统中的其他进程可以尽快获得申请的内存。kSwapd 是后台进程，所以回收内存的过程是异步的，不会阻塞当前申请内存的进程</li></ol>
+              </div>
+            </details>
+<h4 id="Swap机制换出换入的是什么类型的内存"><a href="#Swap机制换出换入的是什么类型的内存" class="headerlink" title="Swap机制换出换入的是什么类型的内存"></a>Swap机制换出换入的是什么类型的内存</h4><p>内核缓存的文件数据，因为都有对应的磁盘文件，所以在回收文件数据的时候， 直接写回到对应的文件就可以了，这部分内存被称为<strong>文件页</strong></p>
+<p>但是像进程的堆、栈数据等，它们是没有实际载体，这部分内存被称为<strong>匿名页</strong>。而且这部分内存很可能还要再次被访问，所以不能直接释放内存，于是就需要有一个能保存匿名页的磁盘载体，这个载体就是 Swap 分区</p>
+<p>匿名页回收的方式是通过 Linux 的 Swap 机制，Swap 会把不常访问的内存先写到磁盘中，然后释放这些内存，给其他更需要的进程使用。再次访问这些内存时，重新从磁盘读入内存就可以了</p>
+<h4 id="有了Swap机制后就可以无上限地申请虚拟内存空间了吗"><a href="#有了Swap机制后就可以无上限地申请虚拟内存空间了吗" class="headerlink" title="有了Swap机制后就可以无上限地申请虚拟内存空间了吗?"></a>有了Swap机制后就可以无上限地申请虚拟内存空间了吗?</h4><p>岂可休，这肯定是不允许的啊!这样子的话…会坏掉的…，哪里有可能一直换下去啊，到了一定程度就会出发OOM机制了，啊当然我自己是没试过的</p>
+]]></content>
       <categories>
         <category>操作系统</category>
       </categories>
