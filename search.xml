@@ -1188,25 +1188,25 @@
 <li>Shared 共享</li>
 <li>Invalidated 已失效<br>我们可以用这四个状态来标记 Cache Line 四个不同的状态</li>
 </ol>
-<details class><summary> yellow:已修改 </summary>
+<details class="yellow"><summary> 已修改 </summary>
               <div class="content">
               <p><strong>已修改</strong>状态就是我们前面提到的脏标记，代表该 Cache Line 上的数据已经被更新过，但是还没有写到内存里。而<strong>已失效</strong>状态，表示的是这个 Cache Line 里的数据已经失效了，不可以读取该状态的数据。</p>
               </div>
             </details>
 
-<details class><summary> yellow:独占 </summary>
+<details class="yellow"><summary> 独占 </summary>
               <div class="content">
               <p><strong>独占</strong>状态代表 Cache Line 里的数据是干净的，也就是说，这个时候 Cache Line 里的数据和内存里面的数据是一致性的,同时也代表着只有一个CPU核心拥有该数据，这个时候无论如何修改这个数据，都不需要向其他CPU核心广播，这样就解决了<strong>总线嗅探</strong>导致的总线负载过大的问题</p><p>同样的，如果一个CPU核心处于<strong>独占</strong>状态的时候，有另外一个CPU核心读取了相同的数据，那么此时这两个CPU核心都会从<strong>独占</strong>变成<strong>共享</strong></p>
               </div>
             </details>
 
-<details class><summary> yellow:共享 </summary>
+<details class="yellow"><summary> 共享 </summary>
               <div class="content">
               <p><strong>共享</strong>状态代表 Cache Line 里的数据是干净的，也就是说，这个时候 Cache Line 里的数据和内存里面的数据是一致性的，也代表着不止一个CPU核心拥有这个数据。</p><p>当其中一个CPU核心想要修改<strong>共享</strong>的数据的时候，需要先向其他CPU核心广播消息，让其他CPU核心将<strong>共享</strong>的数据修改成<strong>已失效</strong>状态，然后该CPU核心才能对这个数据进行修改，修改完也要把状态变成<strong>已修改</strong></p>
               </div>
             </details>
 
-<details class><summary> yellow:已失效 </summary>
+<details class="yellow"><summary> 已失效 </summary>
               <div class="content">
               <p>代表该Cache Line中的数据已经失效了，不可以读取该状态的数据</p>
               </div>
