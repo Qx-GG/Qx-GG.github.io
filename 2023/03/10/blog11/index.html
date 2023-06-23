@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="这题超纲了">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/03/10/blog11/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="人生得意须尽欢,莫使金樽空对月。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中的一些设计模式">
+<meta property="og:url" content="http://example.com/2023/03/10/blog11/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="人生得意须尽欢,莫使金樽空对月。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E6%87%92%E6%B1%89.jpg">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E5%B7%A5%E5%8E%82.jpg">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82.jpg">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.jpg">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82.jpg">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%821.jpg">
+<meta property="og:image" content="http://example.com/2023/03/10/blog11/%E8%A7%82%E5%AF%9F%E8%80%85.jpg">
+<meta property="article:published_time" content="2023-03-10T05:30:59.000Z">
+<meta property="article:modified_time" content="2023-06-23T06:39:36.790Z">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/03/10/blog11/%E6%87%92%E6%B1%89.jpg">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/%E6%B4%BE1.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/%E6%B4%BE1.jpg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/%E6%B4%BE1.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++中的一些设计模式 -
+        
+        这题超纲了的BLOG
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Farsan&display=swap" rel="stylesheet">
+    
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["铜皮","草根","柳筋","骨气","铸庐","洞府境","观海境","龙门境","金丹境","元婴境","玉璞境","仙人境","飞升境","十四境","十五境"]},"code_block":{"copy":true,"style":"mac","font":{"enable":true,"family":null,"url":"https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Farsan","url":"https://fonts.googleapis.com/css2?family=Farsan&display=swap"}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":false,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/水墨/水墨.jpg","dark":"/images/水墨/水墨1.jpg"},"title":"~欢迎来到“派大星”的博客~","subtitle":{"text":["言念君子,温其如玉","我见青山多妩媚,料青山见我应如是","有些人心如花木,皆向阳而生","遇事不决,可问春风。春风不语,即随本心","人生当苦无妨,良人当归即好"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#000000","dark":"#FAFFFE"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"social_links":{"enable":"enable","links":{"github":"https://github.com/Qx-GG","instagram":null,"zhihu":"https://www.zhihu.com/people/bu-shang-530bu-gai-ming","twitter":null,"email":null,"weixin":"/images/微信.jpg","bilibili":"https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.5","navbar":{"auto_hide":false,"color":{"left":"#FAFFFE","right":"#FAFFFE","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-chart-bar"},"Links":{"path":"/links","icon":"fa-regular fa-link"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/Qx-GG","Bilibili":"https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0"}},"WorMhole":{"path":"https://foreverblog.cn/go.html","icon":"fa-regular fa-planet-ringed"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"言念君子,温其如玉","links":{"PYQ":{"path":"/shuoshuo","icon":"fa-regular fa-messages"},"Photo":{"path":"/masonry","icon":"fa-regular fa-photo-film"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    Global.data_config = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/regular.min.css">
+    
+    
+    
+        <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/duotone.min.css">
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/%E6%B4%BE1.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                这题超纲了的BLOG
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-chart-bar"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/Qx-GG">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0">BILIBILI
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    target="_blank" rel="noopener" href="https://foreverblog.cn/go.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-planet-ringed"></i>
+                                        
+                                        WORMHOLE
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-chart-bar"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/Qx-GG">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0">BILIBILI</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        target="_blank" rel="noopener" href="https://foreverblog.cn/go.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-planet-ringed"></i>
+                                
+                                WORMHOLE
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+                      
+                <div class="article-title">
+                    <img src="https://Qx-GG.github.io/images/水墨/水墨12.jpg" alt="C++中的一些设计模式" />
+                    <h1 class="article-title-cover">C++中的一些设计模式</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/%E6%B4%BE%E5%A4%A7%E6%98%9F.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">这题超纲了</span>
+                            
+                                <span class="author-label">柳筋</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-10 13:30:59</span>
+        <span class="mobile">2023-03-10 13:30</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-23 14:39:36</span>
+            <span class="mobile">2023-06-23 14:39</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/C/">C++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/C/">C++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.5k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>21 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=167827&auto=1&height=66"></iframe>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来学习一下C++的一些设计模式，本人只学了几个，甚至于我只用过一个，但这不妨碍我去理解这些设计模式，其他的设计模式以后会慢慢补充哒，废话不多说，直接来吧!</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p><strong>设计模式(英语 design pattern)<strong>是对</strong>面向对象</strong>设计中反复出现的问题的解决方案</p>
+<p>这个术语是在1990年代由Erich Gamma等人从建筑设计领域引入到计算机科学中来的。这个术语的含义还存有争议。算法不是设计模式，因为算法致力于解决问题而非设计问题。设计模式通常描述了一组相互紧密作用的类与对象。设计模式提供一种讨论软件设计的公共语言，使得熟练设计者的设计经验可以被初学者和其他设计者掌握。设计模式还为软件重构提供了目标</p>
+<p>随着软件开发社群对设计模式的兴趣日益增长，已经出版了一些相关的专著，定期召开相应的研讨会，而且Ward Cunningham为此发明了WikiWiki用来交流设计模式的经验。</p>
+<p><code>总之，设计模式就是为了解决某类重复出现的问题而出现的一套成功或有效的解决方案</code></p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>在烂大街的WebServer项目中，我们经常利用单例模式来创建对象，<strong>日志</strong>，<strong>数据库连接池</strong>等等这种只需要一个对象的情况下，我们就可以使用<strong>单例模式</strong>来创建对象</p>
+<h4 id="什么是单例模式"><a href="#什么是单例模式" class="headerlink" title="什么是单例模式"></a>什么是单例模式</h4><p><strong>单例模式</strong>就是指在内存中<strong>只会创建且仅创建一个对象</strong>的设计模式。当我们在程序中多次使用同一个对象且作用相同时(比如日志对象，我们总是往里面写入数据)，为了防止频繁的创建对象而使得内存飙升，我们就可以使用<strong>单例模式</strong>只创建一个对象，所有程序都是用这一个对象</p>
+<h5 id="单例模式的类型"><a href="#单例模式的类型" class="headerlink" title="单例模式的类型"></a>单例模式的类型</h5><ol>
+<li>懒汉模式:顾名思义，就是在程序需要使用这个对象的时候才创建</li>
+<li>饿汉模式:当类加载的时候，无论该程序中是否会需要使用到该对象，都会创建，就像一个很饿的人，总是想快点吃</li>
+</ol>
+<h5 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h5><p>懒汉式创建对象的方法是在**程序使用对象前，先判断该对象是否已经实例化(判空)**，若已实例化直接返回该类对象，否则则先执行实例化操作</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E6%87%92%E6%B1%89.jpg" class title="懒汉">
+
+<p>在写懒汉模式的单例时，我们需要注意以下几个点:</p>
+<ol>
+<li>全局只有一个实例<br><code>我们知道，在C++中，如果我们给类中的成员变量加上static关键字后，那么该成员变量就会变成全局唯一的静态变量，所有通过该类创建出来的实例都共享同一个变量，并且静态成员变量需要在类外进行初始化</code></li>
+<li>将类的构造函数私有化，为的就是不让其他程序利用构造函数重新构造一个新的实例</li>
+<li>静止赋值和拷贝，所以需要将默认拷贝函数也delete掉</li>
+<li>用户只能通过类中的成员函数获取唯一实例，由于实例为静态成员变量，所以<strong>获取函数必须也是静态成员函数</strong>，因为只有静态成员函数才能获取静态成员变量</li>
+</ol>
+<p>以下是一个有缺陷但逻辑是对的<strong>懒汉模式</strong></p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">single</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//获取唯一实例</span></span><br><span class="line">    <span class="function"><span class="type">static</span> single *<span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> single *p;   <span class="comment">//私有静态指针变量指向唯一实例</span></span><br><span class="line">    <span class="built_in">single</span>()&#123;&#125;;         <span class="comment">//私有化构造函数</span></span><br><span class="line">    ~<span class="built_in">single</span>()&#123;&#125;;        <span class="comment">//私有化析构函数</span></span><br><span class="line">    single&amp; <span class="keyword">operator</span>=(<span class="type">const</span> single&amp;)=<span class="keyword">delete</span>;    <span class="comment">//进制拷贝函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">single* single::p=<span class="literal">NULL</span>; <span class="comment">//类外初始化静态变量</span></span><br><span class="line"><span class="function">single* <span class="title">single::GetInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//如果实例没创建</span></span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p=<span class="keyword">new</span> <span class="built_in">single</span>();  <span class="comment">//创建实例</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>上面的函数在单线程的时候是没有问题的，但是在多线程的时候就出现问题了，也就是老生常谈的<strong>线程安全问题</strong>，当有三个线程都掉了<strong>GetInstance函数</strong>的时候，就会创建出三个实例，这是不符合单例模式的定义的，那么如何解决这个问题呢?还是利用很经典的<strong>互斥锁</strong></p>
+<p>以下是修改完的代码</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">single</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//获取唯一实例</span></span><br><span class="line">    <span class="function"><span class="type">static</span> single *<span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//互斥锁,静态锁是因为静态函数只能访问静态变量</span></span><br><span class="line">    <span class="type">static</span> <span class="type">pthread_t</span> mutex;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> single *p;   <span class="comment">//私有静态指针变量指向唯一实例</span></span><br><span class="line">    <span class="built_in">single</span>()&#123;&#125;;         <span class="comment">//私有化构造函数</span></span><br><span class="line">    ~<span class="built_in">single</span>()&#123;&#125;;        <span class="comment">//私有化析构函数</span></span><br><span class="line">    single&amp; <span class="keyword">operator</span>=(<span class="type">const</span> single&amp;)=<span class="keyword">delete</span>;    <span class="comment">//进制拷贝函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">single* single::p=<span class="literal">NULL</span>; <span class="comment">//类外初始化静态变量</span></span><br><span class="line"><span class="function">single* <span class="title">single::GetInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="comment">//上锁</span></span><br><span class="line">    <span class="built_in">pthread_mutex_lock</span>(&amp;mutex);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果实例没创建</span></span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p=<span class="keyword">new</span> <span class="built_in">single</span>();  <span class="comment">//创建实例</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解锁</span></span><br><span class="line">    <span class="built_in">pthread_mutex_unlock</span>(&amp;mutex);</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>但是这样也有一个问题，那就是每次调用都要上锁，但事实上，只要创建好了单例，那么其余线程都会满足<strong>p&#x3D;&#x3D;NULL</strong>，所以我们再做一次更新</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">single</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//获取唯一实例</span></span><br><span class="line">    <span class="function"><span class="type">static</span> single *<span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//互斥锁,静态锁是因为静态函数只能访问静态变量</span></span><br><span class="line">    <span class="type">static</span> <span class="type">pthread_t</span> mutex;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> single *p;   <span class="comment">//私有静态指针变量指向唯一实例</span></span><br><span class="line">    <span class="built_in">single</span>()&#123;&#125;;         <span class="comment">//私有化构造函数</span></span><br><span class="line">    ~<span class="built_in">single</span>()&#123;&#125;;        <span class="comment">//私有化析构函数</span></span><br><span class="line">    single&amp; <span class="keyword">operator</span>=(<span class="type">const</span> single&amp;)=<span class="keyword">delete</span>;    <span class="comment">//进制拷贝函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">single* single::p=<span class="literal">NULL</span>; <span class="comment">//类外初始化静态变量</span></span><br><span class="line"><span class="function">single* <span class="title">single::GetInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//如果实例没创建</span></span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//上锁</span></span><br><span class="line">        <span class="built_in">pthread_mutex_lock</span>(&amp;mutex);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            p=<span class="keyword">new</span> <span class="built_in">single</span>();  <span class="comment">//创建实例</span></span><br><span class="line">        &#125;</span><br><span class="line">            </span><br><span class="line">        <span class="comment">//解锁</span></span><br><span class="line">        <span class="built_in">pthread_mutex_unlock</span>(&amp;mutex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h5><p>和<strong>懒汉模式</strong>不同，<strong>懒汉模式</strong>只有在用户调用<strong>GetInstance函数</strong>的时候，才会去判断并且创建，而<strong>饿汉模式</strong>则是当我们类编译的时候，就进行单例的创建，代码如下</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">single</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> single* <span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> single *p;</span><br><span class="line">    <span class="built_in">single</span>()&#123;&#125;;</span><br><span class="line">    ~<span class="built_in">single</span>()&#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">single* single::p=<span class="keyword">new</span> <span class="built_in">single</span>(); <span class="comment">//直接创建单例</span></span><br><span class="line"><span class="function">single* <span class="title">single::GetInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><code>饿汉模式虽好，但其存在隐藏的问题，在于非静态对象(函数外的static对象)在不同编译单元中的初始化顺序是未定义的。如果在初始化完成之前调用 GetInstance()函数会返回一个未定义的实例</code></p>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>当我们在一个程序中定义了很多类的时候，如果我们频繁的去创建不同的类对象的时候骂我们需要一直new对象，这是很不利于我们后期对代码的维护的，那么有没有一种方法，就是可以自动帮我们创建类对象呢?</p>
+<p>来了!它来了!<strong>工厂模式</strong>就是设计来帮我们解决这个问题的</p>
+<h4 id="什么是工厂模式"><a href="#什么是工厂模式" class="headerlink" title="什么是工厂模式"></a>什么是工厂模式</h4><p>很简单，举个例子，在海贼王中存在着一个人造恶魔果实(smile果实)制造工厂,当我们想要什么样的恶魔果实，我们告诉工厂就行了，具体如何去创造就是工厂的事情了，不需要我们去关心，这就是工厂模式。利用工厂模式，我们可以不用关心对象的创作过程，我们只需要关心对象的实际操作，也就是说，<strong>工厂模式帮助我们分离了对象的创建和使用</strong>，方便后期的维护和扩展.</p>
+<p>工厂模式也分为三种:</p>
+<ol>
+<li>简单工厂模式</li>
+<li>工厂方法模式</li>
+<li>抽象工厂模式</li>
+</ol>
+<h4 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h4><p>简单工厂模式(Simple Factory Pattern)专门定义一个类来负责创建其他类的实例，被创建的实例通常<strong>具有共同的父类</strong></p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E5%B7%A5%E5%8E%82.jpg" class title="简单工厂">
+<ol>
+<li>Factory工厂角色(工厂类):<br>工厂角色即工厂类，是简单工厂模式的核心，负责创建所有实例的内部逻辑，工厂类可以被外界直接调用，创建所需要的产品对象</li>
+<li>Product(抽象产品角色):<br>抽象产品角色是简单工厂模式所创建的所有对象的父类，负责描述所有实例所共有的公告接口。所创建的具体产品对象都是其子类对象</li>
+<li>ConcreteProduct(具体产品角色):<br>具体产品角色是简单工厂模式的创建目标。每个具体产品角色都继承了抽象产品角色，需要实现定义在抽象产品中的方法<br><code>ProductA、ProductB和ProductC继承自Product虚拟类，Show方法是不同产品的自描述；Factory依赖于ProductA、ProductB和ProductC，Factory根据不同的条件创建不同的Product对象</code><details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>简单工厂的实现 </summary>
+              <div class="content">
+              <p>我们以电视机的栗子来说吧<br>有一个工厂，它专门就是用来生产电视机的，但我们知道，电视机有很多牌子，不同的牌子价格和质量也是不同的<br>如下图所示:<br><img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82.jpg" class title="简单工厂"></p><div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> <span class="title class_">ProductTypeTag</span></span><br><span class="line">&#123;</span><br><span class="line">  Hair,</span><br><span class="line">  Hisense,</span><br><span class="line">&#125;PRODUCTTYPE;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//抽象产品类 TV(电视机类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TV</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">virtual</span> ~<span class="built_in">TV</span>()&#123;&#125;;<span class="comment">//声明析构函数为虚函数，防止内存泄漏</span></span><br><span class="line">&#125;;</span><br><span class="line"> <span class="comment">//具体产品类 HairTV(海尔电视类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HairTV</span> : <span class="keyword">public</span> TV</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;I&#x27;m HairTV &quot;</span>&lt;&lt;endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> <span class="comment">//具体产品类 HisenseTV(海信电视类)  </span></span><br><span class="line"><span class="keyword">class</span>  <span class="title class_">HisenseTV</span> : <span class="keyword">public</span> TV</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;I&#x27;m HisenseTV&quot;</span>&lt;&lt;endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line"><span class="comment">// 工厂类 TVFactory(电视机工厂类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TVFactory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function">TV* <span class="title">CreateTV</span><span class="params">(PRODUCTTYPE type)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (type)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> Hair:</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">HairTV</span>();</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">case</span> Hisense:</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">HisenseTV</span>();</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 创建工厂类对象</span></span><br><span class="line">    TVFactory* myTVFactory = <span class="keyword">new</span>  <span class="built_in">TVFactory</span>();</span><br><span class="line">    TV* hairTV = myTVFactory-&gt;<span class="built_in">CreateTV</span>(Hair);</span><br><span class="line">    <span class="keyword">if</span> (hairTV != <span class="literal">NULL</span>)</span><br><span class="line">        hairTV-&gt;<span class="built_in">Show</span>();</span><br><span class="line"> </span><br><span class="line">    TV* hisenseTV = myTVFactory-&gt;<span class="built_in">CreateTV</span>(Hisense);</span><br><span class="line">    <span class="keyword">if</span> (hisenseTV != <span class="literal">NULL</span>)</span><br><span class="line">        hisenseTV-&gt;<span class="built_in">Show</span>();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">delete</span>  myTVFactory;</span><br><span class="line">    myTVFactory = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">delete</span> hairTV;</span><br><span class="line">    hairTV = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">delete</span> hisenseTV;</span><br><span class="line">    hisenseTV = <span class="literal">NULL</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+              </div>
+            </details></li>
+</ol>
+<details class="yellow" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>优势 </summary>
+              <div class="content">
+              <p>本着高内聚低耦合的原则，将系统的逻辑部分和功能分开</p>
+              </div>
+            </details>
+
+<details class="yellow" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>劣势 </summary>
+              <div class="content">
+              <p>就拿上面的栗子来说吧，当我们想要生产<strong>派大星牌电视机</strong>的时候，我们就需要在工厂里面加入对<strong>派大星牌电视机</strong>的生产，但其实这就违背了我们设计模式中的一个<strong>开闭原则</strong></p><p>开闭原则:</p><ol><li>开放封闭原则(OCP,Open For Extension, Closed For Modification Principle)</li><li>类的改动是通过增加代码进行的，而不是修改源代码</li><li>说的是代码扩展性问题——对扩展开放，对修改关闭（封闭）</li></ol><p>开闭原则详细的解释：当增加新功能，<strong>不应该通过修改已经存在的代码来进行</strong>，而是应该通过扩展代码(比如增加新类，增加新成员函数)来进行</p><p>而当我们增加一个新的类时候，就需要对已经存在的工厂代码进行修改，而这就违背了这个原则</p>
+              </div>
+            </details>
+
+<h4 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h4><p>既然<strong>简单工厂</strong>模式违背了<strong>开闭原则</strong>，那么我们就在它的基础上做一些修改，使得改模式<strong>即保留了简单工厂模式的优点，又解决了它的缺点</strong>，而这，就是<strong>工厂方法模式</strong></p>
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>工厂方法模式 </summary>
+              <div class="content">
+              <p>在工厂模式中，工厂父类负责定义创建产品对象的公告接口，而工厂子类负责生成具体的产品对象。<br>目的是将产品的实例化操作延迟到工厂子类中完成，通过工厂子类来确定究竟应该实例化哪一个具体产品类</p>
+              </div>
+            </details>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.jpg" class title="工厂模式">
+
+<ol>
+<li><p>Product(抽象产品)<br>抽象产品是定义产品的接口，是工厂方法模式所创建对象的超类型，也是产品对象的共同父类或接口</p>
+</li>
+<li><p>ConcreteProduct(具体产品)<br>具体产品实现了抽象产品的接口，某种类型的具体产品由专门的具体工厂创建</p>
+</li>
+<li><p>Factory(抽象工厂)</p>
+</li>
+<li><p>ConcreteFactory(具体工厂)</p>
+</li>
+</ol>
+<p>具体工厂是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户调用，返回一个具体产品类的实例</p>
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>简单工厂的实现 </summary>
+              <div class="content">
+              <p>还是继续上面的栗子<br>工厂方法模式，将原有的工厂进行分割，为每种品牌的电视机提供一个子工厂，海尔工厂专门负责生产海尔电视机，海信工厂专门负责生产海信电视机，若增加派大星电视，只需要增加一个新的派大星工厂</p><div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 工厂模式<span class="number">1.</span>jpg 工厂模式 %&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象产品类 TV(电视机类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TV</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">virtual</span> ~<span class="built_in">TV</span>()&#123;&#125;;<span class="comment">//声明析构函数为虚函数，防止内存泄漏</span></span><br><span class="line">&#125;;</span><br><span class="line"> <span class="comment">//具体产品类 HairTV(海尔电视类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HairTV</span> : <span class="keyword">public</span> TV</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;I&#x27;m HairTV &quot;</span>&lt;&lt;endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> <span class="comment">//具体产品类 HisenseTV(海信电视类)  </span></span><br><span class="line"><span class="keyword">class</span>  <span class="title class_">HisenseTV</span> : <span class="keyword">public</span> TV</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;I&#x27;m HisenseTV&quot;</span>&lt;&lt;endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象工厂类 </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TVFactory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> TV *<span class="title">Create</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">TVFactory</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体工厂类 海尔电视子工厂</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HairFactory</span>::<span class="keyword">public</span> TVFactory</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TV *<span class="title">Create</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">HairTV</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体工厂类 海信电视子工厂</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HisenseFactory</span>::<span class="keyword">public</span> TVFactory</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TV* <span class="title">Create</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">HisenseFactory</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc , <span class="type">char</span> *argv [])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  TVFactory *hairTVFactory = <span class="keyword">new</span> <span class="built_in">HairTVFactory</span>();</span><br><span class="line">  TV *hairTV = hairTVFactory-&gt;<span class="built_in">CreateTV</span>();</span><br><span class="line">  hairTV-&gt;<span class="built_in">Show</span>();</span><br><span class="line">  </span><br><span class="line">  TVFactory *hisenseTVFactory = <span class="keyword">new</span> <span class="built_in">HisenseTVFactory</span>();</span><br><span class="line">  TV *hisenseTV = hisenseTVFactory-&gt;<span class="built_in">CreateTV</span>();</span><br><span class="line">  hisenseTV-&gt;<span class="built_in">Show</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hairTVFactory!= <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> hairTVFactory;</span><br><span class="line">    hairTVFactory = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hairTV != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> hairTV;</span><br><span class="line">    hairTV = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hisenseTVFactory != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> hisenseTVFactory;</span><br><span class="line">    hisenseTVFactory = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hisenseTV != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> hisenseTV;</span><br><span class="line">    hisenseTV = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div><p>当我们想要生产派大星电视机的时候，只需要加一个工厂和一个具体的派大星电视机类就好，而无需在原本的代码上进行修改</p>
+              </div>
+            </details>
+
+<h4 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h4><p>抽象工厂模式是工厂方法模式的泛化版，工厂模式是一种特殊的抽象工厂模式，在工厂模式中，每个具体工厂只能生产一种具体的产品，如海尔电视机厂只生产海尔电视机，而抽象工厂方法模式中，一个具体的工厂可以生产多个具体产品</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82.jpg" class title="抽象工厂">
+<ol>
+<li>AbstractFactory(抽象工厂)<br>抽象工厂用于声明生成抽象产品的方法，在一个抽象工厂中可以定义一组方法，每一个方法对应一个产品等级结构</li>
+<li>ConcreteFactory(具体工厂)<br>具体工厂实现了抽象工厂声明的抽象产品的方法，生成一组具体产品</li>
+<li>AbstractProduct(抽象产品)<br>抽象产品为每种产品声明接口，在抽象产品中定义了产品的抽象业务方法</li>
+<li>ConcreteProdunct(具体产品)<details class="red" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>抽象工厂实现 </summary>
+              <div class="content">
+              <p>还是上面的栗子，我们知道，海尔公司不光生产电视，它还生产空调之类的，tcl也是<br><img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%821.jpg" class title="抽象工厂"></p><div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 抽象产品类类 Television(电视机类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Television</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Television</span>()&#123;&#125;;<span class="comment">//析构函数声明为虚函数，防止内存泄漏</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//具体产品类 HaierTelevision（海尔电视机类）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HaierTelevision</span> : <span class="keyword">public</span> Television</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;I&#x27;m HaierTelevision&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//具体产品类 TCLTelevision（TCL电视机类）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TCLTelevision</span> : <span class="keyword">public</span> Television</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;I&#x27;m TCLTelevision&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 抽象产品类  AirCondition（空调类）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AirCondition</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">AirCondition</span>()&#123;&#125;;<span class="comment">//析构函数声明为虚函数，防止内存泄漏</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//具体产品类 HairAirCondition(海尔空调类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HairAirCondition</span> : <span class="keyword">public</span> AirCondition</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;I&#x27;m HairAirCondition&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//具体产品类 TCLAirCondition(TCL空调类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TCLAirCondition</span> : <span class="keyword">public</span> AirCondition</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;I&#x27;m TCLAirCondition&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 抽象工厂类 EFactory(电器工厂类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EFactory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Television* <span class="title">CreateTelevision</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> AirCondition* <span class="title">CreateAirCondition</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">virtual</span> ~<span class="built_in">EFactory</span>()&#123;&#125;;<span class="comment">//析构函数声明为虚函数，防止内存泄漏</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//具体工厂类 HairFactory(海尔工厂类)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HairFactory</span> : <span class="keyword">public</span> EFactory</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Television* <span class="title">CreateTelevision</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">HaierTelevision</span>();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">AirCondition* <span class="title">CreateAirCondition</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">HairAirCondition</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//具体工厂类 TCLFactory(TCL工厂类) </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TCLFactory</span> : <span class="keyword">public</span> EFactory</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Television* <span class="title">CreateTelevision</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">TCLTelevision</span>();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">AirCondition* <span class="title">CreateAirCondition</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">TCLAirCondition</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  EFactory *hairFactory = <span class="keyword">new</span> <span class="built_in">HairFactory</span> ();<span class="comment">/*实例化工厂抽象类*/</span></span><br><span class="line">  Television *haierTelevision =hairFactory-&gt;<span class="built_in">CreateTelevision</span>();<span class="comment">/*实例化产品抽象类*/</span></span><br><span class="line">  AirCondition *haierAirCondition = hairFactory-&gt;<span class="built_in">CreateAirCondition</span>();</span><br><span class="line">  </span><br><span class="line">  haierTelevision-&gt;<span class="built_in">Show</span>();</span><br><span class="line">  haierAirCondition-&gt;<span class="built_in">Show</span>();</span><br><span class="line">  </span><br><span class="line">  EFactory *tCLFactory = <span class="keyword">new</span> <span class="built_in">TCLFactory</span> ();</span><br><span class="line">  Television *tCLTelevision = tCLFactory-&gt;<span class="built_in">CreateTelevision</span>();</span><br><span class="line">  AirCondition *tCLAirCondition = tCLFactory-&gt;<span class="built_in">CreateAirCondition</span>();</span><br><span class="line">  </span><br><span class="line">  tCLTelevision-&gt;<span class="built_in">Show</span>();</span><br><span class="line">  tCLAirCondition-&gt;<span class="built_in">Show</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hairFactory != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> hairFactory;</span><br><span class="line">    hairFactory = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (haierTelevision != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> haierTelevision;</span><br><span class="line">    haierTelevision= <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (tCLAirCondition != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> tCLAirCondition;</span><br><span class="line">    tCLAirCondition = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (tCLFactory != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> tCLFactory;</span><br><span class="line">    tCLFactory= <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (tCLTelevision != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> tCLTelevision;</span><br><span class="line">    tCLTelevision = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (tCLAirCondition != <span class="literal">NULL</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">delete</span> tCLAirCondition;</span><br><span class="line">    tCLAirCondition = <span class="literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+              </div>
+            </details></li>
+</ol>
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>优点 </summary>
+              <div class="content">
+              <ol><li>抽象工厂模式将产品族的依赖与约束关系放到抽象工厂中，便于管理</li><li>职责解耦，用户不需要关心一堆自己不关心的细节，由抽象工厂来负责组件的创建</li><li>切换产品族容易，只需要增加一个具体工厂实现，客户端选择另一个套餐就可以了</li></ol>
+              </div>
+            </details>
+
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>优点 </summary>
+              <div class="content">
+              <ol><li>抽象工厂模式类增加的速度很快，有一个产品族就需要增加一个具体工厂实现，比较繁琐</li><li>产品族难以扩展产品。当产品族中增加一个产品时，抽象工厂接口中需要增加一个函数，对应的所有具体工厂实现都需要修改，修改放大严重</li><li>抽象工厂并未完全屏蔽创建细节，给出的都是组件。对于这种情况可以结合工厂模式或简单工厂模式一起使用</li></ol>
+              </div>
+            </details>
+
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p><code>观察者模式又叫做发布-订阅模式</code><br>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。<br>这个主题对象在状态发生变化时，会通知所有观察者对象，使他们能够自动的更新自己。</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/10/blog11/%E8%A7%82%E5%AF%9F%E8%80%85.jpg" class title="观察者">
+
+<p>或许观看以下实例或更清楚点(结构上图)</p>
+<details class="black" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>观察者模式的实现 </summary>
+              <div class="content">
+              <details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>Head.h </summary>              <div class="content">              <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> HEAD_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HEAD_H</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象观察者，为所有的具体观察者定义一个接口，在当主题更新的时候更新自己</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Observer</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对所有观察者的集合，每一个主题都可以有很多个观察者，利用list双向链表将观察者保存起来，方便后面的更新</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Subject</span>&#123;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">attach</span><span class="params">(Observer *observer)</span></span>;    <span class="comment">//加入新的观察者</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">detach</span><span class="params">(Observer *observer)</span></span>;    <span class="comment">//删除观察者</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">notify</span><span class="params">()</span></span>;                      <span class="comment">//调用该函数，可以开始对list里面的每个观察者进行更新操作，但这个函数并不直接更新数据，只起到了一个通知作用，真正用来更新数据的函数在观察者自己的类中</span></span><br><span class="line">	~<span class="built_in">Subject</span>();</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	list&lt;Observer*&gt; observers;          <span class="comment">//双向链表，存储观察者</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Observer</span>&#123;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;&#125;                 <span class="comment">//抽象更新函数，具体实现由具体观察者来实现</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> string <span class="title">getName</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> <span class="string">&quot;&quot;</span>; &#125;  <span class="comment">//获取具体观察者的名字，为抽象函数，在具体观察者实现</span></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体主题</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteSubject</span> : <span class="keyword">public</span> Subject&#123;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">string <span class="title">getSubjectState</span><span class="params">()</span></span>;                   <span class="comment">//获取具体主题的状态</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">setSubjectState</span><span class="params">(<span class="type">const</span> string &amp;str)</span></span>;    <span class="comment">//将有关状态存入具体观察者对象，当具体主题的状态发生改变的时候，通知所有登记过的观察者</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	string subjectState;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//具体观察者</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteObserver</span> : <span class="keyword">public</span> Observer&#123;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">ConcreteObserver</span>(ConcreteSubject *subject, string name); </span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">()</span></span>;                              <span class="comment">//更新操作</span></span><br><span class="line">	<span class="function">string <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	string name;                <span class="comment">//观察者名字</span></span><br><span class="line">	string observerState;       <span class="comment">//观察者状态</span></span><br><span class="line">	ConcreteSubject *subject;   <span class="comment">//观察者对应的具体主题</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">//HEAD_H</span></span></span><br></pre></td></tr></table></figure></div>              </div>            </details><details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>Head.cpp </summary>              <div class="content">              <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Head.h&quot;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//将观察者插入观察者队列</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Subject::attach</span><span class="params">(Observer *observer)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	observers.<span class="built_in">push_back</span>(observer);      </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//从观察者队列中删除观察者</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Subject::detach</span><span class="params">(Observer *observer)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	observers.<span class="built_in">remove</span>(observer);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Subject::notify</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	list&lt;Observer*&gt;::iterator it = observers.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="comment">//循环队列里的观察者，并让他们执行更新操作</span></span><br><span class="line">	<span class="keyword">while</span>(it != observers.<span class="built_in">end</span>())&#123;</span><br><span class="line"> </span><br><span class="line">		(*it)-&gt;<span class="built_in">update</span>();</span><br><span class="line">		it++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Subject::~<span class="built_in">Subject</span>()</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;开始析构了&quot;</span> &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">	list&lt;Observer*&gt;::iterator it = observers.<span class="built_in">begin</span>();</span><br><span class="line">	<span class="keyword">while</span>(it != observers.<span class="built_in">end</span>())&#123;</span><br><span class="line"> </span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;开始删除: &quot;</span> &lt;&lt; (*it)-&gt;<span class="built_in">getName</span>() &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">delete</span> *it;</span><br><span class="line">		it++;</span><br><span class="line">	&#125;</span><br><span class="line">	observers.<span class="built_in">clear</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取主题当前状态</span></span><br><span class="line"><span class="function">std::string <span class="title">ConcreteSubject::getSubjectState</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> subjectState;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置主题状态</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ConcreteSubject::setSubjectState</span><span class="params">(<span class="type">const</span> string &amp;str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	subjectState = str;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">ConcreteObserver::<span class="built_in">ConcreteObserver</span>(ConcreteSubject *subject, string name)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;subject = subject;</span><br><span class="line">	<span class="keyword">this</span>-&gt;name = name;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//观察者更新操作</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ConcreteObserver::update</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	observerState = subject-&gt;<span class="built_in">getSubjectState</span>();</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;发布者更新东西了 ！！！ 订阅者：&quot;</span> &lt;&lt; name &lt;&lt; <span class="string">&quot;  状态：&quot;</span> &lt;&lt; observerState &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">std::string <span class="title">ConcreteObserver::getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>              </div>            </details><details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>main.cpp </summary>              <div class="content">              <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Head.h&quot;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> *argc, <span class="type">int</span> *argv[])</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">	ConcreteSubject *subject = <span class="keyword">new</span> ConcreteSubject;</span><br><span class="line"> </span><br><span class="line">	subject-&gt;<span class="built_in">attach</span>(<span class="keyword">new</span> <span class="built_in">ConcreteObserver</span>(subject, <span class="string">&quot;第一个粉丝&quot;</span>));</span><br><span class="line">	subject-&gt;<span class="built_in">attach</span>(<span class="keyword">new</span> <span class="built_in">ConcreteObserver</span>(subject, <span class="string">&quot;第二个粉丝&quot;</span>));</span><br><span class="line">	subject-&gt;<span class="built_in">attach</span>(<span class="keyword">new</span> <span class="built_in">ConcreteObserver</span>(subject, <span class="string">&quot;第三个粉丝&quot;</span>));</span><br><span class="line"> </span><br><span class="line">	subject-&gt;<span class="built_in">setSubjectState</span>(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">	subject-&gt;<span class="built_in">notify</span>();</span><br><span class="line"> </span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;----------- 华 丽 的 分 割 线 -----------&quot;</span> &lt;&lt; endl;</span><br><span class="line">	subject-&gt;<span class="built_in">attach</span>(<span class="keyword">new</span> <span class="built_in">ConcreteObserver</span>(subject, <span class="string">&quot;王二麻子&quot;</span>));</span><br><span class="line">	subject-&gt;<span class="built_in">setSubjectState</span>(<span class="string">&quot;呵呵&quot;</span>);</span><br><span class="line">	subject-&gt;<span class="built_in">notify</span>();</span><br><span class="line"> </span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">delete</span> subject;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>              </div>            </details>
+              </div>
+            </details>
+
+<ol>
+<li>服务器发布新版本，让客户端更新</li>
+<li>游戏群发邮件给补贴等</li>
+<li>聊天室系统</li>
+</ol>
+<p>都可以很好的套用这种模式</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>鼠鼠终于!终于又收到了一个面试!虽然不是大厂的，但聊胜于无啊，希望今晚能顺利叭，写完了这篇博客就要看八股去咯，祝好运~</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> C++中的一些设计模式</li>
+        <li><strong>作者:</strong> 这题超纲了</li>
+        <li><strong>创建于:</strong> 2023-03-10 13:30:59</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-06-23 14:39:36
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://qx-gg.github.io/2023/03/10/blog11/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/C/">#C++</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐阅读</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/02/28/blog8/" title="C++的继承、封装和多态" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨9.jpg" alt="C++的继承、封装和多态">
+  <span class="title">C++的继承、封装和多态</span>
+</a><a class="recommended-article-item" href="/2023/04/05/blog16/" title="Linux下常用命令" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨17.jpg" alt="Linux下常用命令">
+  <span class="title">Linux下常用命令</span>
+</a><a class="recommended-article-item" href="/2023/02/24/blog5/" title="浙江宇视科技一面" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨6.jpg" alt="浙江宇视科技一面">
+  <span class="title">浙江宇视科技一面</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/03/12/day3/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">随笔·广州·出个屁哦，哥们考六级</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/03/07/blog10/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">操作系统中的内存管理</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://waline-qin.6eek.net',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">C++中的一些设计模式</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-text">什么是单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">单例模式的类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%87%92%E6%B1%89%E6%A8%A1%E5%BC%8F"><span class="nav-text">懒汉模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A5%BF%E6%B1%89%E6%A8%A1%E5%BC%8F"><span class="nav-text">饿汉模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">什么是工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">抽象工厂模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">观察者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">这题超纲了</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br>
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.5</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/2/23 15:15:11
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <div class="customize-info info-item">和我一起去充满橘子味的村庄叭</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/runtime.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/Typed.min.js"></script>
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/typed.js"></script>
+
+
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/minimasonry.min.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/masonry.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/tocToggle.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/anime.min.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/toc.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

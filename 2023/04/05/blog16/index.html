@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="这题超纲了">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/04/05/blog16/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="一种相思,两处闲愁。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下常用命令">
+<meta property="og:url" content="http://example.com/2023/04/05/blog16/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="一种相思,两处闲愁。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/04/05/blog16/man.jpg">
+<meta property="og:image" content="http://example.com/2023/04/05/blog16/vi.jpg">
+<meta property="og:image" content="http://example.com/2023/04/05/blog16/%E8%BD%AC%E6%8D%A2.jpg">
+<meta property="article:published_time" content="2023-04-05T07:26:14.000Z">
+<meta property="article:modified_time" content="2023-06-23T06:48:11.088Z">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/04/05/blog16/man.jpg">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/%E6%B4%BE1.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/%E6%B4%BE1.jpg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/%E6%B4%BE1.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Linux下常用命令 -
+        
+        这题超纲了的BLOG
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Farsan&display=swap" rel="stylesheet">
+    
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["铜皮","草根","柳筋","骨气","铸庐","洞府境","观海境","龙门境","金丹境","元婴境","玉璞境","仙人境","飞升境","十四境","十五境"]},"code_block":{"copy":true,"style":"mac","font":{"enable":true,"family":null,"url":"https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Farsan","url":"https://fonts.googleapis.com/css2?family=Farsan&display=swap"}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":false,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/水墨/水墨.jpg","dark":"/images/水墨/水墨1.jpg"},"title":"~欢迎来到“派大星”的博客~","subtitle":{"text":["言念君子,温其如玉","我见青山多妩媚,料青山见我应如是","有些人心如花木,皆向阳而生","遇事不决,可问春风。春风不语,即随本心","人生当苦无妨,良人当归即好"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#000000","dark":"#FAFFFE"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"social_links":{"enable":"enable","links":{"github":"https://github.com/Qx-GG","instagram":null,"zhihu":"https://www.zhihu.com/people/bu-shang-530bu-gai-ming","twitter":null,"email":null,"weixin":"/images/微信.jpg","bilibili":"https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.5","navbar":{"auto_hide":false,"color":{"left":"#FAFFFE","right":"#FAFFFE","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-chart-bar"},"Links":{"path":"/links","icon":"fa-regular fa-link"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/Qx-GG","Bilibili":"https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0"}},"WorMhole":{"path":"https://foreverblog.cn/go.html","icon":"fa-regular fa-planet-ringed"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"言念君子,温其如玉","links":{"PYQ":{"path":"/shuoshuo","icon":"fa-regular fa-messages"},"Photo":{"path":"/masonry","icon":"fa-regular fa-photo-film"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    Global.data_config = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/regular.min.css">
+    
+    
+    
+        <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/duotone.min.css">
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/%E6%B4%BE1.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                这题超纲了的BLOG
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-chart-bar"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/Qx-GG">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0">BILIBILI
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    target="_blank" rel="noopener" href="https://foreverblog.cn/go.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-planet-ringed"></i>
+                                        
+                                        WORMHOLE
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-chart-bar"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/Qx-GG">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0">BILIBILI</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        target="_blank" rel="noopener" href="https://foreverblog.cn/go.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-planet-ringed"></i>
+                                
+                                WORMHOLE
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+                      
+                <div class="article-title">
+                    <img src="https://Qx-GG.github.io/images/水墨/水墨17.jpg" alt="Linux下常用命令" />
+                    <h1 class="article-title-cover">Linux下常用命令</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/%E6%B4%BE%E5%A4%A7%E6%98%9F.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">这题超纲了</span>
+                            
+                                <span class="author-label">柳筋</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-04-05 15:26:14</span>
+        <span class="mobile">2023-04-05 15:26</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-23 14:48:11</span>
+            <span class="mobile">2023-06-23 14:48</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1426022018&auto=1&height=66"></iframe>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>看了很多面经,看到面试官好像还蛮喜欢问一些Linux下的命令,以及一些笔试题都会考这个,而说实话我记得的Linux命令实在是不多,所以这篇文章就拿来记录一下学过和没学过的Linux命令吧,也方便以后不懂就直接看这篇文章</p>
+<h2 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h2><p>在终端,我们的命令千奇百怪,但它们都遵循着一个规律,那就是都由3部分组成,如下:<br>command [-options] [parameter]<br>说明:</p>
+<ol>
+<li>command: 命令名,相应功能的英文单词或单词的缩写</li>
+<li>-options: 选项,可用来对命令进行控制,也可以省略</li>
+<li>parameter: 传给命令的<strong>参数</strong>,可以是<strong>零个,一个或者多个</strong><br><code>[]代表可有也可以没有</code></li>
+</ol>
+<h3 id="查阅命令帮助信息"><a href="#查阅命令帮助信息" class="headerlink" title="查阅命令帮助信息"></a>查阅命令帮助信息</h3><ol>
+<li>-help:显示command命令的帮助信息</li>
+<li>-man:<ol>
+<li>查阅command命令的使用手册</li>
+<li>包含了绝大部分<strong>命令</strong>,<strong>函数</strong>的使用方法</li>
+</ol>
+</li>
+</ol>
+<p>使用man时的操作</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/04/05/blog16/man.jpg" class title="man">
+
+<h3 id="Linux常用命令-1"><a href="#Linux常用命令-1" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h3><ol>
+<li><p>查看当前文件夹的内容</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ls [选项] [想要查看的文件夹的相对路径或者绝对路径]</span><br><span class="line"></span><br><span class="line">常用选项:</span><br><span class="line">1. -a:显示指定目录下所有子目录与文件,包括隐藏文件</span><br><span class="line">2. -l:以列表方式显示文件的详细信息</span><br><span class="line">3. -h:配合 -l 以人性化的方式显示文件大小</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>查看当前文件夹的<strong>绝对路径</strong></p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure></div></li>
+<li><p>切换文件夹</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cd [想要切换的文件夹的相对路径]</span><br><span class="line"></span><br><span class="line">1. cd </span><br><span class="line">    :切换到当前用户的主目录(/home/用户目录)</span><br><span class="line">2. cd ~</span><br><span class="line">    :切换到当前用户的主目录(/home/用户目录)</span><br><span class="line">3. cd .</span><br><span class="line">    :保持在当前目录不变</span><br><span class="line">4. cd ..</span><br><span class="line">    :切换到上级目录</span><br><span class="line"></span><br><span class="line">相对路径和绝对路径</span><br><span class="line">相对路径:在输入路径时,最前面不是 / 或者 ~,表示相对 当前目录 所在的目录位置</span><br><span class="line">绝对路径:在输入路径时,最前面是 / 或者 ~,表示从 根目录/家目录 开始的具体目录位置</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>创建一个文件</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br><span class="line"></span><br><span class="line">如果文件不存在,则创建一个空白的文件</span><br><span class="line">如果文件存在,则修改该文件的末次修改日期</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>创建一个空目录&#x2F;删除一个空目录</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir [选项] [路径]目录名</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -p: 层级创建</span><br><span class="line">2. -v:显示创建顺序</span><br><span class="line">新建的文件夹名称不能与当前目录已有的目录或者文件同名</span><br><span class="line"></span><br><span class="line">rmdir [-p] [路径]目录名</span><br><span class="line">-p: 当子目录被删除后如果父目录也变成空目录的话,就连带父目录一起删除</span><br><span class="line">删除空目录 不能删除非空目录,不能删除文件</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>删除文件或者文件夹</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rm [-选项] [文件名/文件夹名]</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -r:递归地删除目录下的文件,删除文件夹的时候必须有这个选项</span><br><span class="line">2. -f:强制删除,忽略不存在的文件,无需提示</span><br><span class="line"></span><br><span class="line">rm命令不可逆,所以需要谨慎使用</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>将一个<strong>文件或者目录</strong>复制到另外一个<strong>文件或者目录</strong>下</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cp [选项] [想要复制的源文件的相对路径或者绝对路径] [目的文件或者文件夹的绝对路径或者相对路径]</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -f或者--force:强行复制文件或目录, 不论目的文件或目录是否已经存在</span><br><span class="line">2. -i或者--interactive:覆盖文件之前先询问用户</span><br><span class="line">3. -r:若给出的源文件是目录文件,则 cp 将递归复制该目录下的所有子目录和文件,目标文件必须为一个目录名</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>移动文件,也可以给文件重命名</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mv [选项] [源文件的相对路径或者绝对路径] [目标文件的相对路径或者绝对路径]</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -f:强制的意思,如果目标文件已经存在,不会询问而直接覆盖</span><br><span class="line">2. -i: 若目标文件(destination)已经存在时,就会询问是否覆盖</span><br><span class="line"></span><br><span class="line">如果是要移动文件,则目标文件不需要写文件名,表明路径就可以</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>查看文件内容、创建文件、文件合并、追加文件内容等功能</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat [选项] 文件名</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -b:对非空输出行进行编号</span><br><span class="line">2. -n:对输出的所有行进行编号</span><br><span class="line"></span><br><span class="line">cat会一次显示所有的内容,适合查看内容较少的文本文件</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>搜索文本文件内容</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grep [选项] &#x27;想要查找的字符串&#x27; 文件名</span><br><span class="line"></span><br><span class="line">允许对文本文件进行 模式查找,所谓模式查找,又被称为正则表达式</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -a:将binary(二进制)文件以text文件的方式查找数据</span><br><span class="line">2. -c:计算找到 &#x27;想要查找的字符串&#x27; 的次数</span><br><span class="line">3. -i:忽略大小写的区别,即把大小写视为相同</span><br><span class="line">4. -v:反向选择,即显示出没有 &#x27;想要查找的字符串&#x27; 内容的那一行</span><br></pre></td></tr></table></figure></div></li>
+<li><p>用来在指定目录下查找文件</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find [路径] [选项] 操作</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -name :后面的操作为在指定目录下想要查找的文件的名字</span><br><span class="line">2. -size :后面的操作为在指定目录下,文件大小大于某个值的文件,其中操作这一块就为(+一个值)</span><br><span class="line">    例如: -size +100k,表示查找文件大小大于100k的文件</span><br><span class="line">3. -ctime :查询指定目录下,在过去n天内被修改过的文件,其中操作处为n</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>修改用户对文件的权限</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">chmod [选项] 文件名</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -r :赋予读取权限</span><br><span class="line">2. -w :赋予写入权限</span><br><span class="line">3. -x :赋予执行权限</span><br><span class="line">4. 777 :赋予可读、可写、可执行权限(读:4,写:2,执行:1)</span><br><span class="line"></span><br><span class="line">权限说明:(例:-rw-r--r-x 的权限为645)</span><br><span class="line"></span><br><span class="line">权限显示位一共为10位,分为四段,从第二位算起,每三个一组</span><br><span class="line">第1位代表文件类型(-表示为普通文件)</span><br><span class="line">第2-4位代表文件所属用户拥有的权限(rw-:4+2=6)</span><br><span class="line">第5-7位代表该用户所属组拥有的权限(-r--:4)</span><br><span class="line">第8-10位代表其他用户拥有的权限(r-x:4+1=5)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>用来列出系统中当前正在运行的那些进程,类似于 windows 的任务管理器</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ps [选项]</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -A :列出所有的进程 </span><br><span class="line">2. -ef :查看全格式的全部进程 </span><br><span class="line">3. -w :显示加宽,可以显示较多的资讯</span><br><span class="line">4. -au :显示较详细的资讯</span><br><span class="line">5. -aux :显示所有包含其他使用者的进程</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>显示路由表、实际的网络连接以及每一个网络接口设备的状态信息</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">netstat [选项]</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">1. -a或者-all :显示所有连线中的Socket</span><br><span class="line">2. -A&lt;网络类型&gt;或--&lt;网络类型&gt;:列出该网络类型连线中的相关地址</span><br><span class="line">3. -c或--continuous:持续列出网络状态</span><br><span class="line">4. -C或--cache:显示路由器配置的快取信息</span><br><span class="line">5. -e或--extend:显示网络其他相关信息</span><br><span class="line">6. -l或--listening:显示监控中的服务器的Socket</span><br><span class="line"></span><br><span class="line">例如:</span><br><span class="line">1. netstat -a      # 列出所有端口</span><br><span class="line">2. netstat -at     # 列出所有TCP端口</span><br><span class="line">3. netstat -au    # 列出所有UDP端口</span><br><span class="line">4. netstat -ax    # 列出所有unix端口</span><br><span class="line">5. netstat -atnlp    # 直接使用ip地址列出所有处理监听状态的TCP端口,且加上程序名</span><br><span class="line"></span><br><span class="line">netstat的功能很强大,这里不方便详细说明,可以去网上查找更详细的资料</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="vim-x2F-vi-的常用命令"><a href="#vim-x2F-vi-的常用命令" class="headerlink" title="vim&#x2F;vi 的常用命令"></a>vim&#x2F;vi 的常用命令</h2><img lazyload src="/images/loading.svg" data-src="/2023/04/05/blog16/vi.jpg" class title="vi">
+
+<h3 id="vim-x2F-vi-的使用"><a href="#vim-x2F-vi-的使用" class="headerlink" title="vim&#x2F;vi 的使用"></a>vim&#x2F;vi 的使用</h3><p>基本上 vi&#x2F;vim 共分为三种模式,分别是</p>
+<ol>
+<li>命令模式(Command mode)</li>
+<li>输入模式(Insert mode)</li>
+<li>底线命令模式(Lastline mode)</li>
+</ol>
+<p>它们的转换关系如下</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/04/05/blog16/%E8%BD%AC%E6%8D%A2.jpg" class title="转换">
+
+<ol>
+<li><p>命令模式<br>用户刚刚启动 vi&#x2F;vim,便进入了命令模式。此状态下敲击键盘动作会被Vim识别为命令,而非输入字符。比如我们此时按下i,并不会输入一个字符,i被当作了一个命令<br>常用的几个命令:</p>
+</li>
+<li><p>i :切换到输入模式,以输入字符。</p>
+</li>
+<li><p>x :删除当前光标所在处的字符。</p>
+</li>
+<li><p>: :切换到底线命令模式,以在最底一行输入命令。<br><code>若想要编辑文本:启动Vim,进入了命令模式,按下i,切换到输入模式</code></p>
+<a class="button  regular" target="_blank" rel="noopener" href="http://t.csdn.cn/rMiZG" title="更多命令模式下的操作">更多命令模式下的操作</a>
+</li>
+<li><p>输入模式<br><code>在命令模式下按下 i 就进入了输入模式</code><br>在输入模式中,可以使用以下按键:</p>
+</li>
+<li><p>字符按键以及Shift组合:输入字符</p>
+</li>
+<li><p>ENTER:回车键,换行</p>
+</li>
+<li><p>BACK SPACE:退格键,删除光标前一个字符</p>
+</li>
+<li><p>DEL:删除键,删除光标后一个字符</p>
+</li>
+<li><p>方向键:在文本中移动光标</p>
+</li>
+<li><p>HOME&#x2F;END:移动光标到行首&#x2F;行尾</p>
+</li>
+<li><p>Page Up&#x2F;Page Down:&#x2F;下翻页</p>
+</li>
+<li><p>Insert:切换光标为输入&#x2F;替换模式,光标将变成竖线&#x2F;下划线</p>
+</li>
+<li><p>ESC:退出输入模式,切换到命令模式</p>
+</li>
+<li><p>底线命令模式<br><code>在命令模式下按下:(英文冒号)就进入了底线命令模式</code><br>底线命令模式可以输入单个或多个字符的命令,可用的命令非常多。</p>
+</li>
+</ol>
+<p>在底线命令模式中,基本的命令有(已经省略了冒号):</p>
+<ol>
+<li>q 退出程序</li>
+<li>w 保存文件</li>
+</ol>
+<p><code>在后面加上!号代表强制操作</code><br>按ESC键可随时退出底线命令模式</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这篇文章是在我看到很多面经都有问到类似的问题才觉得应该整理一下一些命令，当然了，命令那么多，我自然没办法一次性记下来，以后遇到一些常用的命令还会继续在这篇文章上加上去的</p>
+<p>原本是打算在动车上写的，但是动车上没有插座，我怕写一半没电了就没写了，说起来，在动车上还遇到一群旅游回来的川美学生，其中有一位漂亮的小姐姐还来找我要薯片吃哈哈，算是这辈子第一次被女生给主动搭话?</p>
+<p>跑来重庆搞IOS开发，说实话，我对客户端属实兴趣不大，但相对于学校的什么粤嵌什么的，我还是觉得自己找个实习比较好，我也不知道自己这次的选择对不对，但是每个选择都只能等以后来判断，所以现在只能一条路走到底，当然了，既然选择了来实习，自然就要做到最好，况且公司福利不错，就是重新学一门知识，我还得保持每天刷题以及看会八股，对我来说也挺有挑战的，万一期间找到我更想去的实习又该怎么办呢？期末考试也还要跑回学校，提前一周去吧至少得，不然我觉得可能会挂科…还要想想找房子的事情，哎，算是开始从学生转变为一个初入社会的毛头小子了，只能慢慢适应啦</p>
+<p>说起来，我可能不适合在重庆送外卖或者跑滴滴，今晚为了省钱，从地铁站走回住的地方，跟着导航走，我都能走1h，也就3km，太绕了，而且我总感觉不像是在城市里一样，走的路都没什么人，还有一段上山的路…太恐怖了，以后要是送外卖肯定会一直超时被罚钱的…</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Linux下常用命令</li>
+        <li><strong>作者:</strong> 这题超纲了</li>
+        <li><strong>创建于:</strong> 2023-04-05 15:26:14</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-06-23 14:48:11
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://qx-gg.github.io/2023/04/05/blog16/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Linux/">#Linux</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐阅读</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/02/24/blog2/" title="Linux下的“库”和“链接”" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨3.jpg" alt="Linux下的“库”和“链接”">
+  <span class="title">Linux下的“库”和“链接”</span>
+</a><a class="recommended-article-item" href="/2023/03/10/blog11/" title="C++中的一些设计模式" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨12.jpg" alt="C++中的一些设计模式">
+  <span class="title">C++中的一些设计模式</span>
+</a><a class="recommended-article-item" href="/2023/02/25/blog6/" title="进程间通信的各种方法以及优缺点" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨7.jpg" alt="进程间通信的各种方法以及优缺点">
+  <span class="title">进程间通信的各种方法以及优缺点</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/04/09/day7/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">随笔·重庆·来到重庆的第一个周末</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/02/day6/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">随笔·广州·因为下雨没有出去只能窝在宿舍重刷《你的名字》</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://waline-qin.6eek.net',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Linux下常用命令</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">Linux常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E9%98%85%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="nav-text">查阅命令帮助信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="nav-text">Linux常用命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim-x2F-vi-%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">vim&#x2F;vi 的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-x2F-vi-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">vim&#x2F;vi 的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">这题超纲了</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br>
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.5</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/2/23 15:15:11
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <div class="customize-info info-item">和我一起去充满橘子味的村庄叭</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/runtime.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/Typed.min.js"></script>
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/typed.js"></script>
+
+
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/minimasonry.min.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/masonry.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/tocToggle.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/anime.min.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/toc.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

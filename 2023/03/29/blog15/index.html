@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="这题超纲了">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/03/29/blog15/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="此情可待成追忆,只是当时已惘然。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP层(网络层)相关协议">
+<meta property="og:url" content="http://example.com/2023/03/29/blog15/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="此情可待成追忆,只是当时已惘然。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/IP.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E7%BD%91%E5%8D%A1.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/IP%E5%9C%B0%E5%9D%80%E5%88%86%E7%B1%BB.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/IP%E5%9C%B0%E5%9D%80%E8%8C%83%E5%9B%B4.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E5%B9%BF%E6%92%AD.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E7%BB%84%E6%92%AD.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E4%BC%98%E7%82%B9.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E7%A7%81%E6%9C%89IP.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/CIDR.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E7%BD%91%E7%BB%9C%E5%8F%B7.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E5%AD%90%E7%BD%91%E5%88%92%E5%88%861.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E5%AD%90%E7%BD%91.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/%E8%B7%AF%E7%94%B1%E6%8E%A7%E5%88%B6.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/IP%E9%A6%96%E9%83%A8.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ARP.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/RARP.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/DHCP.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ICMP%E5%A4%B4%E9%83%A8.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ICMP%E7%B1%BB%E5%9E%8B.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ICMP.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ICMP%E5%9B%9E%E9%80%81.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ICMP%E6%8A%A5%E6%96%87.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ping.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/IP%E6%95%B0%E6%8D%AE%E5%8C%85.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/MAC.jpg">
+<meta property="og:image" content="http://example.com/2023/03/29/blog15/ICMP%E5%93%8D%E5%BA%94.jpg">
+<meta property="article:published_time" content="2023-03-29T05:14:30.000Z">
+<meta property="article:modified_time" content="2023-06-23T06:47:35.201Z">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/03/29/blog15/IP.jpg">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/%E6%B4%BE1.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/%E6%B4%BE1.jpg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/%E6%B4%BE1.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            IP层(网络层)相关协议 -
+        
+        这题超纲了的BLOG
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Farsan&display=swap" rel="stylesheet">
+    
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["铜皮","草根","柳筋","骨气","铸庐","洞府境","观海境","龙门境","金丹境","元婴境","玉璞境","仙人境","飞升境","十四境","十五境"]},"code_block":{"copy":true,"style":"mac","font":{"enable":true,"family":null,"url":"https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Farsan","url":"https://fonts.googleapis.com/css2?family=Farsan&display=swap"}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":false,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/水墨/水墨.jpg","dark":"/images/水墨/水墨1.jpg"},"title":"~欢迎来到“派大星”的博客~","subtitle":{"text":["言念君子,温其如玉","我见青山多妩媚,料青山见我应如是","有些人心如花木,皆向阳而生","遇事不决,可问春风。春风不语,即随本心","人生当苦无妨,良人当归即好"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#000000","dark":"#FAFFFE"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"social_links":{"enable":"enable","links":{"github":"https://github.com/Qx-GG","instagram":null,"zhihu":"https://www.zhihu.com/people/bu-shang-530bu-gai-ming","twitter":null,"email":null,"weixin":"/images/微信.jpg","bilibili":"https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.5","navbar":{"auto_hide":false,"color":{"left":"#FAFFFE","right":"#FAFFFE","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-chart-bar"},"Links":{"path":"/links","icon":"fa-regular fa-link"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/Qx-GG","Bilibili":"https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0"}},"WorMhole":{"path":"https://foreverblog.cn/go.html","icon":"fa-regular fa-planet-ringed"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"言念君子,温其如玉","links":{"PYQ":{"path":"/shuoshuo","icon":"fa-regular fa-messages"},"Photo":{"path":"/masonry","icon":"fa-regular fa-photo-film"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    Global.data_config = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/regular.min.css">
+    
+    
+    
+        <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/fontawesome/duotone.min.css">
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/%E6%B4%BE1.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                这题超纲了的BLOG
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        归档
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-chart-bar"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/Qx-GG">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0">BILIBILI
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    target="_blank" rel="noopener" href="https://foreverblog.cn/go.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-planet-ringed"></i>
+                                        
+                                        WORMHOLE
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                归档
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-chart-bar"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/Qx-GG">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://space.bilibili.com/38628118?spm_id_from=333.1007.0.0">BILIBILI</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        target="_blank" rel="noopener" href="https://foreverblog.cn/go.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-planet-ringed"></i>
+                                
+                                WORMHOLE
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+                      
+                <div class="article-title">
+                    <img src="https://Qx-GG.github.io/images/水墨/水墨16.jpg" alt="IP层(网络层)相关协议" />
+                    <h1 class="article-title-cover">IP层(网络层)相关协议</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/%E6%B4%BE%E5%A4%A7%E6%98%9F.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">这题超纲了</span>
+                            
+                                <span class="author-label">柳筋</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-29 13:14:30</span>
+        <span class="mobile">2023-03-29 13:14</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-23 14:47:35</span>
+            <span class="mobile">2023-06-23 14:47</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>24 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=65800&auto=1&height=66"></iframe>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这周大概也就这一篇文章吧,已经月底了,什么时候才能找到实习呀(悲)!</p>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>网络层在TCP&#x2F;IP协议中的位于第三层。在TCP&#x2F;IP协议中网络层可以进行网络连接的建立和终止以及IP地址的寻找等功能,因为在网络层中<strong>IP协议</strong>是最重要的协议,所以我们一般又把网络层叫做”IP层”,当然了,网络层除了<strong>IP协议</strong>,自然也有其他协议,例如<strong>ICMP协议</strong>,<strong>ARP协议</strong>,<strong>RARP协议</strong>等等,这里就主要讲一下<strong>IP协议</strong>、<strong>ICMP协议</strong>和<strong>ARP协议吧</strong></p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>在去了解IP协议之前,我们得先需要知道什么是<strong>IP地址</strong></p>
+<p><strong>IP地址</strong>是指<strong>互联网协议地址</strong>,又称为<strong>网络协议地址</strong>。IP地址是IP协议提供的一种统一的地址格式,<strong>它为互联网上的每一个网络和每一台主机分配一个逻辑地址(不是真实的)</strong>,以此来屏蔽物理地址(MAC地址)的差异</p>
+<p>IPv4地址是一个<strong>32位</strong>的二进制数(4个字节),通常被分割为4个<strong>8位二进制数</strong>,IP 地址在计算机是以二进制的方式处理的</p>
+<p>而人类为了方便记忆采用了点分十进制的标记方式,也就是将<strong>32位IP地址</strong>以<strong>每8位</strong>为组,共分为4组,每组以「.」隔开,再将每组转换成十进制</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/IP.jpg" class title="IP">
+<p><code>所以,IP地址最多有2^32=4294967296,大约是43亿,也就是说可以有43亿台计算机联入互联网中</code></p>
+<p>但实际上,IP地址并不是根据主机数来分配的,而是根据<strong>网卡</strong>来分配的,而一个网卡其实可以分配多个IP地址,而一台路由器或者服务器往往有着2个以上的网卡,也就是说他们一般有2个以上的IP地址</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E7%BD%91%E5%8D%A1.jpg" class title="网卡">
+
+<h3 id="IP地址分类"><a href="#IP地址分类" class="headerlink" title="IP地址分类"></a>IP地址分类</h3><p>一开始,IP地址还是很富足的,所以科学家们根据<strong>网络号+主机号</strong>对IP地址进行了一个分类<br>分别为A类,B类,C类,D类,E类</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/IP%E5%9C%B0%E5%9D%80%E5%88%86%E7%B1%BB.jpg" class title="IP地址分类">
+
+<p>它们每个类对应的IP地址范围</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/IP%E5%9C%B0%E5%9D%80%E8%8C%83%E5%9B%B4.jpg" class title="IP地址范围">
+
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>如何计算最大主机数 </summary>
+              <div class="content">
+              <p>想要计算最大主机数,我们必须知道,<strong>IP地址被分成网络号+主机号</strong>,所以,要根据IP地址分类来计算,例如<br>B类地址,在B类地址中我们知道,<strong>网络号为前16个字节,最前面两个字节必须为10</strong>,所以剩下16位就是主机号,所以理论上来说,B类地址最多可以有2^16,但实际上我们还需要<strong>减2</strong>,所以实际上就只有(2^16-2)个主机</p><p>为什么要减2呢?<br>这是因为有两个特殊的IP地址,是不允许作为某一个主机的IP地址的,分别就是:<strong>主机号全为0</strong>和<strong>主机号全为1</strong>的两个IP地址,就拿B类地址来说,<strong>xxx.xxx.0.0</strong>和<strong>xxx.xxx.255.255</strong>就是这中特殊的地址<br>一般来说:<br><strong>主机号全为1</strong>的IP地址一般是用于广播的IP地址,是指某个网络下的所有主机<br><strong>主机号全为0</strong>的IP地址用来指定某个网络</p><p><code>所以再给某一网络的主机分配IP地址的时候,这两个特殊地址是不会分配的</code></p><details class="red" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>广播地址的作用 </summary>              <div class="content">              <p><code>广播地址用于在同一个链路中相互连接的主机之间发送数据包</code><br>广播地址分为<strong>本地广播</strong>和<strong>直接广播</strong></p><ol><li>本地广播: 在本网络内广播的叫做<strong>本地广播</strong>。例如网络地址为 192.168.0.0&#x2F;24 的情况下,广播地址是 192.168.0.255 。<strong>因为这个广播地址的 IP 包会被路由器屏蔽</strong>,所以不会到达 192.168.0.0&#x2F;24 以外的其他链路上</li><li>直接广播: 在不同网络之间的广播叫做<strong>直接广播</strong>。例如网络地址为 192.168.0.0&#x2F;24 的主机向 192.168.1.255&#x2F;24 的目标地址发送 IP 包。收到这个包的路由器,将数据转发给192.168.1.0&#x2F;24,从而使得所有 192.168.1.1~192.168.1.254 的主机都能收到这个包(<code>由于直接广播有一定的安全问题,多数情况下会在路由器上设置为不转发</code>)<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E5%B9%BF%E6%92%AD.jpg" class title="广播"></li></ol>              </div>            </details>
+              </div>
+            </details>
+
+<details class="green" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>什么是D、E类地址 </summary>
+              <div class="content">
+              <p>因为D、E类地址是<strong>没有主机号</strong>的,所以不可用于当作主机的IP地址<br>D类地址一般用于<strong>多播</strong><br>E类地址是预留的分类,暂时没用</p><details class="green" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>多播 </summary>              <div class="content">              <p>多播和广播不同,多播<strong>用于将包发送给特定组内的所有主机</strong>,多播有时候也叫做<strong>组播</strong><br>举个例子,当我们在上课的时候,老师喊“上课,起立”的时候,我们整个班级所有人都会起立,而这就是<strong>广播</strong>,是给全班所有人听的,当老师喊“第一排坐下”的时候,只有第一排坐下了,其他人还是站着的,而这就是<strong>多播</strong>,是给指定某一特定的人群听的</p><p><code>由于广播无法穿透路由,若想给其他网段发送同样的包,就可以使用可以穿透路由的多播(组播)</code><br><img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E7%BB%84%E6%92%AD.jpg" class title="组播"></p><p>多播使用的 D 类地址,其前四位是 1110 就表示是多播地址,而剩下的 28 位是多播的组编号。<br>从 224.0.0.0 ~ 239.255.255.255 都是多播的可用范围,其划分为以下三类</p><ol><li>224.0.0.0 ~ 224.0.0.255 为<strong>预留的组播地址</strong>,只能在局域网中,路由器是不会进行转发的</li><li>224.0.1.0 ~ 238.255.255.255  为<strong>用户可用的组播地址</strong>,可以用于<strong>Internet</strong>上</li><li>239.0.0.0 ~ 239.255.255.255 为<strong>本地管理组播地址</strong>,可供内部网在内部使用,<strong>仅在特定的本地范围内有效</strong></li></ol>              </div>            </details>
+              </div>
+            </details>
+
+<p>这样分类有优点,也有缺点</p>
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>优点 </summary>
+              <div class="content">
+              <p>不管是路由器还是主机解析到一个 IP 地址时候,我们判断其 IP 地址的首位是否为 0,为0则为A类地址,那么就能很快的找出网络地址和主机地址,其他类同理,如果第一位为1,就判断第二位是否为0,是就为B类地址,以此类推<br><img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E4%BC%98%E7%82%B9.jpg" class title="优点"></p><p>所以,这种分类地址的优点就是<strong>简单明了、选路(基于网络地址)简单</strong></p>
+              </div>
+            </details>
+
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>缺点 </summary>
+              <div class="content">
+              <p>缺点一:<br><strong>同一网络下没有地址层次</strong>,比如一个公司里用了 B 类地址,但是可能需要根据生产环境、测试环境、开发环境来划分地址层次,而这种 IP 分类是没有地址层次划分的功能,所以这就<strong>缺少地址的灵活性</strong><br>缺点二:<br>这样分类与现实不匹配<br>C类地址最大容纳的主机也才254个,其实是很少了,一个稍微大点的网吧都不够<br>B类地址最大容纳的主机有2^16-2个,将近6万个,这就又太多了,6万多台机器放到一个网络下面,恐怕也就BAT这种大厂能做到了吧</p>
+              </div>
+            </details>
+
+<p>在这种分类方法下,实际上是由<strong>公用IP地址</strong>和<strong>私用IP地址</strong>之分的</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E7%A7%81%E6%9C%89IP.jpg" class title="私有">
+<p>平时我们办公室、家里、学校用的 IP 地址,一般都是<strong>私有 IP 地址</strong>。因为这些地址允许组织内部的 IT 人员自己管理、自己分配,而且<strong>可以重复</strong>。因此,你学校的某个私有 IP 地址和我学校的可以是一样的</p>
+<p>就像每个小区都有自己的楼编号和门牌号,你小区家可以叫  1 栋 101 号,我小区家也可以叫 1 栋 101,没有任何问题。但一旦出了小区,就需要带上中山路 666 号（公网 IP 地址）,是国家统一分配的,不能两个小区都叫中山路 666</p>
+<p>所以,公有 IP 地址是有个组织统一分配的,假设你要开一个博客网站,那么你就需要去申请购买一个公有 IP,这样全世界的人才能访问。并且公有 IP 地址基本上要在整个互联网范围内保持唯一</p>
+<h3 id="CIDR无分类地址"><a href="#CIDR无分类地址" class="headerlink" title="CIDR无分类地址"></a>CIDR无分类地址</h3><p>为了解决IP地址分类的缺点,后面科学家们就提出了<strong>CIDR无分类地址</strong><br><code>这种方式不再有分类地址的概念,32 比特的 IP 地址被划分为两部分,前面是网络号,后面是主机号</code></p>
+<p>而这要如何区分网络号和主机号呢?<br>科学家们是这样做的,将IP地址表示为(<strong>a.b.c.d&#x2F;x</strong>),其中,x表示<strong>前x位为网络号</strong>,范围为0~32,这就使得IP地址更加灵活,例如下面</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/CIDR.jpg" class title="CIDR">
+<p>上图中的<strong>子网掩码</strong>也是用来划分<strong>网络号和主机号</strong>的另外一种方式,掩码的意思就是掩盖掉主机号,剩余的就是网络号<br>只要将子网掩码和IP地址<strong>相与</strong>一下,得到的结果就是<strong>网络号</strong></p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81.jpg" class title="子网掩码">
+
+<p>知道了IP地址的分类方法,有没有想过科学家为什么要将IP地址分为<strong>网络号+主机号</strong>呢?</p>
+<details class="orange" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>为什么要分网络号和主机号 </summary>
+              <div class="content">
+              <p>因为两台计算机要通讯,首先要判断是否处于同一个广播域内,即网络地址是否相同。如果网络地址相同,表明接受方在本网络上,那么可以把数据包直接发送到目标主机</p><p>路由器寻址工作中,也就是通过这样的方式来找到对应的网络号的,进而把数据包转发给对应的网络内<br><img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E7%BD%91%E7%BB%9C%E5%8F%B7.jpg" class title="网络号"></p>
+              </div>
+            </details>
+
+<p>在上面我们知道<strong>子网掩码</strong>可以划分网络号和主机号,但其实还可以用来<strong>划分子网</strong>,当然了,这就要用到IP地址中的地址分类了<br><code>子网划分实际上是将主机地址分为两个部分:子网网络地址和子网主机地址</code><br>大概是这样</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86.jpg" class title="子网划分">
+<ol>
+<li>未做子网划分的 ip 地址:网络地址＋主机地址</li>
+<li>做子网划分后的 ip 地址:网络地址＋(子网网络地址＋子网主机地址)</li>
+</ol>
+<p>我们以C类地址为例,将C类地址进行子网划分,假设IP地址为192.168.1.0,子网掩码为255.255.255.192</p>
+<p>C 类地址中<strong>前24位是网络号</strong>,<strong>最后8位是主机号</strong>,根据子网掩码可知<strong>从8位主机号中借用2位作为子网号</strong></p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E5%AD%90%E7%BD%91%E5%88%92%E5%88%861.jpg" class title="子网划分1">
+<p>所以子网就有四个,分别为00,01,10,11</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E5%AD%90%E7%BD%91.jpg" class title="子网">
+
+<h3 id="IP地址与路由控制"><a href="#IP地址与路由控制" class="headerlink" title="IP地址与路由控制"></a>IP地址与路由控制</h3><p>IP地址的<strong>网络地址</strong>这一部分是用于进行<strong>路由控制</strong><br><code>路由控制表中记录着网络地址与下一步应该发送至路由器的地址,在主机和路由器上都会有各自的路由器控制表</code><br>当我们发送IP数据包的时候,会先检查IP数据包中的首部中的<strong>目标地址</strong>,然后在路由控制表中查找该目标地址对应的<strong>下一跳</strong>的地址,也就是下一次IP数据包的转发应该给哪个路由器或者说是主机(我们在网络中发送数据的时候是不可能一次性直接到目标主机,而是需要数据包在网络中进行跳转)</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/%E8%B7%AF%E7%94%B1%E6%8E%A7%E5%88%B6.jpg" class title="路由控制">
+
+<ol>
+<li><p>主机 A 要发送一个IP包,其源地址是 10.1.1.30 和目标地址是 10.1.2.10,由于没有在主机 A 的路由表找到与目标地址 10.1.2.10 的网络地址匹配的条目,于是把数据包转发到默认路由(路由器1)(<strong>一般为0.0.0.0</strong>)</p>
+</li>
+<li><p>路由器1收到IP包后,也在路由器1的路由表匹配与目标地址相同的网络地址记录,发现匹配到了,于是就把 IP 数据包转发到了 10.1.0.2 这台路由器2</p>
+</li>
+<li><p>路由器2收到后,同样对比自身的路由表,发现匹配到了,于是把IP包从路由器2的 10.1.2.1 这个接口出去,最终经过交换机把 IP 数据包转发到了目标主机</p>
+</li>
+</ol>
+<p><code>如果路由控制表中存在多条相同网络地址的记录,就选择相同位数最多的网络地址,也就是最长匹配</code></p>
+<h3 id="环回地址"><a href="#环回地址" class="headerlink" title="环回地址"></a>环回地址</h3><p>环回地址是在同一台计算机上的程序之间进行网络通信时所使用的一个默认地址</p>
+<p>计算机使用一个特殊的IP地址<strong>127.0.0.1</strong>作为环回地址,与该地址具有相同意义的是一个叫做<strong>localhost</strong>的主机名</p>
+<p><code>使用这个 IP 或主机名时,数据包不会流向网络</code></p>
+<p>介绍完了IP地址,接下来看看IP协议吧</p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><p><strong>IP协议</strong>是为计算机网络相互连接进行通信而设计地协议,<code>在因特网上,它是能使连接到网上的所有计算机网络实现相互通信的一套规则</code>,规定了计算机在因特网上进行通信时应当遵守的规则。</p>
+<p>IP协议实际上是一套由<strong>软件程序</strong>组成的协议软件,它把<strong>各种不同的帧(不同的厂家生产的网络系统和设备所传输的数据的基本单位的不同)<strong>统一转化位</strong>IP数据报</strong>格式,这种转换时因特网的一个<strong>最重要</strong>的特点,使得所有各种机器都能在因特网上相互通信,<strong>即具有”开放性”的特点</strong>。因此,IP协议也可以叫做<strong>因特网协议</strong></p>
+<h3 id="IP首部"><a href="#IP首部" class="headerlink" title="IP首部"></a>IP首部</h3><img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/IP%E9%A6%96%E9%83%A8.jpg" class title="IP首部">
+<details class="black" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>首部详解 </summary>
+              <div class="content">
+              <p>IP数据包首部固定长度为20字节,不包括可变长度(最大40字节)</p><ol><li>版本号: 4位,用于标识IP协议版本,IPv4是0100,IPv6是0110,也就是二进制下的4和6</li><li>首部长度: 4位,用于标识首部的长度,单位为4字节,所以首部长度最大值为:(2^4 - 1) * 4 &#x3D; 60字节,但一般只推荐使用20字节的固定长度,类似于<strong>TCP协议头部的首部长度字段</strong></li><li>区分服务: 8位,用于标识IP包的优先级,但现在并未使用</li><li>总长度: 标识IP数据报(包含数据)的总长度,最大为:2^16 -1 &#x3D; 65535字节</li><li>标识: 16位,用于标识IP数据报,如果因为数据链路层帧数据段长度限制(也就是MTU,支持的最大传输单元),IP数据报需要进行分片发送,则每个分片的IP数据报标识都是一致的</li><li>标志: 3位,但目前只有2位有意义,最低位为MF,MF&#x3D;1代表后面还有分片的数据报,MF&#x3D;0代表当前数据报已是最后的数据报;次低位为DF,DF&#x3D;1代表不能分片,DF&#x3D;0代表可以分片</li><li>片位移: 13位,代表某个分片在原始数据中的相对位置</li><li>生存时间: 8位,以前代表IP数据报最大的生存时间,现在标识IP数据报可以经过的路由器数</li><li>协议: 8位,<strong>代表上层传输层协议的类型</strong>,1代表ICMP,2代表IGMP,6代表TCP,17代表UDP</li><li>首部检验和: 16位,用于验证数据完整性,和TCP的检验和首部字段功能一样</li><li>源IP地址: 32位,代表数据包是从哪个IP地址对应的主机上发出的</li><li>目的IP地址: 32位,代表该数据包最后应该到哪个IP地址对应的主机上</li></ol>
+              </div>
+            </details>
+
+<p>其实IP协议我感觉没什么好讲的,最主要的是一些与IP协议相关的重要且常见的技术</p>
+<h2 id="IP协议相关的技术"><a href="#IP协议相关的技术" class="headerlink" title="IP协议相关的技术"></a>IP协议相关的技术</h2><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>点击下面按钮观看哦,这个之前写过的</p>
+<a class="button  regular" target="_blank" rel="noopener" href="https://qx-gg.github.io/2023/03/16/blog13" title="DNS">DNS</a>
+<h3 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h3><p>在传输一个<strong>IP数据报</strong>的时候,确定了<strong>源IP地址</strong>和<strong>目标IP地址</strong>后,就会通过<strong>主机路由表</strong>确定 IP 数据包下一跳。然而,网络层的下一层是数据链路层,所以我们还要知道<strong>下一跳的MAC地址</strong></p>
+<p>由于主机的路由表中可以找到下一条的 IP 地址,所以可以通过<strong>ARP协议</strong>,求得下一跳的 MAC 地址</p>
+<details class="green" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>ARP如何知道对方的MAC地址? </summary>
+              <div class="content">
+              <p>ARP 是借助<strong>ARP 请求</strong>与<strong>ARP 响应</strong>两种类型的包确定 MAC 地址的<br><img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ARP.jpg" class title="ARP"></p><ol><li><p>主机会通过广播发送 ARP 请求,这个包中包含了想要知道的 MAC 地址的主机 IP 地址</p></li><li><p>当同个链路中的所有设备收到 ARP 请求时,会去拆开 ARP 请求包里的内容,如果 ARP 请求包中的目标 IP 地址与自己的 IP 地址一致,那么这个设备就将自己的 MAC 地址塞入 ARP 响应包返回给主机</p></li><li><p>操作系统通常会把第一次通过 ARP 获取的 MAC 地址缓存起来(也就是保存在ARP缓存表中),以便下次直接从缓存中找到对应 IP 地址的 MAC 地址</p></li><li><p>不过,MAC 地址的缓存是有一定期限的,超过这个期限,缓存的内容将被清除</p></li></ol>
+              </div>
+            </details>
+<h3 id="RARP"><a href="#RARP" class="headerlink" title="RARP"></a>RARP</h3><p>和ARP刚好相反,它是已知 MAC 地址求 IP 地址,例如将打印机服务器等小型嵌入式设备接入到网络时就经常会用得到<br>通常这需要架设一台<strong>RARP服务器</strong>,在这个服务器上注册设备的<strong>MAC 地址及其 IP 地址</strong>。然后再将这个设备接入到网络,接着:</p>
+<ol>
+<li>该设备会发送一条「我的 MAC 地址是XXXX,请告诉我,我的IP地址应该是什么」的请求信息</li>
+<li>RARP 服务器接到这个消息后返回「MAC地址为 XXXX 的设备,IP地址为 XXXX」的信息给这个设备</li>
+</ol>
+<p>最后,设备就根据从 RARP 服务器所收到的应答信息设置自己的 IP 地址</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/RARP.jpg" class title="RARP">
+
+<h3 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h3><p>我们的电脑通常都是通过<strong>DHCP</strong>动态获取IP地址，大大省去了配 IP 信息繁琐的过程<br>我们来看看一台新的电脑练到互联网上的时候要如何知道自己的IP地址<br><code>先说明一点，DHCP 客户端进程监听的是 68 端口号，DHCP 服务端进程监听的是 67 端口号</code><br>过程:</p>
+<ol>
+<li>客户端首先发起<strong>DHCP发现报文(DHCP DISCOVER)<strong>的IP数据报，由于</strong>客户端没有IP地址，也不知道DHCP服务器的地址</strong>，所以使用的是<strong>UDP广播通信</strong>，其使用的广播目的地址是<strong>255.255.255.255(端口 67)</strong> 并且使用 **0.0.0.0(端口 68)**作为源 IP 地址。DHCP 客户端将该 IP 数据报传递给链路层，链路层然后将帧广播到所有的网络中设备</li>
+<li>互联网上所有的DHCP服务器都会收到这个报文，用<strong>DHCP提供报文(DHCP OFFER)<strong>向客户端做出响应。该报文仍然使用IP广播地址255.255.255.255(目的IP地址)，源IP地址就是自己的IP地址，该报文信息携带服务器提供可</strong>租约的IP地址、子网掩码、默认网关、DNS服务器以及IP地址租用期</strong>，注意，每个DHCP都会发送一个报文</li>
+<li>客户端收到一个或多个服务器的<strong>DHCP提供报文</strong>后，从中选择一个服务器，并向选中的服务器发送**DHCP请求报文(DHCP REQUEST)**进行响应，回显配置的参数</li>
+<li>最后，服务端用<strong>DHCP ACK报文</strong>对 DHCP 请求报文进行响应，应答所要求的参数<br><code>一旦客户端收到 DHCP ACK 后，交互便完成了，并且客户端能够在租用期内使用 DHCP 服务器分配的 IP 地址</code></li>
+</ol>
+<p>如果租约的<strong>DHCP IP地址</strong>快过期后，客户端会向服务器发送 DHCP 请求报文:</p>
+<ol>
+<li><p>服务器如果同意继续租用，则用 DHCP ACK 报文进行应答，客户端就会延长租期</p>
+</li>
+<li><p>服务器如果不同意继续租用，则用 DHCP NACK 报文，客户端就要停止使用租约的 IP 地址<br><code>整个过程中,都是使用UDP广播通信</code></p>
+<details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>DHCP中继代理 </summary>
+              <div class="content">
+              <p>因为路由器不会转发广播报文，所以UDP广播报文不会被不同网络下的DHCP接收到，而为了解决这个问题，DHCP中继代理就出现了<br>有了 DHCP 中继代理以后，<strong>对不同网段的 IP 地址分配也可以由一个 DHCP 服务器统一进行管理</strong><br><img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/DHCP.jpg" class title="DHCP"></p><ol><li>DHCP 客户端会向 DHCP 中继代理发送 DHCP 请求包，而 DHCP 中继代理在收到这个广播包以后，再以<strong>单播</strong>的形式发给 DHCP 服务器</li><li>服务器端收到该包以后再向 DHCP 中继代理返回应答，并由 DHCP 中继代理将此包转发给 DHCP 客户端<br><code>因此，DHCP 服务器即使不在同一个链路上也可以实现统一分配和管理IP地址</code></li></ol>
+              </div>
+            </details></li>
+</ol>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><p>因为<strong>IP协议</strong>并不是一个可靠的协议，它不保证数据能够被送达，虽然IP头部有检验和的字段，但这只能保证数据不被更改，但不能保证数据不会再传输过程中丢失，所以，保证数据送达的工作应该由其他模块来实现，其中一个重要的模块就是<strong>TCMP协议(互联网控制报文协议)</strong></p>
+<h4 id="ICMP头部"><a href="#ICMP头部" class="headerlink" title="ICMP头部"></a>ICMP头部</h4><p>ICMP 报文是封装在 IP 包里面</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ICMP%E5%A4%B4%E9%83%A8.jpg" class title="ICMP头部">
+<p>其中类型有以下几种</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ICMP%E7%B1%BB%E5%9E%8B.jpg" class title="ICMP类型">
+<h4 id="ICMP协议功能"><a href="#ICMP协议功能" class="headerlink" title="ICMP协议功能"></a>ICMP协议功能</h4><p>ICMP 主要的功能包括:确认<strong>IP包</strong>是否成功送达目标地址、报告发送过程中<strong>IP包</strong>被废弃的原因和改善网络设置等</p>
+<p>在 IP 通信中如果某个 IP 包因为某种原因未能达到目标地址，那么这个具体的原因将由 ICMP 负责通知</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ICMP.jpg" class title="ICMP">
+
+<p>如上图例子，主机 A 向主机 B 发送了数据包，由于某种原因，途中的路由器 2 未能发现主机 B 的存在，这时，路由器 2 就会向主机 A 发送一个 ICMP 目标不可达数据包，说明发往主机 B 的包未能成功</p>
+<p>ICMP 的这种通知消息会使用 IP 进行发送 </p>
+<p>因此，从路由器 2 返回的 ICMP 包会按照往常的路由控制先经过路由器 1 再转发给主机 A 。收到该 ICMP 包的主机 A 则分解 ICMP 的首部和数据域以后得知具体发生问题的原因</p>
+<h4 id="ICMP类型"><a href="#ICMP类型" class="headerlink" title="ICMP类型"></a>ICMP类型</h4><p>TCMP报文大致分为两类:<strong>查询报文</strong>和<strong>差错报文</strong></p>
+<p>查询报文的用途:</p>
+<ol>
+<li>ping查询</li>
+<li>子网掩码查询</li>
+<li>时间戳查询</li>
+</ol>
+<p>差错报文的用途:在数据传送过程发生错误时会产生差错报文</p>
+<details class="black" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>查询报文的类型 </summary>
+              <div class="content">
+              <ol><li>0和8:回送消息，回送消息用于进行通信的主机或路由器之间，判断所发送的数据包是否已经成功到达对端的一种消息，ping 命令就是利用这个消息实现的<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ICMP%E5%9B%9E%E9%80%81.jpg" class title="ICMP回送">可以向对端主机发送**回送请求**的消息（ICMP Echo Request Message，类型 8），也可以接收对端主机发回来的**回送应答**消息（ICMP Echo Reply Message，类型 0）<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ICMP%E6%8A%A5%E6%96%87.jpg" class title="ICMP报文">相比原生的 ICMP，这里多了两个字段：</li><li>标识符：用以区分是哪个应用程序发 ICMP 包，比如用进程 PID 作为标识符</li><li>序号：序列号从 0 开始，每发送一次新的回送请求就会加 1， 可以用来确认网络包是否有丢失</li></ol><p>在选项数据中，ping 还会存放发送请求的时间值，来计算往返时间，说明路程的长短</p>
+              </div>
+            </details>
+<h4 id="TCMP的应用之一—ping"><a href="#TCMP的应用之一—ping" class="headerlink" title="TCMP的应用之一—ping"></a>TCMP的应用之一—ping</h4><p>举个例子来看看ping是如何工作的吧<br>同个子网下的主机 A 和 主机 B，主机 A 执行ping 主机 B 后</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ping.jpg" class title="ping">
+<ol>
+<li><p>ping 命令执行的时候，源主机首先会构建一个 ICMP 回送请求消息数据包,其中ICMP数据包内包含多个字段，最重要的两个为:</p>
+</li>
+<li><p>第一个是类型，对于回送请求消息而言该字段为 8</p>
+</li>
+<li><p>另外一个是序号，主要用于区分连续 ping 的时候发出的多个数据包<br>每发出一个请求数据包，序号会自动加 1。为了能够计算往返时间 RTT，它会在报文的数据部分插入发送时间</p>
+</li>
+<li><p>然后，由ICMP协议将这个数据包连同地址 192.168.1.2 一起交给 IP 层。IP 层将以 192.168.1.2 作为目的地址，本机 IP 地址作为源地址，协议字段设置为 1 表示是 ICMP 协议，在加上一些其他控制信息，构建一个 IP 数据包</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/IP%E6%95%B0%E6%8D%AE%E5%8C%85.jpg" class title="IP数据包">
+</li>
+<li><p>接下来就是在数据链路层加入<strong>MAC头</strong>。如果在本地 ARP 映射表中查找出 IP 地址 192.168.1.2 所对应的 MAC 地址，则可以直接使用；如果没有，则需要发送 ARP 协议查询 MAC 地址，获得 MAC 地址后，由数据链路层构建一个数据帧，目的地址是 IP 层传过来的目的IP地址对应的 MAC 地址，源地址则是本机的 MAC 地址；还要附加上一些控制信息，依据以太网的介质访问规则，将它们传送出去</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/MAC.jpg" class title="MAC"></li>
+<li><p>主机 B 收到这个数据帧后，先检查它的目的 MAC 地址，并和本机的 MAC 地址对比，如符合，则接收，否则就丢弃。</p>
+</li>
+<li><p>接收后检查该数据帧，将 IP 数据包从帧中提取出来，交给本机的 IP 层。同样，IP 层检查后，将有用的信息提取后交给 ICMP 协议。</p>
+</li>
+<li><p>主机 B 会构建一个 ICMP 回送响应消息数据包，回送响应数据包的类型字段为 0，序号为接收到的请求数据包中的序号，然后再发送出去给主机 A</p>
+<img lazyload src="/images/loading.svg" data-src="/2023/03/29/blog15/ICMP%E5%93%8D%E5%BA%94.jpg" class title="ICMP响应"></li>
+</ol>
+<p>在规定的时候间内，源主机如果没有接到 ICMP 的应答包，则说明目标主机不可达；如果接收到了 ICMP 回送响应消息，则说明目标主机可达。</p>
+<p>此时，源主机会检查，用当前时刻减去该数据包最初从源主机上发出的时刻，就是 ICMP 数据包的<strong>时间延迟</strong></p>
+<p>当然，在不同网段的传输还涉及了路由器之间的跳转，网关之间的转发，但是这对ICMP报文来讲没有任何影响，而这就是ping的整个过程</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>最近一直在关于ChatGPT的视频，不得不感慨可能我要见证一个新的时代的发生了，有可能会被叫做第四次工业革命呢，不知道对我国的影响是如何的，AI真的很强，搞得我对AI也有兴趣了，历史的潮流中，我们只能做到不要淹死在里面，未来会怎么样，尽请期待吧</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> IP层(网络层)相关协议</li>
+        <li><strong>作者:</strong> 这题超纲了</li>
+        <li><strong>创建于:</strong> 2023-03-29 13:14:30</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-06-23 14:47:35
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://qx-gg.github.io/2023/03/29/blog15/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐阅读</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/03/15/blog12/" title="计算机网络模型及各层的作用和主要协议" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨13.jpg" alt="计算机网络模型及各层的作用和主要协议">
+  <span class="title">计算机网络模型及各层的作用和主要协议</span>
+</a><a class="recommended-article-item" href="/2023/03/16/blog13/" title="应用层相关协议" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨14.jpg" alt="应用层相关协议">
+  <span class="title">应用层相关协议</span>
+</a><a class="recommended-article-item" href="/2023/03/22/blog14/" title="传输层相关协议" rel="bookmark">
+  <img src="https://Qx-GG.github.io/images/水墨/水墨15.jpg" alt="传输层相关协议">
+  <span class="title">传输层相关协议</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/04/02/day6/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">随笔·广州·因为下雨没有出去只能窝在宿舍重刷《你的名字》</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/03/25/day5/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">随笔·广州·一个人看电影咯</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://waline-qin.6eek.net',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">IP层(网络层)相关协议</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80"><span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80%E5%88%86%E7%B1%BB"><span class="nav-text">IP地址分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CIDR%E6%97%A0%E5%88%86%E7%B1%BB%E5%9C%B0%E5%9D%80"><span class="nav-text">CIDR无分类地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80%E4%B8%8E%E8%B7%AF%E7%94%B1%E6%8E%A7%E5%88%B6"><span class="nav-text">IP地址与路由控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-text">环回地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE"><span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E9%A6%96%E9%83%A8"><span class="nav-text">IP首部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-text">IP协议相关的技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS"><span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP"><span class="nav-text">ARP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RARP"><span class="nav-text">RARP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP"><span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMP"><span class="nav-text">ICMP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP%E5%A4%B4%E9%83%A8"><span class="nav-text">ICMP头部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP%E5%8D%8F%E8%AE%AE%E5%8A%9F%E8%83%BD"><span class="nav-text">ICMP协议功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP%E7%B1%BB%E5%9E%8B"><span class="nav-text">ICMP类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCMP%E7%9A%84%E5%BA%94%E7%94%A8%E4%B9%8B%E4%B8%80%E2%80%94ping"><span class="nav-text">TCMP的应用之一—ping</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">这题超纲了</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a> 驱动</span>
+                <br>
+            <span class="theme-version-container">主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.5</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/2/23 15:15:11
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <div class="customize-info info-item">和我一起去充满橘子味的村庄叭</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/runtime.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/Typed.min.js"></script>
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/typed.js"></script>
+
+
+
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/minimasonry.min.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/masonry.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/tools/tocToggle.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/anime.min.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/layouts/toc.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.1.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
