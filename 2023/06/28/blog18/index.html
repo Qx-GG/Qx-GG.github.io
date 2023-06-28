@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://example.com/2023/06/28/blog18/%E7%A9%BA%E9%97%B2%E5%9D%97%E9%93%BE%E8%A1%A8.jpg">
 <meta property="og:image" content="http://example.com/2023/06/28/blog18/%E5%9D%97%E7%BB%84.jpg">
 <meta property="article:published_time" content="2023-06-28T06:27:55.000Z">
-<meta property="article:modified_time" content="2023-06-28T09:05:59.257Z">
+<meta property="article:modified_time" content="2023-06-28T09:10:50.625Z">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/06/28/blog18/%E7%9B%AE%E5%BD%95%E9%A1%B9%E5%92%8C%E7%B4%A2%E5%BC%95%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg">
@@ -458,8 +458,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-06-28 17:05:59</span>
-            <span class="mobile">2023-06-28 17:05</span>
+            <span class="desktop">2023-06-28 17:10:50</span>
+            <span class="mobile">2023-06-28 17:10</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -537,14 +537,14 @@
 
 <details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>目录项和索引节点的关系 </summary>
               <div class="content">
-              <img lazyload src="/images/loading.svg" data-src="/2023/06/28/blog18/%E7%9B%AE%E5%BD%95%E9%A1%B9%E5%92%8C%E7%B4%A2%E5%BC%95%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg" class title="目录项和索引关系图">``索引节点存储在磁盘上,而为了提高磁盘读写效率,加速文件的访问,通常会将索引节点加载到内存中``<p>如图所示,磁盘上分为3块区域,分别为:<br>1.超级块:用于存储文件系统的详细信息,例如<strong>块的个数</strong>,<strong>块的大小</strong>和<strong>空闲的块</strong>等等<br>2.索引节点区:用来存储索引节点<br>3.数据区:用来存储文件或者目录数据</p><p>我们不可能把超级块和索引节点区全部加载到内存,这样内存肯定撑不住,所以只有当需要使用的时候,才将其加载进内存,它们加载进内存的时机是不同的:<br>1.超级块:当文件系统挂载时进入内存<br>2.索引节点区:当文件被访问时进入内存</p>
+              <img lazyload src="/images/loading.svg" data-src="/2023/06/28/blog18/%E7%9B%AE%E5%BD%95%E9%A1%B9%E5%92%8C%E7%B4%A2%E5%BC%95%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg" class title="目录项和索引关系图"><p><code>索引节点存储在磁盘上,而为了提高磁盘读写效率,加速文件的访问,通常会将索引节点加载到内存中</code></p><p>如图所示,磁盘上分为3块区域,分别为:<br>1.超级块:用于存储文件系统的详细信息,例如<strong>块的个数</strong>,<strong>块的大小</strong>和<strong>空闲的块</strong>等等<br>2.索引节点区:用来存储索引节点<br>3.数据区:用来存储文件或者目录数据</p><p>我们不可能把超级块和索引节点区全部加载到内存,这样内存肯定撑不住,所以只有当需要使用的时候,才将其加载进内存,它们加载进内存的时机是不同的:<br>1.超级块:当文件系统挂载时进入内存<br>2.索引节点区:当文件被访问时进入内存</p>
               </div>
             </details>
 <h3 id="目录项和目录的关系"><a href="#目录项和目录的关系" class="headerlink" title="目录项和目录的关系"></a>目录项和目录的关系</h3><p>目录项和目录虽然只有一字之差,但是它们并不是一个东西,<strong>目录是个文件</strong>,持久化存储在磁盘中,而目录项是一个数据结构,由内核进行维护,缓存在内存中</p>
 <p>如果查询目录频繁从磁盘读,效率会很低,所以内核会把已经读过的目录用目录项这个数据结构缓存在内存,下次再次读到相同的目录时,只需从内存读就可以,大大提高了文件系统的效率</p>
 <p><code>目录项这个数据结构不只是表示目录,也是可以表示文件</code></p>
 <h3 id="文件是如何存储在磁盘中的"><a href="#文件是如何存储在磁盘中的" class="headerlink" title="文件是如何存储在磁盘中的?"></a>文件是如何存储在磁盘中的?</h3><p>磁盘读写的最小单位为<strong>扇区</strong>,大小只有<strong>512B</strong>,如果一次只能读取一个扇区的数据的话,效率太低了,所以文件系统就把多个扇区组合成一个<strong>逻辑块</strong>,所以每次读写的最小单位就为<strong>一个逻辑块</strong>,大小大概为<strong>4KB</strong>,也就是<strong>8个扇区</strong>,这样就提高了磁盘的读写效率</p>
-<h2 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h2><p><code>文件系统的种类众多,而操作系统希望对**用户提供一个统一的接口**,于是在用户层与文件系统层引入了中间层,这个中间层就称为虚拟文件系统（Virtual File System,VFS）</code></p>
+<h2 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h2><p><strong>文件系统的种类众多,而操作系统希望对<code>用户提供一个统一的接口</code>,于是在用户层与文件系统层引入了中间层,这个中间层就称为虚拟文件系统(Virtual File System,VFS)</strong></p>
 <p>VFS 定义了一组所有文件系统都支持的数据结构和标准接口,这样程序员不需要了解文件系统的工作原理,只需要了解 VFS 提供的统一接口即可</p>
 <p>在 Linux 文件系统中,用户空间、系统调用、虚拟文件系统、缓存、文件系统以及存储之间的关系如下图:</p>
 <img lazyload src="/images/loading.svg" data-src="/2023/06/28/blog18/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.jpg" class title="虚拟文件系统">
@@ -557,7 +557,7 @@
 <ol>
 <li>文件指针:系统跟踪上次读写位置作为当前文件位置指针,这种指针对打开文件的某个进程来说是唯一的</li>
 <li>文件打开计数器:文件关闭时,操作系统必须重用其打开文件表条目,否则表内空间不够用。因为多个进程可能打开同一个文件,所以系统在删除打开文件条目之前,必须等待最后一个进程关闭文件,该计数器跟踪打开和关闭的数量,当该计数为 0 时,系统关闭文件,删除该条目</li>
-<li>文件磁盘位置:绝大多数文件操作都要求系统修改文件数据,该信息保存在内存中,以免每个操作都从磁盘中读取<br>访问权限:每个进程打开文件都需要有一个访问模式（创建、只读、读写、添加等）,该信息保存在进程的打开文件表中,以便操作系统能允许或拒绝之后的 I&#x2F;O 请求</li>
+<li>文件磁盘位置:绝大多数文件操作都要求系统修改文件数据,该信息保存在内存中,以免每个操作都从磁盘中读取<br>访问权限:每个进程打开文件都需要有一个访问模式(创建、只读、读写、添加等),该信息保存在进程的打开文件表中,以便操作系统能允许或拒绝之后的 I&#x2F;O 请求</li>
 </ol>
 <p>我们用户和操作系统所关心的东西是截然不同的,操作系统只会关系如何将文件数据和磁盘块对应起来,也就是如何将用户修改后的文件数据写入磁盘？在什么时候写入？<br>所以,用户和操作系统对文件的读写操作是有差异的,用户习惯以字节的方式读写文件,而操作系统则是以数据块来读写文件,那屏蔽掉这种差异的工作就是文件系统了。</p>
 <details class="red" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>读文件和写文件的过程 </summary>
@@ -597,13 +597,13 @@
 </ol></div><div class="tab-pane" id="second-tabs-2"><p>显示链表就是<strong>取出每个磁盘块的指针,把它放在内存的一个表中</strong>,这样就可以解决隐式链表的两个不足,方法就是把用于链接文件各数据块的指针,显式地存放在内存的一张链接表中,该表在整个磁盘仅设置一张,每个表项中存放链接指针,指向下一个数据块号</p>
 <details class="blue" data-header-exclude><summary><i class="fa-solid fa-chevron-right"></i>举个栗子 </summary>
               <div class="content">
-              <p>对于显式链接的工作方式,我们举个例子,文件 A 依次使用了磁盘块 4、7、2、10 和 12 ,文件 B 依次使用了磁盘块 6、3、11 和 14 。利用下图中的表,可以从第 4 块开始,顺着链走到最后,找到文件 A 的全部磁盘块。同样,从第 6 块开始,顺着链走到最后,也能够找出文件 B 的全部磁盘块。最后,这两个链都以一个不属于有效磁盘编号的特殊标记（如 -1 ）结束。内存中的这样一个表格称为文件分配表（File Allocation Table,FAT）。<br><img lazyload src="/images/loading.svg" data-src="/2023/06/28/blog18/%E6%96%87%E4%BB%B6%E5%88%86%E9%85%8D%E8%A1%A8.jpg" class title="文件分配表"></p>
+              <p>对于显式链接的工作方式,我们举个例子,文件 A 依次使用了磁盘块 4、7、2、10 和 12 ,文件 B 依次使用了磁盘块 6、3、11 和 14 。利用下图中的表,可以从第 4 块开始,顺着链走到最后,找到文件 A 的全部磁盘块。同样,从第 6 块开始,顺着链走到最后,也能够找出文件 B 的全部磁盘块。最后,这两个链都以一个不属于有效磁盘编号的特殊标记(如 -1 )结束。内存中的这样一个表格称为文件分配表(File Allocation Table,FAT)。<br><img lazyload src="/images/loading.svg" data-src="/2023/06/28/blog18/%E6%96%87%E4%BB%B6%E5%88%86%E9%85%8D%E8%A1%A8.jpg" class title="文件分配表"></p>
               </div>
             </details>
 
 <p>当然了,这样做也有不足的:<br>当一个文件很大的时候,就需要创建一个很大的<strong>文件分配表</strong>,而<strong>文件分配表</strong>是存放在内存中的,所以这样做不适合应用于大文件</p></div></div></div>
 
-<h4 id="索引存放"><a href="#索引存放" class="headerlink" title="索引存放"></a>索引存放</h4><p>链表的方式解决了连续分配的磁盘碎片和文件动态扩展的问题,但是不能有效支持直接访问（FAT除外）,索引的方式可以解决这个问题。</p>
+<h4 id="索引存放"><a href="#索引存放" class="headerlink" title="索引存放"></a>索引存放</h4><p>链表的方式解决了连续分配的磁盘碎片和文件动态扩展的问题,但是不能有效支持直接访问(FAT除外),索引的方式可以解决这个问题。</p>
 <p>索引的实现是为每个文件创建一个<strong>索引数据块</strong>,里面存放的是指向文件数据块的指针列表,说白了就像书的目录一样,要找哪个章节的内容,看目录查就可以。</p>
 <p>另外,文件头需要包含指向<strong>索引数据块</strong>的指针,这样就可以通过文件头知道索引数据块的位置,再通过索引数据块里的索引信息找到对应的数据块。</p>
 <p>创建文件时,索引块的所有指针都设为空。当首次写入第 i 块时,先从空闲空间中取得一个块,再将其地址写到索引块的第 i 个条目。</p>
@@ -660,7 +660,7 @@
 </li>
 </ol>
 <p>不过,Ext2 的后续版本采用了稀疏技术。该做法是,超级块和块组描述符表不再存储到文件系统的每个块组中,而是只写入到块组 0、块组 1 和其他 ID 可以表示为 3、 5、7 的幂的块组中。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文图片均来自小林Coding(<a class="link" target="_blank" rel="noopener" href="https://xiaolincoding.com/os/6_file_system/file_system.html#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%93%E6%9E%84),%E8%99%BD%E7%84%B6%E6%9C%AC%E4%BA%BA%E6%98%AF%E6%9C%89%E6%A0%B7%E5%AD%A6%E6%A0%B7%E5%9C%B0%E5%B0%86%E5%B0%8F%E6%9E%97%E5%9C%B0%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%86%99%E4%BA%86%E4%B8%8B%E6%9D%A5,%E5%A5%BD%E8%AE%B0%E5%BF%86%E4%B8%8D%E5%A6%82%E7%83%82%E7%AC%94%E5%A4%B4,%E6%AF%8F%E6%AC%A1%E5%86%99%E5%AE%8C%E9%83%BD%E8%83%BD%E5%AD%A6%E5%88%B0%E5%BE%88%E5%A4%9A">https://xiaolincoding.com/os/6_file_system/file_system.html#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%93%E6%9E%84),虽然本人是有样学样地将小林地这篇文章写了下来,好记忆不如烂笔头,每次写完都能学到很多 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文图片均来自小林Coding(<a class="link" target="_blank" rel="noopener" href="https://xiaolincoding.com/os/6_file_system/file_system.html#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%93%E6%9E%84">https://xiaolincoding.com/os/6_file_system/file_system.html#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%93%E6%9E%84 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)<br>虽然本人是有样学样地将小林地这篇文章写了下来,好记忆不如烂笔头,每次写完都能学到很多</p>
 
             </div>
 
@@ -673,7 +673,7 @@
         <li><strong>创建于:</strong> 2023-06-28 14:27:55</li>
         
             <li>
-                <strong>更新于:</strong> 2023-06-28 17:05:59
+                <strong>更新于:</strong> 2023-06-28 17:10:50
             </li>
         
         <li>
